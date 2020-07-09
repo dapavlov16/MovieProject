@@ -11,23 +11,47 @@ import UIKit
 struct TMDBResponse: Decodable {
     var page: Int?
     var results: [Results]?
-    var total_results: Int?
-    var total_pages: Int?
+    var totalResults: Int?
+    var totalPages: Int?
+    
+    enum CodingKeys: String, CodingKey {
+        case page
+        case results
+        case totalResults = "total_results"
+        case totalPages = "total_pages"
+    }
 }
 
 struct Results: Decodable {
-    var poster_path: String?
+    var posterPath: String?
     var adult: Bool?
     var overview: String?
-    var release_date: String?
-    var genre_ids: [Int]?
+    var releaseDate: String?
+    var genreIds: [Int]?
     var id: Int?
-    var original_title: String?
-    var original_language: String?
+    var originalTitle: String?
+    var originalLanguage: String?
     var title: String?
-    var backdrop_path: String?
+    var backdropPath: String?
     var popularity: Double?
-    var vote_count: Int?
+    var voteCount: Int?
     var video: Bool?
-    var vote_average: Double?
+    var voteAverage: Double?
+    
+    enum CodingKeys: String, CodingKey {
+        case posterPath = "poster_path"
+        case adult
+        case overview
+        case releaseDate = "release_date"
+        case genreIds = "genre_ids"
+        case id
+        case originalTitle = "original_title"
+        case originalLanguage = "original_language"
+        case title
+        case backdropPath = "backdrop_path"
+        case popularity
+        case voteCount = "vote_count"
+        case video
+        case voteAverage = "vote_average"
+    }
 }
