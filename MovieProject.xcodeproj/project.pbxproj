@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		53BF75F424AD362600526B3D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53BF75F324AD362600526B3D /* AppDelegate.swift */; };
-		53BF75F624AD362600526B3D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53BF75F524AD362600526B3D /* SceneDelegate.swift */; };
 		53BF75F824AD362600526B3D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53BF75F724AD362600526B3D /* ViewController.swift */; };
 		53BF75FB24AD362600526B3D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 53BF75F924AD362600526B3D /* Main.storyboard */; };
 		53BF75FE24AD362600526B3D /* MovieProject.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 53BF75FC24AD362600526B3D /* MovieProject.xcdatamodeld */; };
@@ -42,7 +41,6 @@
 /* Begin PBXFileReference section */
 		53BF75F024AD362600526B3D /* MovieProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MovieProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		53BF75F324AD362600526B3D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		53BF75F524AD362600526B3D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		53BF75F724AD362600526B3D /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		53BF75FA24AD362600526B3D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		53BF75FD24AD362600526B3D /* MovieProject.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MovieProject.xcdatamodel; sourceTree = "<group>"; };
@@ -111,7 +109,6 @@
 			children = (
 				53E2625924B546C7008DAB35 /* Network */,
 				53BF75F324AD362600526B3D /* AppDelegate.swift */,
-				53BF75F524AD362600526B3D /* SceneDelegate.swift */,
 				53BF75F724AD362600526B3D /* ViewController.swift */,
 				53BF75F924AD362600526B3D /* Main.storyboard */,
 				53BF75FF24AD362800526B3D /* Assets.xcassets */,
@@ -289,7 +286,6 @@
 				53E2625D24B54C8A008DAB35 /* TMDBClient.swift in Sources */,
 				53E2625F24B56CAF008DAB35 /* Request.swift in Sources */,
 				53BF75F424AD362600526B3D /* AppDelegate.swift in Sources */,
-				53BF75F624AD362600526B3D /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
