@@ -6,12 +6,12 @@
 //  Copyright © 2020 Дмитрий Павлов. All rights reserved.
 //
 
-import UIKit
+import Foundation
 
 class TMDBClient {
     
-    func request(request: Request, _ completion: @escaping (TMDBResponse) -> Void) {
-        var urlBuilder = URLComponents(string: request.url)
+    func request(request: TMDBRequest, _ completion: @escaping (TMDBResponse) -> Void) {
+        var urlBuilder = URLComponents(string: request.urlString)
         urlBuilder?.queryItems = request.queryParams.map { item in
             URLQueryItem(name: item.key, value: item.value)
         }
