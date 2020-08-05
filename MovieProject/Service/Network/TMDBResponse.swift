@@ -6,8 +6,6 @@
 //  Copyright © 2020 Дмитрий Павлов. All rights reserved.
 //
 
-import UIKit
-
 struct TMDBResponse: Decodable {
     var page: Int?
     var results: [Results]?

@@ -6,13 +6,12 @@
 //  Copyright © 2020 Дмитрий Павлов. All rights reserved.
 //
 
-import UIKit
-
-enum Request {
+enum TMDBRequest {
     case searchMovie(text: String)
+    case getTrending
 }
 
-extension Request {
+extension TMDBRequest {
     
     private var defaultQueryParams: [String: String] {
         return [
@@ -25,21 +24,17 @@ extension Request {
         switch self {
         case .searchMovie:
             return "/search/movie"
+        case .getTrending:
+            return "/trending/movie/day"
         }
     }
     
     private var baseUrl: String {
-        switch self {
-        case .searchMovie:
-            return "https://api.themoviedb.org/3"
-        }
+        return "https://api.themoviedb.org/3"
     }
     
     var method: String {
-        switch self {
-        case .searchMovie:
-            return "GET"
-        }
+        return "GET"
     }
     
     var queryParams: [String: String] {
@@ -48,10 +43,12 @@ extension Request {
         case .searchMovie(let text):
             params["query"] = text
             return params
+        case .getTrending:
+            return params
         }
     }
     
-    var url: String {
+    var urlString: String {
         return baseUrl + path
     }
 }
