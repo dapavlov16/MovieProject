@@ -40,6 +40,7 @@ final class TrendingCell: UICollectionViewCell {
         super.prepareForReuse()
         dataTask?.cancel()
         posterImage.image = nil
+        titleLabel.text = nil
     }
     
     //MARK: - Private
@@ -48,7 +49,7 @@ final class TrendingCell: UICollectionViewCell {
         titleLabel = UILabel()
         titleLabel.font = UIFont.systemFont(ofSize: 12, weight: .thin)
         titleLabel.textAlignment = .center
-        titleLabel.numberOfLines = 0
+        titleLabel.numberOfLines = 2
         addSubview(titleLabel)
         
         posterImage = UIImageView()
@@ -60,10 +61,12 @@ final class TrendingCell: UICollectionViewCell {
             posterImage.topAnchor.constraint(equalTo: topAnchor),
             posterImage.leadingAnchor.constraint(equalTo: leadingAnchor),
             posterImage.trailingAnchor.constraint(equalTo: trailingAnchor),
-            titleLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
-            titleLabel.widthAnchor.constraint(equalToConstant: bounds.width),
-            titleLabel.topAnchor.constraint(equalTo: posterImage.bottomAnchor, constant: 20),
-            titleLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -20)
+            posterImage.heightAnchor.constraint(equalTo: posterImage.widthAnchor,
+                                                multiplier: 1.5),
+            titleLabel.topAnchor.constraint(equalTo: posterImage.bottomAnchor, constant: 10),
+            titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor),
+            titleLabel.trailingAnchor.constraint(equalTo: trailingAnchor),
+            titleLabel.widthAnchor.constraint(lessThanOrEqualTo: posterImage.widthAnchor)
         ])
     }
     

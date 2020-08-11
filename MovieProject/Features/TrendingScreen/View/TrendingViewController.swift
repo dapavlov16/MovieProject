@@ -40,7 +40,6 @@ final class TrendingViewController: UIViewController {
         
         let flowLayout = UICollectionViewFlowLayout()
         flowLayout.scrollDirection = .vertical
-        flowLayout.itemSize = CGSize(width: view.bounds.width/4, height: 200)
         collectionView = UICollectionView(frame: view.bounds,
                                           collectionViewLayout: flowLayout)
         collectionView.delegate = self
@@ -61,9 +60,15 @@ final class TrendingViewController: UIViewController {
     }
 }
 
-// MARK: - UICollectionViewDelegate
-extension TrendingViewController: UICollectionViewDelegate {
+// MARK: - UICollectionViewDelegateFlowLayout
+extension TrendingViewController: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: 120, height: 240)
+    }
     
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        return UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
+    }
 }
 
 // MARK: - UICollectionViewDataSource
