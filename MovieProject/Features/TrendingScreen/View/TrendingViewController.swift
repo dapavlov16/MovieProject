@@ -18,12 +18,18 @@ final class TrendingViewController: UIViewController {
     
     var interactor: TrendingInteractorInput?
     private var collectionView: UICollectionView!
+    private var movies: [TrendingCellModel] = [] {
+        didSet {
+            collectionView.reloadData()
+        }
+    }
     
     // MARK: - Lifecycle
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        title = "\(self)"
         setupView()
         interactor?.loadTrending()
     }
@@ -32,6 +38,26 @@ final class TrendingViewController: UIViewController {
     
     private func setupView() {
         
+        let flowLayout = UICollectionViewFlowLayout()
+        flowLayout.scrollDirection = .vertical
+        flowLayout.itemSize = CGSize(width: view.bounds.width/4, height: 200)
+        collectionView = UICollectionView(frame: view.bounds,
+                                          collectionViewLayout: flowLayout)
+        collectionView.delegate = self
+        collectionView.dataSource = self
+        collectionView.register(TrendingCell.self,
+                                forCellWithReuseIdentifier: "\(TrendingCell.self)")
+        
+        view.addSubview(collectionView)
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        collectionView.backgroundColor = .white
+        
+        NSLayoutConstraint.activate([
+            collectionView.topAnchor.constraint(equalTo: view.topAnchor),
+            collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+        ])
     }
 }
 
@@ -44,11 +70,16 @@ extension TrendingViewController: UICollectionViewDelegate {
 extension TrendingViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        2
+        return movies.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        UICollectionViewCell()
+        if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "\(TrendingCell.self)", for: indexPath) as? TrendingCell {
+            
+            cell.viewModel = movies[indexPath.item]
+            return cell
+        }
+        return UICollectionViewCell()
     }
 }
 
@@ -56,6 +87,6 @@ extension TrendingViewController: UICollectionViewDataSource {
 extension TrendingViewController: TrendingViewControllerInput {
     
     func showTrending(models: [TrendingCellModel]) {
-        // TODO
+        movies = models
     }
 }

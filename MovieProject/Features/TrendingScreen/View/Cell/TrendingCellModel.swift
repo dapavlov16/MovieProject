@@ -8,4 +8,5 @@
 
 struct TrendingCellModel {
     let title: String
+    let posterPath: String
 }

@@ -8,6 +8,8 @@
 
 final class MovieMapper {
     
+    private let imageEndpoint = "https://image.tmdb.org/t/p/w500"
+    
     func map(from response: TMDBResponse) -> [Movie] {
         
         guard let results = response.results else {
@@ -39,9 +41,9 @@ final class MovieMapper {
                                 overview: overview,
                                 genres: genres,
                                 releaseDate: releaseDate,
-                                posterPath: posterPath,
+                                posterPath: imageEndpoint + posterPath,
                                 isAdult: isAdult,
-                                backdropPath: backdropPath,
+                                backdropPath: imageEndpoint + backdropPath,
                                 popularity: popularity,
                                 voteCount: voteCount,
                                 voteAverage: voteAverage))

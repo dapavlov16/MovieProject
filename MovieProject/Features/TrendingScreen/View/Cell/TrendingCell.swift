@@ -13,6 +13,9 @@ final class TrendingCell: UICollectionViewCell {
     //MARK: - Properties
     
     private var titleLabel: UILabel!
+    private var posterImage: UIImageView!
+    
+    private var dataTask: URLSessionDataTask?
     var viewModel: TrendingCellModel? {
         didSet {
             if let viewModel = viewModel {
@@ -33,18 +36,39 @@ final class TrendingCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        dataTask?.cancel()
+        posterImage.image = nil
+    }
+    
     //MARK: - Private
     
     private func configureView() {
         titleLabel = UILabel()
+        titleLabel.font = UIFont.systemFont(ofSize: 12, weight: .thin)
+        titleLabel.textAlignment = .center
+        titleLabel.numberOfLines = 0
+        addSubview(titleLabel)
         
+        posterImage = UIImageView()
+        addSubview(posterImage)
+        
+        titleLabel.translatesAutoresizingMaskIntoConstraints = false
+        posterImage.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
+            posterImage.topAnchor.constraint(equalTo: topAnchor),
+            posterImage.leadingAnchor.constraint(equalTo: leadingAnchor),
+            posterImage.trailingAnchor.constraint(equalTo: trailingAnchor),
             titleLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
-            titleLabel.centerYAnchor.constraint(equalTo: centerYAnchor)
+            titleLabel.widthAnchor.constraint(equalToConstant: bounds.width),
+            titleLabel.topAnchor.constraint(equalTo: posterImage.bottomAnchor, constant: 20),
+            titleLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -20)
         ])
     }
     
     private func updateContent(with viewModel: TrendingCellModel) {
         titleLabel.text = viewModel.title
+        dataTask = posterImage.setImage(from: viewModel.posterPath)
     }
 }
