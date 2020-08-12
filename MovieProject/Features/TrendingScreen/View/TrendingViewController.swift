@@ -14,7 +14,15 @@ protocol TrendingViewControllerInput: AnyObject {
 
 final class TrendingViewController: UIViewController {
     
-    // MARK: - Properties
+    //MARK: - Constants
+    
+    private enum Constants {
+        static let trendingTitleText = "Популярное"
+        static let trendingCellSize = CGSize(width: 120, height: 240)
+        static let trendingCellInsets = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
+    }
+    
+    //MARK: - Properties
     
     var interactor: TrendingInteractorInput?
     private var collectionView: UICollectionView!
@@ -24,7 +32,7 @@ final class TrendingViewController: UIViewController {
         }
     }
     
-    // MARK: - Lifecycle
+    //MARK: - Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,7 +44,7 @@ final class TrendingViewController: UIViewController {
     //MARK: - Private
     
     private func setupView() {
-        title = "Популярное"
+        title = Constants.trendingTitleText
         
         let flowLayout = UICollectionViewFlowLayout()
         flowLayout.scrollDirection = .vertical
@@ -60,18 +68,18 @@ final class TrendingViewController: UIViewController {
     }
 }
 
-// MARK: - UICollectionViewDelegateFlowLayout
+//MARK: - UICollectionViewDelegateFlowLayout
 extension TrendingViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: 120, height: 240)
+        return Constants.trendingCellSize
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
+        return Constants.trendingCellInsets
     }
 }
 
-// MARK: - UICollectionViewDataSource
+//MARK: - UICollectionViewDataSource
 extension TrendingViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {

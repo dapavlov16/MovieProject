@@ -8,7 +8,7 @@
 
 import UIKit
 
-class TabBarAssembly {
+final class TabBarAssembly {
     
     static func assembly() -> UITabBarController {
         let tabBarController = UITabBarController()

@@ -10,6 +10,12 @@ import UIKit
 
 final class TrendingCell: UICollectionViewCell {
     
+    //MARK: - Constants
+    
+    private enum Constants {
+        static let titleFontSize: CGFloat = 12
+    }
+    
     //MARK: - Properties
     
     private var titleLabel: UILabel!
@@ -47,7 +53,7 @@ final class TrendingCell: UICollectionViewCell {
     
     private func configureView() {
         titleLabel = UILabel()
-        titleLabel.font = UIFont.systemFont(ofSize: 12, weight: .thin)
+        titleLabel.font = UIFont.systemFont(ofSize: Constants.titleFontSize, weight: .thin)
         titleLabel.textAlignment = .center
         titleLabel.numberOfLines = 2
         addSubview(titleLabel)
