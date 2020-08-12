@@ -9,6 +9,7 @@
 import Foundation
 
 struct MovieDetails {
-    let posterPath: URL?
     let title: String
+    let posterUrl: URL?
+    let backdropUrl: URL?
 }

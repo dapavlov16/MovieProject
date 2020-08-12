@@ -6,8 +6,10 @@
 //  Copyright © 2020 Дмитрий Павлов. All rights reserved.
 //
 
+import Foundation
+
 protocol DetailsPresenterInput {
-    
+    func detailsLoaded(details: MovieDetails)
 }
 
 final class DetailsPresenter {
@@ -19,5 +21,9 @@ final class DetailsPresenter {
 
 //MARK: - DetailsPresenterInput
 extension DetailsPresenter: DetailsPresenterInput {
-    
+    func detailsLoaded(details: MovieDetails) {
+        DispatchQueue.main.async {
+            self.view?.showDetails(details: details)
+        }
+    }
 }

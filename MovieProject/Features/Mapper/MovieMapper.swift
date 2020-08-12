@@ -10,33 +10,21 @@ import Foundation
 
 final class MovieMapper {
     
-    private let imageEndpoint = "https://image.tmdb.org/t/p/w500"
+    private let posterEndpoint = "https://image.tmdb.org/t/p/w500"
+    private let backdropEndpoint = "https://image.tmdb.org/t/p/w700"
     
     func map(from response: MovieListDto) -> [Movie] {
         var movies = [Movie]()
         
         for result in response.results {
-//            guard let id = result.id,
-//                let title = result.title,
-//                let originalTitle = result.originalTitle,
-//                let originalLanguage = result.originalLanguage,
-//                let overview = result.overview,
-//                let genres = result.genreIds,
-//                let releaseDate = result.releaseDate,
-//                let isAdult = result.adult,
-//                let popularity = result.popularity,
-//                let voteCount = result.voteCount,
-//                let voteAverage = result.voteAverage
-//                else { continue }
-//
             var posterURL: URL?
             var backdropURL: URL?
             
             if let posterPath = result.posterPath {
-                posterURL = URL(string: imageEndpoint + posterPath)
+                posterURL = URL(string: posterEndpoint + posterPath)
             }
             if let backdropPath = result.backdropPath {
-                backdropURL = URL(string: imageEndpoint + backdropPath)
+                backdropURL = URL(string: backdropEndpoint + backdropPath)
             }
             
             movies.append(Movie(id: result.id,

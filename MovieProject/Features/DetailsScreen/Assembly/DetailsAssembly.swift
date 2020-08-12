@@ -11,9 +11,14 @@ import UIKit
 final class DetailsAssembly {
     
     static func assembly(movieId: Int) -> UIViewController {
+        let networkService = NetworkService()
+        let detailsMapper = DetailsMapper()
+        
         let view = DetailsViewController()
         let presenter = DetailsPresenter()
-        let interactor = DetailsInteractor()
+        let interactor = DetailsInteractor(movieId: movieId,
+                                           networkService: networkService,
+                                           mapper: detailsMapper)
         
         view.interactor = interactor
         presenter.view = view

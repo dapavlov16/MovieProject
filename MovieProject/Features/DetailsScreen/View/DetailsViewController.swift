@@ -9,7 +9,7 @@
 import UIKit
 
 protocol DetailsViewControllerInput: AnyObject {
-    
+    func showDetails(details: MovieDetails)
 }
 
 final class DetailsViewController: UIViewController {
@@ -28,5 +28,6 @@ final class DetailsViewController: UIViewController {
 
 //MARK: - DetailsViewControllerInput
 extension DetailsViewController: DetailsViewControllerInput {
-    
+    func showDetails(details: MovieDetails) {
+    }
 }
