@@ -18,10 +18,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
         window = UIWindow(frame: UIScreen.main.bounds)
-        let trendingViewController = UINavigationController(rootViewController: TrendingAssembly.assembly())
-        let viewController = UINavigationController(rootViewController: ViewController())
-        let tabBarController = UITabBarController()
-        tabBarController.viewControllers = [viewController, trendingViewController]
+        let tabBarController = TabBarAssembly.assembly()
         window?.rootViewController = tabBarController
         window?.makeKeyAndVisible()
         

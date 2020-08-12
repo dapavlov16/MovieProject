@@ -29,7 +29,6 @@ final class TrendingViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        title = "\(self)"
         setupView()
         interactor?.loadTrending()
     }
@@ -37,6 +36,7 @@ final class TrendingViewController: UIViewController {
     //MARK: - Private
     
     private func setupView() {
+        title = "Популярное"
         
         let flowLayout = UICollectionViewFlowLayout()
         flowLayout.scrollDirection = .vertical
