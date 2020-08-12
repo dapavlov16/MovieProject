@@ -8,7 +8,7 @@
 
 struct TMDBResponse: Decodable {
     var page: Int?
-    var results: [Result]?
+    var results: [MovieDTO]?
     var totalResults: Int?
     var totalPages: Int?
     
@@ -20,7 +20,7 @@ struct TMDBResponse: Decodable {
     }
 }
 
-struct Result: Decodable {
+struct MovieDTO: Decodable {
     var posterPath: String?
     var adult: Bool?
     var overview: String?

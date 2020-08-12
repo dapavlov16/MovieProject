@@ -10,7 +10,7 @@ import Foundation
 
 class TMDBClient {
     
-    func request(request: TMDBRequest, _ completion: @escaping (TMDBResponse) -> Void) {
+    func request<T: Decodable>(request: TMDBRequest, _ completion: @escaping (T) -> Void) {
         var urlBuilder = URLComponents(string: request.urlString)
         urlBuilder?.queryItems = request.queryParams.map { item in
             URLQueryItem(name: item.key, value: item.value)
@@ -22,7 +22,7 @@ class TMDBClient {
                     return
                 }
                 do {
-                    completion(try JSONDecoder().decode(TMDBResponse.self, from: data))
+                    completion(try JSONDecoder().decode(T.self, from: data))
                 } catch {
                     print(error)
                 }

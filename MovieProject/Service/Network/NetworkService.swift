@@ -17,4 +17,8 @@ class NetworkService {
     func getTrending(_ completion: @escaping (TMDBResponse) -> Void) {
         client.request(request: .getTrending, completion)
     }
+    
+    func getDetails(by id: Int, _ completion: @escaping (MovieDTO) -> Void) {
+        client.request(request: .getDetails(id: id), completion)
+    }
 }
