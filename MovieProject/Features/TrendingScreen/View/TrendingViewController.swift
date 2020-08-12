@@ -25,6 +25,7 @@ final class TrendingViewController: UIViewController {
     //MARK: - Properties
     
     var interactor: TrendingInteractorInput?
+    var router: TrendingRouterInput?
     private var collectionView: UICollectionView!
     private var movies: [TrendingCellModel] = [] {
         didSet {
@@ -76,6 +77,10 @@ extension TrendingViewController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         return Constants.trendingCellInsets
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        router?.navigateToDetails(of: movies[indexPath.item].id)
     }
 }
 
