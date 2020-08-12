@@ -35,6 +35,7 @@
 		53E2633524E3FD81008DAB35 /* DetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53E2633424E3FD81008DAB35 /* DetailsViewController.swift */; };
 		53E2633724E3FDA2008DAB35 /* DetailsAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53E2633624E3FDA2008DAB35 /* DetailsAssembly.swift */; };
 		53E2633A24E3FF69008DAB35 /* TrendingRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53E2633924E3FF69008DAB35 /* TrendingRouter.swift */; };
+		53E2634124E44D06008DAB35 /* MovieDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53E2634024E44D06008DAB35 /* MovieDetails.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -89,6 +90,7 @@
 		53E2633424E3FD81008DAB35 /* DetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsViewController.swift; sourceTree = "<group>"; };
 		53E2633624E3FDA2008DAB35 /* DetailsAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsAssembly.swift; sourceTree = "<group>"; };
 		53E2633924E3FF69008DAB35 /* TrendingRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrendingRouter.swift; sourceTree = "<group>"; };
+		53E2634024E44D06008DAB35 /* MovieDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetails.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -324,6 +326,7 @@
 		53E2632B24E3FCDC008DAB35 /* DetailsScreen */ = {
 			isa = PBXGroup;
 			children = (
+				53E2633F24E44CF8008DAB35 /* Model */,
 				53E2632F24E3FD0B008DAB35 /* Assembly */,
 				53E2632E24E3FD05008DAB35 /* View */,
 				53E2632D24E3FCF7008DAB35 /* Presenter */,
@@ -370,6 +373,14 @@
 				53E2633924E3FF69008DAB35 /* TrendingRouter.swift */,
 			);
 			path = Router;
+			sourceTree = "<group>";
+		};
+		53E2633F24E44CF8008DAB35 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				53E2634024E44D06008DAB35 /* MovieDetails.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -516,6 +527,7 @@
 				53E2631424DA8F15008DAB35 /* TrendingAssembly.swift in Sources */,
 				53E2633524E3FD81008DAB35 /* DetailsViewController.swift in Sources */,
 				53E2633A24E3FF69008DAB35 /* TrendingRouter.swift in Sources */,
+				53E2634124E44D06008DAB35 /* MovieDetails.swift in Sources */,
 				53BF75FE24AD362600526B3D /* MovieProject.xcdatamodeld in Sources */,
 				53E2632A24E3072A008DAB35 /* TabBarAssembly.swift in Sources */,
 				53BF75F824AD362600526B3D /* ViewController.swift in Sources */,
