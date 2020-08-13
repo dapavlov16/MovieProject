@@ -11,7 +11,7 @@ import UIKit
 class ViewController: UIViewController {
     
     private var label: UILabel!
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -29,6 +29,8 @@ class ViewController: UIViewController {
     }
     
     private func setupView() {
+        view.backgroundColor = .white
+        title = "\(self)"
         label = UILabel()
         view.addSubview(label)
         label.textAlignment = .center
@@ -43,6 +45,6 @@ class ViewController: UIViewController {
             label.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20)
         ])
     }
-
+    
 }
 

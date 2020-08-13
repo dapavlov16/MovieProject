@@ -6,6 +6,8 @@
 //  Copyright © 2020 Дмитрий Павлов. All rights reserved.
 //
 
+import Foundation
+
 protocol TrendingPresenterInput {
     func trendingLoaded(movies: [Movie])
 }
@@ -16,7 +18,7 @@ final class TrendingPresenter {
     
     weak var view: TrendingViewControllerInput?
     private var formatter: TrendingCellModelFormatter
-
+    
     //MARK: - Init
     
     init(formatter: TrendingCellModelFormatter) {
@@ -29,6 +31,8 @@ extension TrendingPresenter: TrendingPresenterInput {
     
     func trendingLoaded(movies: [Movie]) {
         let models = formatter.format(from: movies)
-        view?.showTrending(models: models)
+        DispatchQueue.main.async {
+            self.view?.showTrending(models: models)
+        }
     }
 }

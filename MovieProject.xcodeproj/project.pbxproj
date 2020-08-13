@@ -28,6 +28,8 @@
 		53E2631E24DA9AD2008DAB35 /* TrendingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53E2631D24DA9AD2008DAB35 /* TrendingCell.swift */; };
 		53E2632024DA9B25008DAB35 /* TrendingCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53E2631F24DA9B25008DAB35 /* TrendingCellModel.swift */; };
 		53E2632224DA9D49008DAB35 /* TrendingCellModelFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53E2632124DA9D49008DAB35 /* TrendingCellModelFormatter.swift */; };
+		53E2632524DD4B8E008DAB35 /* UIImageView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53E2632424DD4B8E008DAB35 /* UIImageView+Extensions.swift */; };
+		53E2632A24E3072A008DAB35 /* TabBarAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53E2632924E3072A008DAB35 /* TabBarAssembly.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -75,6 +77,8 @@
 		53E2631D24DA9AD2008DAB35 /* TrendingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrendingCell.swift; sourceTree = "<group>"; };
 		53E2631F24DA9B25008DAB35 /* TrendingCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrendingCellModel.swift; sourceTree = "<group>"; };
 		53E2632124DA9D49008DAB35 /* TrendingCellModelFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrendingCellModelFormatter.swift; sourceTree = "<group>"; };
+		53E2632424DD4B8E008DAB35 /* UIImageView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+Extensions.swift"; sourceTree = "<group>"; };
+		53E2632924E3072A008DAB35 /* TabBarAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarAssembly.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -125,6 +129,7 @@
 		53BF75F224AD362600526B3D /* MovieProject */ = {
 			isa = PBXGroup;
 			children = (
+				53E2632324DD4AC3008DAB35 /* Extensions */,
 				53E262B524C0CBE2008DAB35 /* Features */,
 				53E262B424C0CB40008DAB35 /* Resources */,
 				53E262B324C0CB27008DAB35 /* Service */,
@@ -193,6 +198,7 @@
 		53E262B524C0CBE2008DAB35 /* Features */ = {
 			isa = PBXGroup;
 			children = (
+				53E2632624E30685008DAB35 /* TabBar */,
 				53E2631824DA91C4008DAB35 /* Mapper */,
 				53E2631524DA9096008DAB35 /* Model */,
 				53E262B724C0CC0A008DAB35 /* TrendingScreen */,
@@ -285,6 +291,22 @@
 				53E2631F24DA9B25008DAB35 /* TrendingCellModel.swift */,
 			);
 			path = Cell;
+			sourceTree = "<group>";
+		};
+		53E2632324DD4AC3008DAB35 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				53E2632424DD4B8E008DAB35 /* UIImageView+Extensions.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		53E2632624E30685008DAB35 /* TabBar */ = {
+			isa = PBXGroup;
+			children = (
+				53E2632924E3072A008DAB35 /* TabBarAssembly.swift */,
+			);
+			path = TabBar;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -422,11 +444,13 @@
 				53E2625B24B54708008DAB35 /* NetworkService.swift in Sources */,
 				53E2630F24DA8B40008DAB35 /* TrendingPresenter.swift in Sources */,
 				53E2631724DA90B4008DAB35 /* Movie.swift in Sources */,
+				53E2632524DD4B8E008DAB35 /* UIImageView+Extensions.swift in Sources */,
 				53E2631B24DA9216008DAB35 /* MovieMapper.swift in Sources */,
 				53E2630D24DA8B1F008DAB35 /* TrendingViewController.swift in Sources */,
 				53E2632224DA9D49008DAB35 /* TrendingCellModelFormatter.swift in Sources */,
 				53E2631424DA8F15008DAB35 /* TrendingAssembly.swift in Sources */,
 				53BF75FE24AD362600526B3D /* MovieProject.xcdatamodeld in Sources */,
+				53E2632A24E3072A008DAB35 /* TabBarAssembly.swift in Sources */,
 				53BF75F824AD362600526B3D /* ViewController.swift in Sources */,
 				53E2626124B5A02A008DAB35 /* TMDBResponse.swift in Sources */,
 				53E2625D24B54C8A008DAB35 /* TMDBClient.swift in Sources */,

@@ -15,7 +15,7 @@ extension TMDBRequest {
     
     private var defaultQueryParams: [String: String] {
         return [
-            "api_key": "secret",
+            "api_key": "ff1ba0985dd64688cfcd551134d9d49f",
             "language": "ru-RU"
         ]
     }
