@@ -18,8 +18,8 @@ final class TrendingViewController: UIViewController {
     
     private enum Constants {
         static let trendingTitleText = "Популярное"
-        static let trendingCellSize = CGSize(width: 120, height: 240)
-        static let trendingCellInsets = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
+        static let cellInsets = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
+        static let numberOfCellInRow: CGFloat = 3
     }
     
     //MARK: - Properties
@@ -71,11 +71,14 @@ final class TrendingViewController: UIViewController {
 //MARK: - UICollectionViewDelegateFlowLayout
 extension TrendingViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return Constants.trendingCellSize
+        let cellXInsetsSum = Constants.cellInsets.left + Constants.cellInsets.right
+        let width = UIScreen.main.bounds.width/Constants.numberOfCellInRow - cellXInsetsSum
+        let height = width*2
+        return CGSize(width: width, height: height)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return Constants.trendingCellInsets
+        return Constants.cellInsets
     }
 }
 
