@@ -19,6 +19,8 @@ final class DetailsPresenter {
     weak var view: DetailsViewControllerInput?
     private let formatter: DetailsFormatter
     
+    //MARK: - Init
+    
     init(formatter: DetailsFormatter) {
         self.formatter = formatter
     }

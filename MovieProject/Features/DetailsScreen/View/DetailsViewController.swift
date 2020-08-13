@@ -14,6 +14,22 @@ protocol DetailsViewControllerInput: AnyObject {
 
 final class DetailsViewController: UIViewController {
     
+    //MARK: - Constants
+    
+    private enum Constants {
+        static let backdropImageAlpha: CGFloat = 0.75
+        static let backdropHeightRatio: CGFloat = 0.562
+        static let posterWidth: CGFloat = 150
+        static let posterHeightRatio: CGFloat = 1.5
+        static let titleLabelsSpacing: CGFloat = 5
+        static let titleFont = UIFont.systemFont(ofSize: 22, weight: .bold)
+        static let originalTitleFont = UIFont.systemFont(ofSize: 16, weight: .thin)
+        static let taglineFont = UIFont.systemFont(ofSize: 16, weight: .light)
+        static let genresFont = UIFont.systemFont(ofSize: 12, weight: .thin)
+        static let countriesRuntimeFont = UIFont.systemFont(ofSize: 12, weight: .thin)
+        static let overviewFont = UIFont.systemFont(ofSize: 16)
+    }
+    
     //MARK: - Properties
     
     var interactor: DetailsInteractorInput?
@@ -29,6 +45,7 @@ final class DetailsViewController: UIViewController {
     private var overviewLabel: UILabel!
     
     //MARK: - Lifecycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -68,21 +85,23 @@ final class DetailsViewController: UIViewController {
     
     private func configureBackdropImageView() {
         backdropImageView = UIImageView()
+        backdropImageView.alpha = Constants.backdropImageAlpha
+        
         backdropImageView.translatesAutoresizingMaskIntoConstraints = false
-        backdropImageView.alpha = 0.75
         contentView.addSubview(backdropImageView)
         NSLayoutConstraint.activate([
             backdropImageView.topAnchor.constraint(equalTo: contentView.topAnchor),
             backdropImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             backdropImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             backdropImageView.heightAnchor.constraint(equalTo: backdropImageView.widthAnchor,
-                                                      multiplier: 0.562)
+                                                      multiplier: Constants.backdropHeightRatio)
         ])
     }
     
     private func configurePosterImageView() {
         posterImageView = UIImageView()
         dropShadow(view: posterImageView)
+        
         posterImageView.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(posterImageView)
         NSLayoutConstraint.activate([
@@ -90,31 +109,31 @@ final class DetailsViewController: UIViewController {
                                                  constant: -50),
             posterImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor,
                                                      constant: 20),
-            posterImageView.widthAnchor.constraint(equalToConstant: 150),
+            posterImageView.widthAnchor.constraint(equalToConstant: Constants.posterWidth),
             posterImageView.heightAnchor.constraint(equalTo: posterImageView.widthAnchor,
-                                                    multiplier: 1.5)
+                                                    multiplier: Constants.posterHeightRatio)
         ])
     }
     
     private func configureTitleLabels() {
         titleLabel = UILabel()
-        titleLabel.font = UIFont.systemFont(ofSize: 22, weight: .bold)
+        titleLabel.font = Constants.titleFont
         titleLabel.numberOfLines = 0
         
         originalTitleLabel = UILabel()
-        originalTitleLabel.font = UIFont.systemFont(ofSize: 16, weight: .thin)
+        originalTitleLabel.font = Constants.originalTitleFont
         originalTitleLabel.numberOfLines = 0
         
         taglineLabel = UILabel()
-        taglineLabel.font = UIFont.systemFont(ofSize: 16, weight: .light)
+        taglineLabel.font = Constants.taglineFont
         taglineLabel.numberOfLines = 0
         
         genresLabel = UILabel()
-        genresLabel.font = UIFont.systemFont(ofSize: 12, weight: .thin)
+        genresLabel.font = Constants.genresFont
         genresLabel.numberOfLines = 0
         
         countriesRuntimeLabel = UILabel()
-        countriesRuntimeLabel.font = UIFont.systemFont(ofSize: 12, weight: .thin)
+        countriesRuntimeLabel.font = Constants.countriesRuntimeFont
         countriesRuntimeLabel.numberOfLines = 0
         
         let stackView = UIStackView(arrangedSubviews: [titleLabel,
@@ -124,10 +143,10 @@ final class DetailsViewController: UIViewController {
                                                        countriesRuntimeLabel])
         stackView.axis = .vertical
         stackView.alignment = .top
-        stackView.spacing = 5
+        stackView.spacing = Constants.titleLabelsSpacing
+        
         stackView.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(stackView)
-        
         NSLayoutConstraint.activate([
             stackView.topAnchor.constraint(equalTo: backdropImageView.bottomAnchor,
                                            constant: 10),
@@ -141,11 +160,11 @@ final class DetailsViewController: UIViewController {
     
     private func configureOverviewLabel() {
         overviewLabel = UILabel()
-        overviewLabel.font = UIFont.systemFont(ofSize: 16)
+        overviewLabel.font = Constants.overviewFont
         overviewLabel.numberOfLines = 0
+        
         overviewLabel.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(overviewLabel)
-        
         NSLayoutConstraint.activate([
             overviewLabel.topAnchor.constraint(equalTo: posterImageView.bottomAnchor,
                                                constant: 20),
