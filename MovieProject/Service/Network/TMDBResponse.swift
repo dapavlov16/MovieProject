@@ -6,11 +6,9 @@
 //  Copyright © 2020 Дмитрий Павлов. All rights reserved.
 //
 
-import UIKit
-
 struct TMDBResponse: Decodable {
     var page: Int?
-    var results: [Results]?
+    var results: [Result]?
     var totalResults: Int?
     var totalPages: Int?
     
@@ -22,7 +20,7 @@ struct TMDBResponse: Decodable {
     }
 }
 
-struct Results: Decodable {
+struct Result: Decodable {
     var posterPath: String?
     var adult: Bool?
     var overview: String?

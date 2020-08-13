@@ -17,8 +17,19 @@
 		53BF761924AD362800526B3D /* MovieProjectUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53BF761824AD362800526B3D /* MovieProjectUITests.swift */; };
 		53E2625B24B54708008DAB35 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53E2625A24B54708008DAB35 /* NetworkService.swift */; };
 		53E2625D24B54C8A008DAB35 /* TMDBClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53E2625C24B54C8A008DAB35 /* TMDBClient.swift */; };
-		53E2625F24B56CAF008DAB35 /* Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53E2625E24B56CAF008DAB35 /* Request.swift */; };
+		53E2625F24B56CAF008DAB35 /* TMDBRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53E2625E24B56CAF008DAB35 /* TMDBRequest.swift */; };
 		53E2626124B5A02A008DAB35 /* TMDBResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53E2626024B5A02A008DAB35 /* TMDBResponse.swift */; };
+		53E2630D24DA8B1F008DAB35 /* TrendingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53E2630C24DA8B1F008DAB35 /* TrendingViewController.swift */; };
+		53E2630F24DA8B40008DAB35 /* TrendingPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53E2630E24DA8B40008DAB35 /* TrendingPresenter.swift */; };
+		53E2631124DA8B5F008DAB35 /* TrendingInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53E2631024DA8B5F008DAB35 /* TrendingInteractor.swift */; };
+		53E2631424DA8F15008DAB35 /* TrendingAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53E2631324DA8F15008DAB35 /* TrendingAssembly.swift */; };
+		53E2631724DA90B4008DAB35 /* Movie.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53E2631624DA90B4008DAB35 /* Movie.swift */; };
+		53E2631B24DA9216008DAB35 /* MovieMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53E2631A24DA9216008DAB35 /* MovieMapper.swift */; };
+		53E2631E24DA9AD2008DAB35 /* TrendingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53E2631D24DA9AD2008DAB35 /* TrendingCell.swift */; };
+		53E2632024DA9B25008DAB35 /* TrendingCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53E2631F24DA9B25008DAB35 /* TrendingCellModel.swift */; };
+		53E2632224DA9D49008DAB35 /* TrendingCellModelFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53E2632124DA9D49008DAB35 /* TrendingCellModelFormatter.swift */; };
+		53E2632524DD4B8E008DAB35 /* UIImageView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53E2632424DD4B8E008DAB35 /* UIImageView+Extensions.swift */; };
+		53E2632A24E3072A008DAB35 /* TabBarAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53E2632924E3072A008DAB35 /* TabBarAssembly.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,8 +66,19 @@
 		53BF761A24AD362800526B3D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		53E2625A24B54708008DAB35 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		53E2625C24B54C8A008DAB35 /* TMDBClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TMDBClient.swift; sourceTree = "<group>"; };
-		53E2625E24B56CAF008DAB35 /* Request.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Request.swift; sourceTree = "<group>"; };
+		53E2625E24B56CAF008DAB35 /* TMDBRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TMDBRequest.swift; sourceTree = "<group>"; };
 		53E2626024B5A02A008DAB35 /* TMDBResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TMDBResponse.swift; sourceTree = "<group>"; };
+		53E2630C24DA8B1F008DAB35 /* TrendingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrendingViewController.swift; sourceTree = "<group>"; };
+		53E2630E24DA8B40008DAB35 /* TrendingPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrendingPresenter.swift; sourceTree = "<group>"; };
+		53E2631024DA8B5F008DAB35 /* TrendingInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrendingInteractor.swift; sourceTree = "<group>"; };
+		53E2631324DA8F15008DAB35 /* TrendingAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrendingAssembly.swift; sourceTree = "<group>"; };
+		53E2631624DA90B4008DAB35 /* Movie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Movie.swift; sourceTree = "<group>"; };
+		53E2631A24DA9216008DAB35 /* MovieMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieMapper.swift; sourceTree = "<group>"; };
+		53E2631D24DA9AD2008DAB35 /* TrendingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrendingCell.swift; sourceTree = "<group>"; };
+		53E2631F24DA9B25008DAB35 /* TrendingCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrendingCellModel.swift; sourceTree = "<group>"; };
+		53E2632124DA9D49008DAB35 /* TrendingCellModelFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrendingCellModelFormatter.swift; sourceTree = "<group>"; };
+		53E2632424DD4B8E008DAB35 /* UIImageView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+Extensions.swift"; sourceTree = "<group>"; };
+		53E2632924E3072A008DAB35 /* TabBarAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarAssembly.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -107,6 +129,7 @@
 		53BF75F224AD362600526B3D /* MovieProject */ = {
 			isa = PBXGroup;
 			children = (
+				53E2632324DD4AC3008DAB35 /* Extensions */,
 				53E262B524C0CBE2008DAB35 /* Features */,
 				53E262B424C0CB40008DAB35 /* Resources */,
 				53E262B324C0CB27008DAB35 /* Service */,
@@ -142,7 +165,7 @@
 			children = (
 				53E2625A24B54708008DAB35 /* NetworkService.swift */,
 				53E2625C24B54C8A008DAB35 /* TMDBClient.swift */,
-				53E2625E24B56CAF008DAB35 /* Request.swift */,
+				53E2625E24B56CAF008DAB35 /* TMDBRequest.swift */,
 				53E2626024B5A02A008DAB35 /* TMDBResponse.swift */,
 			);
 			path = Network;
@@ -175,7 +198,10 @@
 		53E262B524C0CBE2008DAB35 /* Features */ = {
 			isa = PBXGroup;
 			children = (
-				53E262B724C0CC0A008DAB35 /* LoginScreen */,
+				53E2632624E30685008DAB35 /* TabBar */,
+				53E2631824DA91C4008DAB35 /* Mapper */,
+				53E2631524DA9096008DAB35 /* Model */,
+				53E262B724C0CC0A008DAB35 /* TrendingScreen */,
 				53E262B624C0CBFB008DAB35 /* MainScreen */,
 			);
 			path = Features;
@@ -189,11 +215,98 @@
 			path = MainScreen;
 			sourceTree = "<group>";
 		};
-		53E262B724C0CC0A008DAB35 /* LoginScreen */ = {
+		53E262B724C0CC0A008DAB35 /* TrendingScreen */ = {
 			isa = PBXGroup;
 			children = (
+				53E2631224DA8EFB008DAB35 /* Assembly */,
+				53E2630924DA8ADF008DAB35 /* View */,
+				53E2630A24DA8AE9008DAB35 /* Presenter */,
+				53E2630B24DA8AF2008DAB35 /* Interactor */,
 			);
-			path = LoginScreen;
+			path = TrendingScreen;
+			sourceTree = "<group>";
+		};
+		53E2630924DA8ADF008DAB35 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				53E2631C24DA9AA4008DAB35 /* Cell */,
+				53E2630C24DA8B1F008DAB35 /* TrendingViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		53E2630A24DA8AE9008DAB35 /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				53E2631924DA91DB008DAB35 /* Formatter */,
+				53E2630E24DA8B40008DAB35 /* TrendingPresenter.swift */,
+			);
+			path = Presenter;
+			sourceTree = "<group>";
+		};
+		53E2630B24DA8AF2008DAB35 /* Interactor */ = {
+			isa = PBXGroup;
+			children = (
+				53E2631024DA8B5F008DAB35 /* TrendingInteractor.swift */,
+			);
+			path = Interactor;
+			sourceTree = "<group>";
+		};
+		53E2631224DA8EFB008DAB35 /* Assembly */ = {
+			isa = PBXGroup;
+			children = (
+				53E2631324DA8F15008DAB35 /* TrendingAssembly.swift */,
+			);
+			path = Assembly;
+			sourceTree = "<group>";
+		};
+		53E2631524DA9096008DAB35 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				53E2631624DA90B4008DAB35 /* Movie.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		53E2631824DA91C4008DAB35 /* Mapper */ = {
+			isa = PBXGroup;
+			children = (
+				53E2631A24DA9216008DAB35 /* MovieMapper.swift */,
+			);
+			path = Mapper;
+			sourceTree = "<group>";
+		};
+		53E2631924DA91DB008DAB35 /* Formatter */ = {
+			isa = PBXGroup;
+			children = (
+				53E2632124DA9D49008DAB35 /* TrendingCellModelFormatter.swift */,
+			);
+			path = Formatter;
+			sourceTree = "<group>";
+		};
+		53E2631C24DA9AA4008DAB35 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				53E2631D24DA9AD2008DAB35 /* TrendingCell.swift */,
+				53E2631F24DA9B25008DAB35 /* TrendingCellModel.swift */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
+		53E2632324DD4AC3008DAB35 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				53E2632424DD4B8E008DAB35 /* UIImageView+Extensions.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		53E2632624E30685008DAB35 /* TabBar */ = {
+			isa = PBXGroup;
+			children = (
+				53E2632924E3072A008DAB35 /* TabBarAssembly.swift */,
+			);
+			path = TabBar;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -327,13 +440,24 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				53E2631E24DA9AD2008DAB35 /* TrendingCell.swift in Sources */,
 				53E2625B24B54708008DAB35 /* NetworkService.swift in Sources */,
+				53E2630F24DA8B40008DAB35 /* TrendingPresenter.swift in Sources */,
+				53E2631724DA90B4008DAB35 /* Movie.swift in Sources */,
+				53E2632524DD4B8E008DAB35 /* UIImageView+Extensions.swift in Sources */,
+				53E2631B24DA9216008DAB35 /* MovieMapper.swift in Sources */,
+				53E2630D24DA8B1F008DAB35 /* TrendingViewController.swift in Sources */,
+				53E2632224DA9D49008DAB35 /* TrendingCellModelFormatter.swift in Sources */,
+				53E2631424DA8F15008DAB35 /* TrendingAssembly.swift in Sources */,
 				53BF75FE24AD362600526B3D /* MovieProject.xcdatamodeld in Sources */,
+				53E2632A24E3072A008DAB35 /* TabBarAssembly.swift in Sources */,
 				53BF75F824AD362600526B3D /* ViewController.swift in Sources */,
 				53E2626124B5A02A008DAB35 /* TMDBResponse.swift in Sources */,
 				53E2625D24B54C8A008DAB35 /* TMDBClient.swift in Sources */,
-				53E2625F24B56CAF008DAB35 /* Request.swift in Sources */,
+				53E2631124DA8B5F008DAB35 /* TrendingInteractor.swift in Sources */,
+				53E2625F24B56CAF008DAB35 /* TMDBRequest.swift in Sources */,
 				53BF75F424AD362600526B3D /* AppDelegate.swift in Sources */,
+				53E2632024DA9B25008DAB35 /* TrendingCellModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
