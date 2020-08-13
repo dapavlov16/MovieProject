@@ -37,6 +37,7 @@
 		53E2633A24E3FF69008DAB35 /* TrendingRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53E2633924E3FF69008DAB35 /* TrendingRouter.swift */; };
 		53E2634124E44D06008DAB35 /* MovieDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53E2634024E44D06008DAB35 /* MovieDetails.swift */; };
 		53E2634424E46071008DAB35 /* DetailsMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53E2634324E46071008DAB35 /* DetailsMapper.swift */; };
+		53E2634724E592A5008DAB35 /* DetailsFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53E2634624E592A5008DAB35 /* DetailsFormatter.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -93,6 +94,7 @@
 		53E2633924E3FF69008DAB35 /* TrendingRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrendingRouter.swift; sourceTree = "<group>"; };
 		53E2634024E44D06008DAB35 /* MovieDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetails.swift; sourceTree = "<group>"; };
 		53E2634324E46071008DAB35 /* DetailsMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsMapper.swift; sourceTree = "<group>"; };
+		53E2634624E592A5008DAB35 /* DetailsFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsFormatter.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -349,6 +351,7 @@
 		53E2632D24E3FCF7008DAB35 /* Presenter */ = {
 			isa = PBXGroup;
 			children = (
+				53E2634524E59295008DAB35 /* Formatter */,
 				53E2633224E3FD57008DAB35 /* DetailsPresenter.swift */,
 			);
 			path = Presenter;
@@ -392,6 +395,14 @@
 				53E2634324E46071008DAB35 /* DetailsMapper.swift */,
 			);
 			path = Mapper;
+			sourceTree = "<group>";
+		};
+		53E2634524E59295008DAB35 /* Formatter */ = {
+			isa = PBXGroup;
+			children = (
+				53E2634624E592A5008DAB35 /* DetailsFormatter.swift */,
+			);
+			path = Formatter;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -548,6 +559,7 @@
 				53E2631124DA8B5F008DAB35 /* TrendingInteractor.swift in Sources */,
 				53E2625F24B56CAF008DAB35 /* TMDBRequest.swift in Sources */,
 				53BF75F424AD362600526B3D /* AppDelegate.swift in Sources */,
+				53E2634724E592A5008DAB35 /* DetailsFormatter.swift in Sources */,
 				53E2633724E3FDA2008DAB35 /* DetailsAssembly.swift in Sources */,
 				53E2632024DA9B25008DAB35 /* TrendingCellModel.swift in Sources */,
 			);

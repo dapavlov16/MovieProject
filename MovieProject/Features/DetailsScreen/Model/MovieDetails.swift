@@ -10,6 +10,27 @@ import Foundation
 
 struct MovieDetails {
     let title: String
+    let originalTitle: String
+    let tagline: String?
+    let genres: [String]
+    let countries: [String]
+    let runtime: Int
+    let overview: String?
+    let releaseDate: Date
+    let rating: Double
+    let voteCount: Int
+    let posterUrl: URL?
+    let backdropUrl: URL?
+}
+
+struct DetailsModel {
+    let title: String
+    let titleDescription: String
+    let tagline: String?
+    let genresString: String?
+    let countriesRuntimeString: String
+    let overview: String?
+    let releaseDateString: String
     let posterUrl: URL?
     let backdropUrl: URL?
 }

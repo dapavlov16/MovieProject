@@ -10,8 +10,7 @@ import Foundation
 
 final class MovieMapper {
     
-    private let posterEndpoint = "https://image.tmdb.org/t/p/w500"
-    private let backdropEndpoint = "https://image.tmdb.org/t/p/w700"
+    private let imageEndpoint = "https://image.tmdb.org/t/p/w500"
     
     func map(from response: MovieListDto) -> [Movie] {
         var movies = [Movie]()
@@ -21,10 +20,10 @@ final class MovieMapper {
             var backdropURL: URL?
             
             if let posterPath = result.posterPath {
-                posterURL = URL(string: posterEndpoint + posterPath)
+                posterURL = URL(string: imageEndpoint + posterPath)
             }
             if let backdropPath = result.backdropPath {
-                backdropURL = URL(string: backdropEndpoint + backdropPath)
+                backdropURL = URL(string: imageEndpoint + backdropPath)
             }
             
             movies.append(Movie(id: result.id,

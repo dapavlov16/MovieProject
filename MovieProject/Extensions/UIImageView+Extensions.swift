@@ -10,7 +10,7 @@ import UIKit
 
 extension UIImageView {
     
-    func setImage(from url: URL?) -> URLSessionDataTask? {
+    @discardableResult func setImage(from url: URL?) -> URLSessionDataTask? {
         
         guard let url = url else {
             return nil

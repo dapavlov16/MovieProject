@@ -67,6 +67,7 @@ struct MovieDto: Decodable {
     var overview: String?
     var popularity: Double
     var posterPath: String?
+    var productionCountries: [ProductionCountry]
     var releaseDate: String
     var revenue: Int
     var runtime: Int
@@ -90,6 +91,7 @@ struct MovieDto: Decodable {
         case overview
         case popularity
         case posterPath = "poster_path"
+        case productionCountries = "production_countries"
         case releaseDate = "release_date"
         case revenue
         case runtime
@@ -105,4 +107,14 @@ struct MovieDto: Decodable {
 struct Genre: Decodable {
     var id: Int
     var name: String
+}
+
+struct ProductionCountry: Decodable {
+    var iso: String
+    var name: String
+    
+    enum CodingKeys: String, CodingKey {
+        case iso = "iso_3166_1"
+        case name
+    }
 }

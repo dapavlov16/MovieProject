@@ -17,13 +17,19 @@ final class DetailsPresenter {
     //MARK: - Properties
     
     weak var view: DetailsViewControllerInput?
+    private let formatter: DetailsFormatter
+    
+    init(formatter: DetailsFormatter) {
+        self.formatter = formatter
+    }
 }
 
 //MARK: - DetailsPresenterInput
 extension DetailsPresenter: DetailsPresenterInput {
     func detailsLoaded(details: MovieDetails) {
+        let model = formatter.format(from: details)
         DispatchQueue.main.async {
-            self.view?.showDetails(details: details)
+            self.view?.showDetails(model: model)
         }
     }
 }

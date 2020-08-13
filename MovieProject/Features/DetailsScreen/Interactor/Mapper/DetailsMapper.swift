@@ -10,22 +10,44 @@ import Foundation
 
 final class DetailsMapper {
     
-    private let posterEndpoint = "https://image.tmdb.org/t/p/w500"
-    private let backdropEndpoint = "https://image.tmdb.org/t/p/w700"
+    private let imageEndpoint = "https://image.tmdb.org/t/p/w500"
     
     func map(from response: MovieDto) -> MovieDetails {
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        let date = dateFormatter.date(from: response.releaseDate)!
+        
+        var genres = [String]()
+        for genre in response.genres {
+            genres.append(genre.name)
+        }
+        
+        var countries = [String]()
+        for country in response.productionCountries {
+            countries.append(country.name)
+        }
         
         var posterUrl: URL?
         var backdropUrl: URL?
         
         if let posterPath = response.posterPath {
-            posterUrl = URL(string: posterEndpoint + posterPath)
+            posterUrl = URL(string: imageEndpoint + posterPath)
         }
         if let backdropPath = response.backdropPath {
-            backdropUrl = URL(string: backdropEndpoint + backdropPath)
+            backdropUrl = URL(string: imageEndpoint + backdropPath)
         }
         
         return MovieDetails(title: response.title,
+                            originalTitle: response.originalTitle,
+                            tagline: response.tagline,
+                            genres: genres,
+                            countries: countries,
+                            runtime: response.runtime,
+                            overview: response.overview,
+                            releaseDate: date,
+                            rating: response.voteAverage,
+                            voteCount: response.voteCount,
                             posterUrl: posterUrl,
                             backdropUrl: backdropUrl)
     }
