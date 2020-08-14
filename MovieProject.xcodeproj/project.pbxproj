@@ -36,6 +36,10 @@
 		53E2634124E44D06008DAB35 /* MovieDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53E2634024E44D06008DAB35 /* MovieDetails.swift */; };
 		53E2634424E46071008DAB35 /* DetailsMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53E2634324E46071008DAB35 /* DetailsMapper.swift */; };
 		53E2634724E592A5008DAB35 /* DetailsFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53E2634624E592A5008DAB35 /* DetailsFormatter.swift */; };
+		53E2635024E6BDF5008DAB35 /* SearchInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53E2634F24E6BDF5008DAB35 /* SearchInteractor.swift */; };
+		53E2635224E6BE02008DAB35 /* SearchPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53E2635124E6BE02008DAB35 /* SearchPresenter.swift */; };
+		53E2635424E6BE12008DAB35 /* SearchAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53E2635324E6BE12008DAB35 /* SearchAssembly.swift */; };
+		53E2635624E6C407008DAB35 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53E2635524E6C407008DAB35 /* SearchViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -91,6 +95,10 @@
 		53E2634024E44D06008DAB35 /* MovieDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetails.swift; sourceTree = "<group>"; };
 		53E2634324E46071008DAB35 /* DetailsMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsMapper.swift; sourceTree = "<group>"; };
 		53E2634624E592A5008DAB35 /* DetailsFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsFormatter.swift; sourceTree = "<group>"; };
+		53E2634F24E6BDF5008DAB35 /* SearchInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchInteractor.swift; sourceTree = "<group>"; };
+		53E2635124E6BE02008DAB35 /* SearchPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchPresenter.swift; sourceTree = "<group>"; };
+		53E2635324E6BE12008DAB35 /* SearchAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchAssembly.swift; sourceTree = "<group>"; };
+		53E2635524E6C407008DAB35 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -208,12 +216,13 @@
 		53E262B524C0CBE2008DAB35 /* Features */ = {
 			isa = PBXGroup;
 			children = (
-				53E2632B24E3FCDC008DAB35 /* DetailsScreen */,
 				53E2632624E30685008DAB35 /* TabBar */,
-				53E2631824DA91C4008DAB35 /* Mapper */,
-				53E2631524DA9096008DAB35 /* Model */,
+				53E2632B24E3FCDC008DAB35 /* DetailsScreen */,
+				53E2634824E6BD37008DAB35 /* SearchScreen */,
 				53E262B724C0CC0A008DAB35 /* TrendingScreen */,
 				53E262B624C0CBFB008DAB35 /* MainScreen */,
+				53E2631824DA91C4008DAB35 /* Mapper */,
+				53E2631524DA9096008DAB35 /* Model */,
 			);
 			path = Features;
 			sourceTree = "<group>";
@@ -399,6 +408,49 @@
 			path = Formatter;
 			sourceTree = "<group>";
 		};
+		53E2634824E6BD37008DAB35 /* SearchScreen */ = {
+			isa = PBXGroup;
+			children = (
+				53E2634C24E6BDA5008DAB35 /* Assembly */,
+				53E2634B24E6BD9C008DAB35 /* View */,
+				53E2634A24E6BD8A008DAB35 /* Presenter */,
+				53E2634924E6BD7E008DAB35 /* Interactor */,
+			);
+			path = SearchScreen;
+			sourceTree = "<group>";
+		};
+		53E2634924E6BD7E008DAB35 /* Interactor */ = {
+			isa = PBXGroup;
+			children = (
+				53E2634F24E6BDF5008DAB35 /* SearchInteractor.swift */,
+			);
+			path = Interactor;
+			sourceTree = "<group>";
+		};
+		53E2634A24E6BD8A008DAB35 /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				53E2635124E6BE02008DAB35 /* SearchPresenter.swift */,
+			);
+			path = Presenter;
+			sourceTree = "<group>";
+		};
+		53E2634B24E6BD9C008DAB35 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				53E2635524E6C407008DAB35 /* SearchViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		53E2634C24E6BDA5008DAB35 /* Assembly */ = {
+			isa = PBXGroup;
+			children = (
+				53E2635324E6BE12008DAB35 /* SearchAssembly.swift */,
+			);
+			path = Assembly;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -528,11 +580,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				53E2635624E6C407008DAB35 /* SearchViewController.swift in Sources */,
 				53E2631E24DA9AD2008DAB35 /* TrendingCell.swift in Sources */,
 				53E2625B24B54708008DAB35 /* NetworkService.swift in Sources */,
 				53E2630F24DA8B40008DAB35 /* TrendingPresenter.swift in Sources */,
+				53E2635024E6BDF5008DAB35 /* SearchInteractor.swift in Sources */,
 				53E2631724DA90B4008DAB35 /* Movie.swift in Sources */,
 				53E2632524DD4B8E008DAB35 /* UIImageView+Extensions.swift in Sources */,
+				53E2635224E6BE02008DAB35 /* SearchPresenter.swift in Sources */,
 				53E2631B24DA9216008DAB35 /* MovieMapper.swift in Sources */,
 				53E2633124E3FD35008DAB35 /* DetailsInteractor.swift in Sources */,
 				53E2633324E3FD57008DAB35 /* DetailsPresenter.swift in Sources */,
@@ -547,6 +602,7 @@
 				53BF75F824AD362600526B3D /* ViewController.swift in Sources */,
 				53E2626124B5A02A008DAB35 /* TMDBResponse.swift in Sources */,
 				53E2625D24B54C8A008DAB35 /* TMDBClient.swift in Sources */,
+				53E2635424E6BE12008DAB35 /* SearchAssembly.swift in Sources */,
 				53E2634424E46071008DAB35 /* DetailsMapper.swift in Sources */,
 				53E2631124DA8B5F008DAB35 /* TrendingInteractor.swift in Sources */,
 				53E2625F24B56CAF008DAB35 /* TMDBRequest.swift in Sources */,
