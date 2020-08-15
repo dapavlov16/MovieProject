@@ -19,13 +19,23 @@ final class TabBarAssembly {
         let viewController = UINavigationController(
             rootViewController: ViewController()
         )
+        let searchViewController = UINavigationController(
+            rootViewController: SearchAssembly.assembly()
+        )
         
         let trendingTabBarItem = UITabBarItem()
         trendingTabBarItem.title = "Популярное"
         trendingTabBarItem.image = UIImage(named: "trending_icon")
-        
         trendingViewController.tabBarItem = trendingTabBarItem
-        tabBarController.viewControllers = [viewController, trendingViewController]
+        
+        let searchTabBarItem = UITabBarItem(tabBarSystemItem: .search, tag: 3)
+        searchViewController.tabBarItem = searchTabBarItem
+        
+        tabBarController.viewControllers = [
+            viewController,
+            trendingViewController,
+            searchViewController
+        ]
         return tabBarController
     }
 }
