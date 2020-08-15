@@ -13,13 +13,14 @@ final class TrendingCell: UICollectionViewCell {
     //MARK: - Constants
     
     private enum Constants {
-        static let titleFontSize: CGFloat = 12
+        static let titleFont = UIFont.systemFont(ofSize: 14, weight: .thin)
+        static let posterCornerRadius: CGFloat = 7
     }
     
     //MARK: - Properties
     
     private var titleLabel: UILabel!
-    private var posterImage: UIImageView!
+    private var posterImageView: UIImageView!
     
     private var dataTask: URLSessionDataTask?
     var viewModel: TrendingCellModel? {
@@ -45,7 +46,7 @@ final class TrendingCell: UICollectionViewCell {
     override func prepareForReuse() {
         super.prepareForReuse()
         dataTask?.cancel()
-        posterImage.image = nil
+        posterImageView.image = nil
         titleLabel.text = nil
     }
     
@@ -53,31 +54,33 @@ final class TrendingCell: UICollectionViewCell {
     
     private func configureView() {
         titleLabel = UILabel()
-        titleLabel.font = UIFont.systemFont(ofSize: Constants.titleFontSize, weight: .thin)
+        titleLabel.font = Constants.titleFont
         titleLabel.textAlignment = .center
         titleLabel.numberOfLines = 2
         addSubview(titleLabel)
         
-        posterImage = UIImageView()
-        addSubview(posterImage)
+        posterImageView = UIImageView()
+        posterImageView.clipsToBounds = true
+        posterImageView.layer.cornerRadius = Constants.posterCornerRadius
+        addSubview(posterImageView)
         
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        posterImage.translatesAutoresizingMaskIntoConstraints = false
+        posterImageView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            posterImage.topAnchor.constraint(equalTo: topAnchor),
-            posterImage.leadingAnchor.constraint(equalTo: leadingAnchor),
-            posterImage.trailingAnchor.constraint(equalTo: trailingAnchor),
-            posterImage.heightAnchor.constraint(equalTo: posterImage.widthAnchor,
-                                                multiplier: 1.5),
-            titleLabel.topAnchor.constraint(equalTo: posterImage.bottomAnchor, constant: 10),
+            posterImageView.topAnchor.constraint(equalTo: topAnchor),
+            posterImageView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            posterImageView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            posterImageView.heightAnchor.constraint(equalTo: posterImageView.widthAnchor,
+                                                    multiplier: 1.5),
+            titleLabel.topAnchor.constraint(equalTo: posterImageView.bottomAnchor, constant: 10),
             titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor),
             titleLabel.trailingAnchor.constraint(equalTo: trailingAnchor),
-            titleLabel.widthAnchor.constraint(lessThanOrEqualTo: posterImage.widthAnchor)
+            titleLabel.widthAnchor.constraint(lessThanOrEqualTo: posterImageView.widthAnchor)
         ])
     }
     
     private func updateContent(with viewModel: TrendingCellModel) {
         titleLabel.text = viewModel.title
-        dataTask = posterImage.setImage(from: viewModel.posterPath)
+        dataTask = posterImageView.setImage(from: viewModel.posterPath)
     }
 }
