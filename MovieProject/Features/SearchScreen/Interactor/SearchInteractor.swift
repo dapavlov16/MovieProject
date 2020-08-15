@@ -7,7 +7,7 @@
 //
 
 protocol SearchInteractorInput {
-    
+    func searchMovie(query: String)
 }
 
 final class SearchInteractor {
@@ -39,4 +39,10 @@ final class SearchInteractor {
 //MARK: - SearchInteractorInput
 extension SearchInteractor: SearchInteractorInput {
     
+    func searchMovie(query: String) {
+        networkService.searchMovie(query) { (response) in
+            let result = self.mapper.map(from: response)
+            self.presenter?.searchCompleted(movies: result, genres: self.genres)
+        }
+    }
 }

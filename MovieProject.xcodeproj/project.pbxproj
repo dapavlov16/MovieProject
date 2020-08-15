@@ -40,6 +40,9 @@
 		53E2635224E6BE02008DAB35 /* SearchPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53E2635124E6BE02008DAB35 /* SearchPresenter.swift */; };
 		53E2635424E6BE12008DAB35 /* SearchAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53E2635324E6BE12008DAB35 /* SearchAssembly.swift */; };
 		53E2635624E6C407008DAB35 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53E2635524E6C407008DAB35 /* SearchViewController.swift */; };
+		53E2635F24E6FF98008DAB35 /* SearchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53E2635E24E6FF98008DAB35 /* SearchCell.swift */; };
+		53E2636124E70123008DAB35 /* SearchCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53E2636024E70123008DAB35 /* SearchCellModel.swift */; };
+		53E2636324E707EB008DAB35 /* SearchFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53E2636224E707EB008DAB35 /* SearchFormatter.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -99,6 +102,9 @@
 		53E2635124E6BE02008DAB35 /* SearchPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchPresenter.swift; sourceTree = "<group>"; };
 		53E2635324E6BE12008DAB35 /* SearchAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchAssembly.swift; sourceTree = "<group>"; };
 		53E2635524E6C407008DAB35 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
+		53E2635E24E6FF98008DAB35 /* SearchCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCell.swift; sourceTree = "<group>"; };
+		53E2636024E70123008DAB35 /* SearchCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCellModel.swift; sourceTree = "<group>"; };
+		53E2636224E707EB008DAB35 /* SearchFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchFormatter.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -430,6 +436,7 @@
 		53E2634A24E6BD8A008DAB35 /* Presenter */ = {
 			isa = PBXGroup;
 			children = (
+				53E2636424E71B79008DAB35 /* Formatter */,
 				53E2635124E6BE02008DAB35 /* SearchPresenter.swift */,
 			);
 			path = Presenter;
@@ -438,6 +445,7 @@
 		53E2634B24E6BD9C008DAB35 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				53E2635D24E6FF60008DAB35 /* Cell */,
 				53E2635524E6C407008DAB35 /* SearchViewController.swift */,
 			);
 			path = View;
@@ -449,6 +457,23 @@
 				53E2635324E6BE12008DAB35 /* SearchAssembly.swift */,
 			);
 			path = Assembly;
+			sourceTree = "<group>";
+		};
+		53E2635D24E6FF60008DAB35 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				53E2635E24E6FF98008DAB35 /* SearchCell.swift */,
+				53E2636024E70123008DAB35 /* SearchCellModel.swift */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
+		53E2636424E71B79008DAB35 /* Formatter */ = {
+			isa = PBXGroup;
+			children = (
+				53E2636224E707EB008DAB35 /* SearchFormatter.swift */,
+			);
+			path = Formatter;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -581,6 +606,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				53E2635624E6C407008DAB35 /* SearchViewController.swift in Sources */,
+				53E2635F24E6FF98008DAB35 /* SearchCell.swift in Sources */,
 				53E2631E24DA9AD2008DAB35 /* TrendingCell.swift in Sources */,
 				53E2625B24B54708008DAB35 /* NetworkService.swift in Sources */,
 				53E2630F24DA8B40008DAB35 /* TrendingPresenter.swift in Sources */,
@@ -588,6 +614,7 @@
 				53E2631724DA90B4008DAB35 /* Movie.swift in Sources */,
 				53E2632524DD4B8E008DAB35 /* UIImageView+Extensions.swift in Sources */,
 				53E2635224E6BE02008DAB35 /* SearchPresenter.swift in Sources */,
+				53E2636324E707EB008DAB35 /* SearchFormatter.swift in Sources */,
 				53E2631B24DA9216008DAB35 /* MovieMapper.swift in Sources */,
 				53E2633124E3FD35008DAB35 /* DetailsInteractor.swift in Sources */,
 				53E2633324E3FD57008DAB35 /* DetailsPresenter.swift in Sources */,
@@ -608,6 +635,7 @@
 				53E2625F24B56CAF008DAB35 /* TMDBRequest.swift in Sources */,
 				53BF75F424AD362600526B3D /* AppDelegate.swift in Sources */,
 				53E2634724E592A5008DAB35 /* DetailsFormatter.swift in Sources */,
+				53E2636124E70123008DAB35 /* SearchCellModel.swift in Sources */,
 				53E2633724E3FDA2008DAB35 /* DetailsAssembly.swift in Sources */,
 				53E2632024DA9B25008DAB35 /* TrendingCellModel.swift in Sources */,
 			);
