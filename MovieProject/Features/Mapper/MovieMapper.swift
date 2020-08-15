@@ -26,13 +26,20 @@ final class MovieMapper {
                 backdropURL = URL(string: imageEndpoint + backdropPath)
             }
             
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "yyyy-MM-dd"
+            var date: Date?
+            if let release = result.releaseDate {
+                date = dateFormatter.date(from: release)
+            }
+            
             movies.append(Movie(id: result.id,
                                 title: result.title,
                                 originalTitle: result.originalTitle,
                                 originalLanguage: result.originalLanguage,
                                 overview: result.overview,
                                 genres: result.genreIds,
-                                releaseDate: result.releaseDate,
+                                releaseDate: date,
                                 posterPath: posterURL,
                                 isAdult: result.adult,
                                 backdropPath: backdropURL,
