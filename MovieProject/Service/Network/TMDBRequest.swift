@@ -10,6 +10,7 @@ enum TMDBRequest {
     case searchMovie(text: String)
     case getTrending
     case getDetails(id: Int)
+    case getGenres
 }
 
 extension TMDBRequest {
@@ -29,6 +30,8 @@ extension TMDBRequest {
             return "/trending/movie/day"
         case .getDetails(let id):
             return "/movie/\(id)"
+        case .getGenres:
+            return "/genre/movie/list"
         }
     }
     
@@ -49,6 +52,8 @@ extension TMDBRequest {
         case .getTrending:
             return params
         case .getDetails:
+            return params
+        case .getGenres:
             return params
         }
     }

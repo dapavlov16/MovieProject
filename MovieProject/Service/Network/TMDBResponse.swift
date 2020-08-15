@@ -104,6 +104,10 @@ struct MovieDto: Decodable {
     }
 }
 
+struct GenresList: Decodable {
+    var genres: [Genre]
+}
+
 struct Genre: Decodable {
     var id: Int
     var name: String

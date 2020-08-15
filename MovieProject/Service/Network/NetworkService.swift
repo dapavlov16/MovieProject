@@ -21,4 +21,8 @@ class NetworkService {
     func getDetails(by movieId: Int, _ completion: @escaping (MovieDto) -> Void) {
         client.request(request: .getDetails(id: movieId), completion)
     }
+    
+    func getGenres(_ completion: @escaping (GenresList) -> Void) {
+        client.request(request: .getGenres, completion)
+    }
 }
