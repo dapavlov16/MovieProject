@@ -30,8 +30,8 @@ final class SearchInteractor {
     //MARK: - Private
     
     private func loadGenres() {
-        networkService.getGenres { (genresList) in
-            self.genres = genresList.genres
+        networkService.getGenres { [weak self] (genresList) in
+            self?.genres = genresList.genres
         }
     }
 }
