@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		53B8A72824EAD23D00BE745D /* SearchRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53B8A72724EAD23D00BE745D /* SearchRouter.swift */; };
 		53BF75F424AD362600526B3D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53BF75F324AD362600526B3D /* AppDelegate.swift */; };
 		53BF75F824AD362600526B3D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53BF75F724AD362600526B3D /* ViewController.swift */; };
 		53BF75FE24AD362600526B3D /* MovieProject.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 53BF75FC24AD362600526B3D /* MovieProject.xcdatamodeld */; };
@@ -63,6 +64,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		53B8A72724EAD23D00BE745D /* SearchRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchRouter.swift; sourceTree = "<group>"; };
 		53BF75F024AD362600526B3D /* MovieProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MovieProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		53BF75F324AD362600526B3D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		53BF75F724AD362600526B3D /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -132,6 +134,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		53B8A72624EAD21A00BE745D /* Router */ = {
+			isa = PBXGroup;
+			children = (
+				53B8A72724EAD23D00BE745D /* SearchRouter.swift */,
+			);
+			path = Router;
+			sourceTree = "<group>";
+		};
 		53BF75E724AD362600526B3D = {
 			isa = PBXGroup;
 			children = (
@@ -417,6 +427,7 @@
 		53E2634824E6BD37008DAB35 /* SearchScreen */ = {
 			isa = PBXGroup;
 			children = (
+				53B8A72624EAD21A00BE745D /* Router */,
 				53E2634C24E6BDA5008DAB35 /* Assembly */,
 				53E2634B24E6BD9C008DAB35 /* View */,
 				53E2634A24E6BD8A008DAB35 /* Presenter */,
@@ -629,6 +640,7 @@
 				53BF75F824AD362600526B3D /* ViewController.swift in Sources */,
 				53E2626124B5A02A008DAB35 /* TMDBResponse.swift in Sources */,
 				53E2625D24B54C8A008DAB35 /* TMDBClient.swift in Sources */,
+				53B8A72824EAD23D00BE745D /* SearchRouter.swift in Sources */,
 				53E2635424E6BE12008DAB35 /* SearchAssembly.swift in Sources */,
 				53E2634424E46071008DAB35 /* DetailsMapper.swift in Sources */,
 				53E2631124DA8B5F008DAB35 /* TrendingInteractor.swift in Sources */,

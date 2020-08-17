@@ -24,7 +24,8 @@ final class SearchFormatter {
                 .map{ $0.name }
                 .joined(separator: ", ")
             
-            models.append(SearchCellModel(title: movie.title,
+            models.append(SearchCellModel(id: movie.id,
+                                          title: movie.title,
                                           subtitle: subtitle,
                                           genres: genres,
                                           rating: movie.voteAverage,

@@ -19,10 +19,13 @@ final class SearchAssembly {
         let presenter = SearchPresenter(formatter: searchFormatter)
         let interactor = SearchInteractor(networkService: networkService,
                                           mapper: movieMapper)
+        let router = SearchRouter()
         
         view.interactor = interactor
+        view.router = router
         presenter.view = view
         interactor.presenter = presenter
+        router.view = view
         
         return view
     }

@@ -23,7 +23,10 @@ final class SearchViewController: UIViewController {
     //MARK: - Properties
     
     var interactor: SearchInteractorInput?
+    var router: SearchRouterInput?
+    
     var movies = [SearchCellModel]()
+    
     private var searchController: UISearchController!
     private var tableView: UITableView!
     
@@ -79,12 +82,11 @@ extension SearchViewController: SearchViewControllerInput {
 extension SearchViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        Constants.cellHeight
+        return Constants.cellHeight
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        //TODO route to details
-        tableView.deselectRow(at: indexPath, animated: true)
+        router?.navigateToDetails(of: movies[indexPath.item].id)
     }
 }
 
@@ -92,7 +94,7 @@ extension SearchViewController: UITableViewDelegate {
 extension SearchViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        movies.count
+        return movies.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

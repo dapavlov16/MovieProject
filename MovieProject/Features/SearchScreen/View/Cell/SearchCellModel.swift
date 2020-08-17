@@ -9,6 +9,7 @@
 import Foundation
 
 struct SearchCellModel {
+    let id: Int
     let title: String
     let subtitle: String
     let genres: String?
