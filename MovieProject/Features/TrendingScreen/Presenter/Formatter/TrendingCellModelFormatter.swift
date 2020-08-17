@@ -12,7 +12,8 @@ final class TrendingCellModelFormatter {
         var models = [TrendingCellModel]()
         
         for movie in movies {
-            models.append(TrendingCellModel(title: movie.title,
+            models.append(TrendingCellModel(id: movie.id,
+                                            title: movie.title,
                                             posterPath: movie.posterPath))
         }
         

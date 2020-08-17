@@ -10,9 +10,9 @@ import UIKit
 
 extension UIImageView {
     
-    func setImage(from path: String) -> URLSessionDataTask? {
+    @discardableResult func setImage(from url: URL?) -> URLSessionDataTask? {
         
-        guard let url = URL(string: path) else {
+        guard let url = url else {
             return nil
         }
         let dataTask = URLSession.shared.dataTask(with: url) { [weak self] data, _, error  in

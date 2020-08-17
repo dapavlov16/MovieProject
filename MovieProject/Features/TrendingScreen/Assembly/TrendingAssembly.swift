@@ -19,10 +19,13 @@ final class TrendingAssembly {
         let presenter = TrendingPresenter(formatter: formatter)
         let interactor = TrendingInteractor(networkService: networkService,
                                             mapper: movieMapper)
+        let router = TrendingRouter()
         
         view.interactor = interactor
+        view.router = router
         presenter.view = view
         interactor.presenter = presenter
+        router.view = view
         
         return view
     }

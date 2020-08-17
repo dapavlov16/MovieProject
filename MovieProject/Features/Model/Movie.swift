@@ -6,6 +6,8 @@
 //  Copyright © 2020 Дмитрий Павлов. All rights reserved.
 //
 
+import Foundation
+
 struct Movie {
     let id: Int
     let title: String
@@ -14,9 +16,9 @@ struct Movie {
     let overview: String
     let genres: [Int]
     let releaseDate: String
-    let posterPath: String
+    let posterPath: URL?
     let isAdult: Bool
-    let backdropPath: String
+    let backdropPath: URL?
     let popularity: Double
     let voteCount: Int
     let voteAverage: Double

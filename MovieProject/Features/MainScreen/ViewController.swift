@@ -19,11 +19,8 @@ class ViewController: UIViewController {
         
         let service = NetworkService()
         service.searchMovie("Snatch") { [weak self] (response) in
-            guard let results = response.results else {
-                return
-            }
             DispatchQueue.main.async {
-                self?.label.text = results[0].overview ?? "error"
+                self?.label.text = response.results.first?.overview
             }
         }
     }

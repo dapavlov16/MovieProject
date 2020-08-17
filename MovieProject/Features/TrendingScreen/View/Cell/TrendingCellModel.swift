@@ -6,7 +6,10 @@
 //  Copyright © 2020 Дмитрий Павлов. All rights reserved.
 //
 
+import Foundation
+
 struct TrendingCellModel {
+    let id: Int
     let title: String
-    let posterPath: String
+    let posterPath: URL?
 }

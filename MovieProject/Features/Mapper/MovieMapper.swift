@@ -6,47 +6,39 @@
 //  Copyright © 2020 Дмитрий Павлов. All rights reserved.
 //
 
+import Foundation
+
 final class MovieMapper {
     
     private let imageEndpoint = "https://image.tmdb.org/t/p/w500"
     
-    func map(from response: TMDBResponse) -> [Movie] {
-        
-        guard let results = response.results else {
-            return []
-        }
-        
+    func map(from response: MovieListDto) -> [Movie] {
         var movies = [Movie]()
         
-        for result in results {
-            guard let id = result.id,
-                let title = result.title,
-                let originalTitle = result.originalTitle,
-                let originalLanguage = result.originalLanguage,
-                let overview = result.overview,
-                let genres = result.genreIds,
-                let releaseDate = result.releaseDate,
-                let posterPath = result.posterPath,
-                let isAdult = result.adult,
-                let backdropPath = result.backdropPath,
-                let popularity = result.popularity,
-                let voteCount = result.voteCount,
-                let voteAverage = result.voteAverage
-                else { continue }
+        for result in response.results {
+            var posterURL: URL?
+            var backdropURL: URL?
             
-            movies.append(Movie(id: id,
-                                title: title,
-                                originalTitle: originalTitle,
-                                originalLanguage: originalLanguage,
-                                overview: overview,
-                                genres: genres,
-                                releaseDate: releaseDate,
-                                posterPath: imageEndpoint + posterPath,
-                                isAdult: isAdult,
-                                backdropPath: imageEndpoint + backdropPath,
-                                popularity: popularity,
-                                voteCount: voteCount,
-                                voteAverage: voteAverage))
+            if let posterPath = result.posterPath {
+                posterURL = URL(string: imageEndpoint + posterPath)
+            }
+            if let backdropPath = result.backdropPath {
+                backdropURL = URL(string: imageEndpoint + backdropPath)
+            }
+            
+            movies.append(Movie(id: result.id,
+                                title: result.title,
+                                originalTitle: result.originalTitle,
+                                originalLanguage: result.originalLanguage,
+                                overview: result.overview,
+                                genres: result.genreIds,
+                                releaseDate: result.releaseDate,
+                                posterPath: posterURL,
+                                isAdult: result.adult,
+                                backdropPath: backdropURL,
+                                popularity: result.popularity,
+                                voteCount: result.voteCount,
+                                voteAverage: result.voteAverage))
         }
         
         return movies
