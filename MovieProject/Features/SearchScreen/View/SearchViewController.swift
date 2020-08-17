@@ -17,6 +17,7 @@ final class SearchViewController: UIViewController {
     //MARK: - Constants
     
     private enum Constants {
+        static let searchTitle = "Поиск"
         static let cellHeight: CGFloat = 150
     }
     //MARK: - Properties
@@ -30,7 +31,9 @@ final class SearchViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         view.backgroundColor = .white
+        title = Constants.searchTitle
         
         configureSearchController()
         configureTableView()
