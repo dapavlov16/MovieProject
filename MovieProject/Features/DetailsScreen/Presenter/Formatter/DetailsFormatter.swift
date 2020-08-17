@@ -9,6 +9,8 @@
 import Foundation
 
 final class DetailsFormatter {
+
+    private lazy var dateFormatter = DateFormatter()
     
     func format(from details: MovieDetails) -> DetailsModel {
         
@@ -28,7 +30,6 @@ final class DetailsFormatter {
         countries.append(runtime)
         let countriesRuntimeString = countries.joined(separator: ", ")
         
-        let dateFormatter = DateFormatter()
         dateFormatter.dateStyle = .long
         let releaseDateString = dateFormatter.string(from: details.releaseDate)
         
