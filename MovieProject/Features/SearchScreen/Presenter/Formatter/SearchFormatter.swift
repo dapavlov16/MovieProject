@@ -10,9 +10,10 @@ import Foundation
 
 final class SearchFormatter {
     
+    private lazy var calendar = Calendar.current
+    
     func format(movies: [Movie], genresList: [Genre]) -> [SearchCellModel] {
         var models = [SearchCellModel]()
-        let calendar = Calendar.current
         
         for movie in movies {
             var subtitle = movie.originalTitle

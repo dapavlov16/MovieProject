@@ -11,6 +11,11 @@ import Foundation
 final class MovieMapper {
     
     private let imageEndpoint = "https://image.tmdb.org/t/p/w500"
+    private lazy var dateFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd"
+        return formatter
+    }()
     
     func map(from response: MovieListDto) -> [Movie] {
         var movies = [Movie]()
@@ -26,8 +31,6 @@ final class MovieMapper {
                 backdropURL = URL(string: imageEndpoint + backdropPath)
             }
             
-            let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "yyyy-MM-dd"
             var date: Date?
             if let release = result.releaseDate {
                 date = dateFormatter.date(from: release)
