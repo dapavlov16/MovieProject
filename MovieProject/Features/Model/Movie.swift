@@ -15,7 +15,7 @@ struct Movie {
     let originalLanguage: String
     let overview: String
     let genres: [Int]
-    let releaseDate: String
+    let releaseDate: Date?
     let posterPath: URL?
     let isAdult: Bool
     let backdropPath: URL?

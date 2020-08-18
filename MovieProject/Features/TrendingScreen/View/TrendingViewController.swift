@@ -27,11 +27,7 @@ final class TrendingViewController: UIViewController {
     var interactor: TrendingInteractorInput?
     var router: TrendingRouterInput?
     private var collectionView: UICollectionView!
-    private var movies: [TrendingCellModel] = [] {
-        didSet {
-            collectionView.reloadData()
-        }
-    }
+    private var movies: [TrendingCellModel] = []
     
     //MARK: - Lifecycle
     
@@ -100,7 +96,7 @@ extension TrendingViewController: UICollectionViewDataSource {
             cell.viewModel = movies[indexPath.item]
             return cell
         }
-        return UICollectionViewCell()
+        return TrendingCell()
     }
 }
 
@@ -108,6 +104,7 @@ extension TrendingViewController: UICollectionViewDataSource {
 extension TrendingViewController: TrendingViewControllerInput {
     
     func showTrending(models: [TrendingCellModel]) {
-        movies = models
+        movies.append(contentsOf: models)
+        collectionView.reloadData()
     }
 }

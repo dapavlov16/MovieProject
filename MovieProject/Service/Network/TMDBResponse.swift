@@ -24,7 +24,7 @@ struct Result: Decodable {
     var posterPath: String?
     var adult: Bool
     var overview: String
-    var releaseDate: String
+    var releaseDate: String?
     var genreIds: [Int]
     var id: Int
     var originalTitle: String
@@ -102,6 +102,10 @@ struct MovieDto: Decodable {
         case voteAverage = "vote_average"
         case voteCount = "vote_count"
     }
+}
+
+struct GenresList: Decodable {
+    var genres: [Genre]
 }
 
 struct Genre: Decodable {

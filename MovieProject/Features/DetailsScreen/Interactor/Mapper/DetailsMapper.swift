@@ -11,11 +11,14 @@ import Foundation
 final class DetailsMapper {
     
     private let imageEndpoint = "https://image.tmdb.org/t/p/w500"
-    private lazy var dateFormatter = DateFormatter()
+    private lazy var dateFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd"
+        return formatter
+    }()
     
     func map(from response: MovieDto) -> MovieDetails {
         
-        dateFormatter.dateFormat = "yyyy-MM-dd"
         let date = dateFormatter.date(from: response.releaseDate)!
         
         var genres = [String]()

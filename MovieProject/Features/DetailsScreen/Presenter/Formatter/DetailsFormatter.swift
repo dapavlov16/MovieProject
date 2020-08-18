@@ -10,11 +10,15 @@ import Foundation
 
 final class DetailsFormatter {
 
-    private lazy var dateFormatter = DateFormatter()
+    private lazy var calendar = Calendar.current
+    private lazy var dateFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateStyle = .long
+        return formatter
+    }()
     
     func format(from details: MovieDetails) -> DetailsModel {
         
-        let calendar = Calendar.current
         let year = calendar.component(.year, from: details.releaseDate)
         let titleDescription = details.originalTitle.appending(" (\(year))")
         
@@ -30,7 +34,6 @@ final class DetailsFormatter {
         countries.append(runtime)
         let countriesRuntimeString = countries.joined(separator: ", ")
         
-        dateFormatter.dateStyle = .long
         let releaseDateString = dateFormatter.string(from: details.releaseDate)
         
         return DetailsModel(title: details.title,
