@@ -6,7 +6,7 @@
 //  Copyright © 2020 Дмитрий Павлов. All rights reserved.
 //
 
-class NetworkService {
+final class NetworkService {
     
     private let client = TMDBClient()
     
@@ -22,7 +22,7 @@ class NetworkService {
         client.request(request: .getDetails(id: movieId), completion)
     }
     
-    func getGenres(_ completion: @escaping (GenresList) -> Void) {
+    func getGenres(_ completion: @escaping (GenresListDto) -> Void) {
         client.request(request: .getGenres, completion)
     }
 }

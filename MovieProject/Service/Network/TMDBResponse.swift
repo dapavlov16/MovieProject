@@ -104,7 +104,7 @@ struct MovieDto: Decodable {
     }
 }
 
-struct GenresList: Decodable {
+struct GenresListDto: Decodable {
     var genres: [Genre]
 }
 
