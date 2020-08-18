@@ -12,13 +12,17 @@ final class SearchAssembly {
     
     static func assembly() -> UIViewController {
         let networkService = NetworkService()
+        let coreDataService = CoreDataService()
         let movieMapper = MovieMapper()
+        let genresMapper = GenresMapper()
         let searchFormatter = SearchFormatter()
         
         let view = SearchViewController()
         let presenter = SearchPresenter(formatter: searchFormatter)
         let interactor = SearchInteractor(networkService: networkService,
-                                          mapper: movieMapper)
+                                          coreDataService: coreDataService,
+                                          movieMapper: movieMapper,
+                                          genresMapper: genresMapper)
         let router = SearchRouter()
         
         view.interactor = interactor

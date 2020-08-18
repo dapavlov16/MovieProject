@@ -8,7 +8,7 @@
 
 import Foundation
 
-class TMDBClient {
+final class TMDBClient {
     
     func request<T: Decodable>(request: TMDBRequest, _ completion: @escaping (T) -> Void) {
         var urlBuilder = URLComponents(string: request.urlString)

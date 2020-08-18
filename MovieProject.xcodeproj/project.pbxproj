@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		53B8A72824EAD23D00BE745D /* SearchRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53B8A72724EAD23D00BE745D /* SearchRouter.swift */; };
+		53B8A72B24EAE40300BE745D /* CoreDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53B8A72A24EAE40300BE745D /* CoreDataService.swift */; };
+		53B8A72D24EAE5F900BE745D /* PersistentContainerProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53B8A72C24EAE5F900BE745D /* PersistentContainerProvider.swift */; };
+		53B8A73124EB1DE500BE745D /* GenresMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53B8A73024EB1DE500BE745D /* GenresMapper.swift */; };
 		53BF75F424AD362600526B3D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53BF75F324AD362600526B3D /* AppDelegate.swift */; };
 		53BF75F824AD362600526B3D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53BF75F724AD362600526B3D /* ViewController.swift */; };
 		53BF75FE24AD362600526B3D /* MovieProject.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 53BF75FC24AD362600526B3D /* MovieProject.xcdatamodeld */; };
@@ -65,6 +68,9 @@
 
 /* Begin PBXFileReference section */
 		53B8A72724EAD23D00BE745D /* SearchRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchRouter.swift; sourceTree = "<group>"; };
+		53B8A72A24EAE40300BE745D /* CoreDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataService.swift; sourceTree = "<group>"; };
+		53B8A72C24EAE5F900BE745D /* PersistentContainerProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistentContainerProvider.swift; sourceTree = "<group>"; };
+		53B8A73024EB1DE500BE745D /* GenresMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenresMapper.swift; sourceTree = "<group>"; };
 		53BF75F024AD362600526B3D /* MovieProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MovieProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		53BF75F324AD362600526B3D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		53BF75F724AD362600526B3D /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -142,6 +148,15 @@
 			path = Router;
 			sourceTree = "<group>";
 		};
+		53B8A72924EAE3E300BE745D /* CoreData */ = {
+			isa = PBXGroup;
+			children = (
+				53B8A72A24EAE40300BE745D /* CoreDataService.swift */,
+				53B8A72C24EAE5F900BE745D /* PersistentContainerProvider.swift */,
+			);
+			path = CoreData;
+			sourceTree = "<group>";
+		};
 		53BF75E724AD362600526B3D = {
 			isa = PBXGroup;
 			children = (
@@ -216,6 +231,7 @@
 		53E262B324C0CB27008DAB35 /* Service */ = {
 			isa = PBXGroup;
 			children = (
+				53B8A72924EAE3E300BE745D /* CoreData */,
 				53E2625924B546C7008DAB35 /* Network */,
 			);
 			path = Service;
@@ -309,6 +325,7 @@
 			isa = PBXGroup;
 			children = (
 				53E2631A24DA9216008DAB35 /* MovieMapper.swift */,
+				53B8A73024EB1DE500BE745D /* GenresMapper.swift */,
 			);
 			path = Mapper;
 			sourceTree = "<group>";
@@ -621,13 +638,16 @@
 				53E2631E24DA9AD2008DAB35 /* TrendingCell.swift in Sources */,
 				53E2625B24B54708008DAB35 /* NetworkService.swift in Sources */,
 				53E2630F24DA8B40008DAB35 /* TrendingPresenter.swift in Sources */,
+				53B8A73124EB1DE500BE745D /* GenresMapper.swift in Sources */,
 				53E2635024E6BDF5008DAB35 /* SearchInteractor.swift in Sources */,
 				53E2631724DA90B4008DAB35 /* Movie.swift in Sources */,
+				53B8A72B24EAE40300BE745D /* CoreDataService.swift in Sources */,
 				53E2632524DD4B8E008DAB35 /* UIImageView+Extensions.swift in Sources */,
 				53E2635224E6BE02008DAB35 /* SearchPresenter.swift in Sources */,
 				53E2636324E707EB008DAB35 /* SearchFormatter.swift in Sources */,
 				53E2631B24DA9216008DAB35 /* MovieMapper.swift in Sources */,
 				53E2633124E3FD35008DAB35 /* DetailsInteractor.swift in Sources */,
+				53B8A72D24EAE5F900BE745D /* PersistentContainerProvider.swift in Sources */,
 				53E2633324E3FD57008DAB35 /* DetailsPresenter.swift in Sources */,
 				53E2630D24DA8B1F008DAB35 /* TrendingViewController.swift in Sources */,
 				53E2632224DA9D49008DAB35 /* TrendingCellModelFormatter.swift in Sources */,

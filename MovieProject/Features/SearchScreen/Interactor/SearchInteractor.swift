@@ -16,22 +16,36 @@ final class SearchInteractor {
     
     var presenter: SearchPresenterInput?
     private let networkService: NetworkService
-    private let mapper: MovieMapper
+    private let coreDataService: CoreDataService
+    private let movieMapper: MovieMapper
+    private let genresMapper: GenresMapper
     private var genres = [Genre]()
     
     //MARK: - Init
     
-    init(networkService: NetworkService, mapper: MovieMapper) {
+    init(networkService: NetworkService,
+         coreDataService: CoreDataService,
+         movieMapper: MovieMapper,
+         genresMapper: GenresMapper) {
+        
         self.networkService = networkService
-        self.mapper = mapper
+        self.coreDataService = coreDataService
+        self.movieMapper = movieMapper
+        self.genresMapper = genresMapper
+        
         loadGenres()
     }
     
     //MARK: - Private
     
     private func loadGenres() {
-        networkService.getGenres { [weak self] (genresList) in
-            self?.genres = genresList.genres
+        if let genresList = coreDataService.getGenresList() {
+            genres = genresMapper.map(from: genresList)
+        } else {
+            networkService.getGenres { [weak self] (genresList) in
+                self?.genres = genresList.genres
+                self?.coreDataService.addGenresList(genres: genresList.genres)
+            }
         }
     }
 }
@@ -41,7 +55,7 @@ extension SearchInteractor: SearchInteractorInput {
     
     func searchMovie(query: String) {
         networkService.searchMovie(query) { (response) in
-            let result = self.mapper.map(from: response)
+            let result = self.movieMapper.map(from: response)
             self.presenter?.searchCompleted(movies: result, genres: self.genres)
         }
     }
