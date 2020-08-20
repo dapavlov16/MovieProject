@@ -29,7 +29,8 @@ final class DetailsFormatter {
         
         let genresString = details.genres.joined(separator: ", ")
         
-        let runtime = "\(details.runtime / 60):\(details.runtime % 60)"
+        let runtime = String(format: "%d:%02d", details.runtime / 60, details.runtime % 60)
+        
         var countries = details.countries
         countries.append(runtime)
         let countriesRuntimeString = countries.joined(separator: ", ")

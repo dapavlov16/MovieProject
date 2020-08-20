@@ -22,9 +22,9 @@ final class DetailsViewController: UIViewController {
         static let posterWidth: CGFloat = 150
         static let posterHeightRatio: CGFloat = 1.5
         static let titleLabelsSpacing: CGFloat = 5
-        static let titleFont = UIFont.systemFont(ofSize: 22, weight: .bold)
-        static let originalTitleFont = UIFont.systemFont(ofSize: 16, weight: .thin)
-        static let taglineFont = UIFont.systemFont(ofSize: 16, weight: .light)
+        static let titleFont = UIFont.systemFont(ofSize: 20, weight: .bold)
+        static let originalTitleFont = UIFont.systemFont(ofSize: 14, weight: .thin)
+        static let taglineFont = UIFont.systemFont(ofSize: 14, weight: .semibold)
         static let genresFont = UIFont.systemFont(ofSize: 12, weight: .thin)
         static let countriesRuntimeFont = UIFont.systemFont(ofSize: 12, weight: .thin)
         static let overviewFont = UIFont.systemFont(ofSize: 16)
@@ -106,7 +106,7 @@ final class DetailsViewController: UIViewController {
         contentView.addSubview(posterImageView)
         NSLayoutConstraint.activate([
             posterImageView.topAnchor.constraint(equalTo: backdropImageView.bottomAnchor,
-                                                 constant: -50),
+                                                 constant: -30),
             posterImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor,
                                                      constant: 20),
             posterImageView.widthAnchor.constraint(equalToConstant: Constants.posterWidth),
