@@ -81,6 +81,7 @@ final class TrendingCell: UICollectionViewCell {
     
     private func updateContent(with viewModel: TrendingCellModel) {
         titleLabel.text = viewModel.title
+        posterImageView.image = UIImage(named: "poster_placeholder")
         dataTask = posterImageView.setImage(from: viewModel.posterPath)
     }
 }

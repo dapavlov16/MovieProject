@@ -190,6 +190,8 @@ final class DetailsViewController: UIViewController {
 extension DetailsViewController: DetailsViewControllerInput {
     func showDetails(model: DetailsModel) {
         title = model.title
+        posterImageView.image = UIImage(named: "poster_placeholder")
+        backdropImageView.image = UIImage(named: "backdrop_placeholder")
         backdropImageView.setImage(from: model.backdropUrl)
         posterImageView.setImage(from: model.posterUrl)
         titleLabel.text = model.title
