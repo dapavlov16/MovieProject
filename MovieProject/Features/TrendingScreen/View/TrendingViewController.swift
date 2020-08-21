@@ -86,11 +86,9 @@ final class TrendingViewController: UIViewController {
         switch segmentedControl.selectedSegmentIndex {
         case 0:
             interactor?.changeState(to: .trending)
-//            tabBarItem.title = Constants.trendingTitleText
             break
         case 1:
             interactor?.changeState(to: .popular)
-//            tabBarItem.title = Constants.popularTitleText
             break
         default:
             break
