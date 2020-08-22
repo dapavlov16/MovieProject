@@ -39,6 +39,35 @@ final class CoreDataService {
         saveContext()
     }
     
+    func addFavorite(movie: MovieDetails) {
+        let favoriteMovie = FavoriteMovieEntity(context: managedContext)
+        favoriteMovie.id = Int32(movie.id)
+        favoriteMovie.title = movie.title
+        favoriteMovie.posterUrl = movie.posterUrl?.absoluteString
+        
+        for genre in movie.genres {
+            let genreEntity = GenreEntity(context: managedContext)
+            genreEntity.id = Int16(genre.id)
+            genreEntity.name = genre.name
+            genreEntity.movie = favoriteMovie
+        }
+        
+        saveContext()
+    }
+    
+    func isFavorite(movieId: Int) -> Bool {
+        let fetchRequest: NSFetchRequest<FavoriteMovieEntity> = FavoriteMovieEntity.fetchRequest()
+        let predicate = NSPredicate(format: "id == %d", movieId)
+        fetchRequest.predicate = predicate
+        
+        do {
+            let result = try managedContext.fetch(fetchRequest)
+            return result.count > 0
+        } catch {
+            return false
+        }
+    }
+    
     //MARK: - Private
     
     private func saveContext() {

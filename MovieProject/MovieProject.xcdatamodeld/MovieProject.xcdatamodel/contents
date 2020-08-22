@@ -1,16 +1,24 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="16119" systemVersion="19F101" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="FavoriteMovieEntity" representedClassName="FavoriteMovieEntity" syncable="YES" codeGenerationType="class">
+        <attribute name="id" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="posterUrl" optional="YES" attributeType="String"/>
+        <attribute name="title" optional="YES" attributeType="String"/>
+        <relationship name="genres" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="GenreEntity" inverseName="movie" inverseEntity="GenreEntity"/>
+    </entity>
     <entity name="GenreEntity" representedClassName="GenreEntity" syncable="YES" codeGenerationType="class">
         <attribute name="id" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="name" attributeType="String"/>
         <relationship name="list" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="GenresListEntity" inverseName="genres" inverseEntity="GenresListEntity"/>
+        <relationship name="movie" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="FavoriteMovieEntity" inverseName="genres" inverseEntity="FavoriteMovieEntity"/>
     </entity>
     <entity name="GenresListEntity" representedClassName="GenresListEntity" syncable="YES" codeGenerationType="class">
         <attribute name="count" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <relationship name="genres" toMany="YES" deletionRule="Nullify" destinationEntity="GenreEntity" inverseName="list" inverseEntity="GenreEntity"/>
     </entity>
     <elements>
-        <element name="GenreEntity" positionX="-63" positionY="-18" width="128" height="88"/>
+        <element name="FavoriteMovieEntity" positionX="-45" positionY="36" width="128" height="103"/>
+        <element name="GenreEntity" positionX="-63" positionY="-18" width="128" height="103"/>
         <element name="GenresListEntity" positionX="-54" positionY="9" width="128" height="73"/>
     </elements>
 </model>

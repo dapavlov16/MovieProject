@@ -10,6 +10,7 @@ import Foundation
 
 protocol DetailsInteractorInput {
     func loadDetails()
+    func addToFavorite()
 }
 
 final class DetailsInteractor {
@@ -19,13 +20,19 @@ final class DetailsInteractor {
     var presenter: DetailsPresenterInput?
     private let movieId: Int
     private let networkService: NetworkService
+    private let coreDataService: CoreDataService
     private let mapper: DetailsMapper
+    private var details: MovieDetails!
     
     //MARK: - Init
     
-    init(movieId: Int, networkService: NetworkService, mapper: DetailsMapper) {
+    init(movieId: Int,
+         networkService: NetworkService,
+         coreDataService: CoreDataService,
+         mapper: DetailsMapper) {
         self.movieId = movieId
         self.networkService = networkService
+        self.coreDataService = coreDataService
         self.mapper = mapper
     }
 }
@@ -33,9 +40,16 @@ final class DetailsInteractor {
 //MARK: - DetailsInteractorInput
 extension DetailsInteractor: DetailsInteractorInput {
     func loadDetails() {
-        networkService.getDetails(by: movieId) { response in
+        networkService.getDetails(by: movieId) { [weak self] response in
+            guard let self = self else { return }
             let details = self.mapper.map(from: response)
-            self.presenter?.detailsLoaded(details: details)
+            self.details = details
+            let isFavorite = self.coreDataService.isFavorite(movieId: self.movieId)
+            self.presenter?.detailsLoaded(details: details, isFavorite: isFavorite)
         }
+    }
+    
+    func addToFavorite() {
+        coreDataService.addFavorite(movie: details)
     }
 }

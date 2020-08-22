@@ -9,7 +9,7 @@
 import UIKit
 
 protocol DetailsViewControllerInput: AnyObject {
-    func showDetails(model: DetailsModel)
+    func showDetails(model: DetailsModel, isFavorite: Bool)
 }
 
 final class DetailsViewController: UIViewController {
@@ -55,6 +55,7 @@ final class DetailsViewController: UIViewController {
         configurePosterImageView()
         configureTitleLabels()
         configureOverviewLabel()
+        configureAddToFavoriteButton()
         
         interactor?.loadDetails()
     }
@@ -176,6 +177,13 @@ final class DetailsViewController: UIViewController {
         ])
     }
     
+    private func configureAddToFavoriteButton() {
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "В избранное",
+                                                            style: .plain,
+                                                            target: self,
+                                                            action: #selector(addToFavorite))
+    }
+    
     private func dropShadow(view: UIView) {
         view.layer.shadowColor = UIColor.black.cgColor
         view.layer.shadowOpacity = 1
@@ -184,12 +192,22 @@ final class DetailsViewController: UIViewController {
         view.layer.shouldRasterize = true
         view.layer.rasterizationScale = UIScreen.main.scale;
     }
+    
+    //MARK: - Actions
+    
+    @objc private func addToFavorite(_ sender: Any) {
+        interactor?.addToFavorite()
+        navigationItem.rightBarButtonItem?.isEnabled = false
+    }
 }
 
 //MARK: - DetailsViewControllerInput
 extension DetailsViewController: DetailsViewControllerInput {
-    func showDetails(model: DetailsModel) {
+    func showDetails(model: DetailsModel, isFavorite: Bool) {
         title = model.title
+        if isFavorite {
+            navigationItem.rightBarButtonItem?.isEnabled = false
+        }
         posterImageView.image = UIImage(named: "poster_placeholder")
         backdropImageView.image = UIImage(named: "backdrop_placeholder")
         backdropImageView.setImage(from: model.backdropUrl)

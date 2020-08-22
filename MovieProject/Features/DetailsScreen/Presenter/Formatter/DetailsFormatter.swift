@@ -27,7 +27,9 @@ final class DetailsFormatter {
             tagline = first.isLetter ? "«\(tag)»" : tag
         }
         
-        let genresString = details.genres.joined(separator: ", ")
+        let genresString = details.genres
+            .map { $0.name }
+            .joined(separator: ", ")
         
         let runtime = String(format: "%d:%02d", details.runtime / 60, details.runtime % 60)
         

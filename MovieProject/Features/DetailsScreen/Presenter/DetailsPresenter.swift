@@ -9,7 +9,7 @@
 import Foundation
 
 protocol DetailsPresenterInput {
-    func detailsLoaded(details: MovieDetails)
+    func detailsLoaded(details: MovieDetails, isFavorite: Bool)
 }
 
 final class DetailsPresenter {
@@ -28,10 +28,10 @@ final class DetailsPresenter {
 
 //MARK: - DetailsPresenterInput
 extension DetailsPresenter: DetailsPresenterInput {
-    func detailsLoaded(details: MovieDetails) {
+    func detailsLoaded(details: MovieDetails, isFavorite: Bool) {
         let model = formatter.format(from: details)
         DispatchQueue.main.async {
-            self.view?.showDetails(model: model)
+            self.view?.showDetails(model: model, isFavorite: isFavorite)
         }
     }
 }

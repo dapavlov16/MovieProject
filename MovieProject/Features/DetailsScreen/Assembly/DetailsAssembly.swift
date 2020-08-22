@@ -12,6 +12,7 @@ final class DetailsAssembly {
     
     static func assembly(movieId: Int) -> UIViewController {
         let networkService = NetworkService()
+        let coreDataService = CoreDataService()
         let detailsMapper = DetailsMapper()
         let detailsFormatter = DetailsFormatter()
         
@@ -19,6 +20,7 @@ final class DetailsAssembly {
         let presenter = DetailsPresenter(formatter: detailsFormatter)
         let interactor = DetailsInteractor(movieId: movieId,
                                            networkService: networkService,
+                                           coreDataService: coreDataService,
                                            mapper: detailsMapper)
         
         view.interactor = interactor
