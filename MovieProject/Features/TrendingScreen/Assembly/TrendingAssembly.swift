@@ -12,12 +12,14 @@ final class TrendingAssembly {
     
     static func assembly() -> UIViewController {
         let networkService = NetworkService()
+        let coreDataService = CoreDataService()
         let movieMapper = MovieMapper()
         let formatter = TrendingCellModelFormatter()
         
         let view = TrendingViewController()
         let presenter = TrendingPresenter(formatter: formatter)
         let interactor = TrendingInteractor(networkService: networkService,
+                                            coreDataService: coreDataService,
                                             mapper: movieMapper)
         let router = TrendingRouter()
         

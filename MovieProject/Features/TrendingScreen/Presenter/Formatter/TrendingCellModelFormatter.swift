@@ -14,7 +14,8 @@ final class TrendingCellModelFormatter {
         for movie in movies {
             models.append(TrendingCellModel(id: movie.id,
                                             title: movie.title,
-                                            posterPath: movie.posterPath))
+                                            posterPath: movie.posterPath,
+                                            isFavorite: movie.isFavorite))
         }
         
         return models

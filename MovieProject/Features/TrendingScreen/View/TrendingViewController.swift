@@ -11,6 +11,7 @@ import UIKit
 protocol TrendingViewControllerInput: AnyObject {
     func showMovies(models: [TrendingCellModel])
     func appendNextPage(models: [TrendingCellModel])
+    func updateFavoriteStatus(index: Int, isFavorite: Bool)
 }
 
 final class TrendingViewController: UIViewController {
@@ -42,6 +43,11 @@ final class TrendingViewController: UIViewController {
         configureNavigationItem()
         configureCollectionView()
         interactor?.changeState(to: .trending)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        interactor?.updateFavorites()
     }
     
     //MARK: - Private
@@ -157,5 +163,11 @@ extension TrendingViewController: TrendingViewControllerInput {
         movies.append(contentsOf: models)
         collectionView.insertItems(at: indexPaths)
         isLoading = false
+    }
+    
+    func updateFavoriteStatus(index: Int, isFavorite: Bool) {
+        movies[index].isFavorite = isFavorite
+        let indexPath = IndexPath(item: index, section: 0)
+        collectionView.reloadItems(at: [indexPath])
     }
 }

@@ -11,6 +11,7 @@ import Foundation
 protocol TrendingPresenterInput {
     func stateChanged(movies: [Movie])
     func nextPageLoaded(movies: [Movie])
+    func updateFavoriteStatus(index: Int, isFavorite: Bool)
 }
 
 final class TrendingPresenter {
@@ -42,5 +43,9 @@ extension TrendingPresenter: TrendingPresenterInput {
         DispatchQueue.main.async {
             self.view?.appendNextPage(models: models)
         }
+    }
+    
+    func updateFavoriteStatus(index: Int, isFavorite: Bool) {
+        view?.updateFavoriteStatus(index: index, isFavorite: isFavorite)
     }
 }

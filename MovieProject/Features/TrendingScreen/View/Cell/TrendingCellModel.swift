@@ -12,4 +12,5 @@ struct TrendingCellModel {
     let id: Int
     let title: String
     let posterPath: URL?
+    var isFavorite: Bool
 }

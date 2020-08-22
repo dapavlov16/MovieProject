@@ -9,6 +9,7 @@
 protocol TrendingInteractorInput {
     func loadNextPage()
     func changeState(to state: TrendingState)
+    func updateFavorites()
 }
 
 enum TrendingState {
@@ -28,6 +29,7 @@ final class TrendingInteractor {
     
     var presenter: TrendingPresenterInput?
     private let networkService: NetworkService
+    private let coreDataService: CoreDataService
     private let mapper: MovieMapper
     
     private var currentState: TrendingState = .trending
@@ -91,8 +93,9 @@ final class TrendingInteractor {
     
     //MARK: - Init
     
-    init(networkService: NetworkService, mapper: MovieMapper) {
+    init(networkService: NetworkService, coreDataService: CoreDataService, mapper: MovieMapper) {
         self.networkService = networkService
+        self.coreDataService = coreDataService
         self.mapper = mapper
     }
     
@@ -106,6 +109,10 @@ final class TrendingInteractor {
             networkService.getPopular(page: page, completion)
         }
     }
+    
+    private func setFavorites(movies: [Movie]) {
+        movies.forEach { $0.isFavorite = coreDataService.isFavorite(movieId: $0.id) }
+    }
 }
 
 //MARK: - TrendingInteractorInput
@@ -116,6 +123,7 @@ extension TrendingInteractor: TrendingInteractorInput {
             loadData(page: page) { [weak self] response in
                 guard let self = self else { return }
                 let newMovies = self.mapper.map(from: response)
+                self.setFavorites(movies: newMovies)
                 self.movies.append(contentsOf: newMovies)
                 self.page += 1
                 self.presenter?.nextPageLoaded(movies: newMovies)
@@ -129,13 +137,25 @@ extension TrendingInteractor: TrendingInteractorInput {
             loadData(page: page) { [weak self] response in
                 guard let self = self else { return }
                 let movies = self.mapper.map(from: response)
+                self.setFavorites(movies: movies)
                 self.movies = movies
                 self.page += 1
                 self.totalPages = response.totalPages
                 self.presenter?.stateChanged(movies: movies)
             }
         } else {
+            setFavorites(movies: movies)
             presenter?.stateChanged(movies: movies)
+        }
+    }
+    
+    func updateFavorites() {
+        for (index, movie) in movies.enumerated() {
+            let isFavorite = coreDataService.isFavorite(movieId: movie.id)
+            if movie.isFavorite != isFavorite {
+                movie.isFavorite = isFavorite
+                presenter?.updateFavoriteStatus(index: index, isFavorite: isFavorite)
+            }
         }
     }
 }

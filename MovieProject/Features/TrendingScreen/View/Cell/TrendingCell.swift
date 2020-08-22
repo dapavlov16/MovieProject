@@ -81,6 +81,11 @@ final class TrendingCell: UICollectionViewCell {
     
     private func updateContent(with viewModel: TrendingCellModel) {
         titleLabel.text = viewModel.title
+        if viewModel.isFavorite {
+            titleLabel.textColor = .red
+        } else {
+            titleLabel.textColor = .black
+        }
         posterImageView.image = UIImage(named: "poster_placeholder")
         dataTask = posterImageView.setImage(from: viewModel.posterPath)
     }
