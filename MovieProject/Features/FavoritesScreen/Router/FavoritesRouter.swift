@@ -14,9 +14,12 @@ protocol FavoritesRouterInput {
 
 final class FavoritesRouter {
     
+    //MARK: - Properties
+    
     weak var view: FavoritesViewController?
 }
 
+//MARK: - FavoritesRouterInput
 extension FavoritesRouter: FavoritesRouterInput {
     
 }

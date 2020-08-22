@@ -9,16 +9,27 @@
 import Foundation
 
 protocol FavoritesInteractorInput {
-    
+    func loadFavorites()
 }
 
 final class FavoritesInteractor {
     
+    //MARK: - Properties
+    
     var presenter: FavoritesPresenterInput?
     
+    private let coreDataService: CoreDataService
     
+    //MARK: - Init
+    
+    init(coreDataService: CoreDataService) {
+        self.coreDataService = coreDataService
+    }
 }
 
+//MARK: - FavoritesInteractorInput
 extension FavoritesInteractor: FavoritesInteractorInput {
-    
+    func loadFavorites() {
+        
+    }
 }

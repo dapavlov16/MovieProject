@@ -14,9 +14,12 @@ protocol FavoritesPresenterInput {
 
 final class FavoritesPresenter {
     
+    //MARK: - Properties
+    
     weak var view: FavoritesViewControllerInput?
 }
 
+//MARK: - FavoritesPresenterInput
 extension FavoritesPresenter: FavoritesPresenterInput {
     
 }

@@ -11,8 +11,10 @@ import UIKit
 final class FavoritesAssembly {
     
     static func assembly() -> UIViewController {
+        let coreDataService = CoreDataService()
+        
         let view = FavoritesViewController()
-        let interactor = FavoritesInteractor()
+        let interactor = FavoritesInteractor(coreDataService: coreDataService)
         let presenter = FavoritesPresenter()
         let router = FavoritesRouter()
         
