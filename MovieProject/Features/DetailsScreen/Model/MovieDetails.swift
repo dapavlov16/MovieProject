@@ -9,10 +9,11 @@
 import Foundation
 
 struct MovieDetails {
+    let id: Int
     let title: String
     let originalTitle: String
     let tagline: String?
-    let genres: [String]
+    let genres: [Genre]
     let countries: [String]
     let runtime: Int
     let overview: String?
