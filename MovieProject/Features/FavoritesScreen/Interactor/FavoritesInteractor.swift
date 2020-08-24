@@ -10,6 +10,7 @@ import Foundation
 
 protocol FavoritesInteractorInput {
     func loadFavorites()
+    func removeFavorite(by id: Int)
 }
 
 final class FavoritesInteractor {
@@ -35,5 +36,9 @@ extension FavoritesInteractor: FavoritesInteractorInput {
     func loadFavorites() {
         let favorites = mapper.map(from: coreDataService.getFavorites())
         presenter?.favoritesLoaded(favorites: favorites)
+    }
+    
+    func removeFavorite(by id: Int) {
+        coreDataService.deleteFavorite(with: id)
     }
 }

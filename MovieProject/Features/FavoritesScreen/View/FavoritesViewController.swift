@@ -61,6 +61,20 @@ extension FavoritesViewController: UITableViewDelegate {
         tableView.deselectRow(at: indexPath, animated: true)
         router?.navigateToDetails(of: cellModels[indexPath.item].id)
     }
+    
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if (editingStyle == .delete) {
+            tableView.beginUpdates()
+            interactor?.removeFavorite(by: cellModels[indexPath.item].id)
+            tableView.deleteRows(at: [indexPath], with: .left)
+            cellModels.remove(at: indexPath.item)
+            tableView.endUpdates()
+        }
+    }
 }
 
 //MARK: - UITableViewDataSource

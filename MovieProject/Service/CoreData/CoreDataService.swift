@@ -39,6 +39,8 @@ final class CoreDataService {
         saveContext()
     }
     
+    //MARK: - Favorites
+    
     func getFavorites() -> [FavoriteMovieEntity] {
         let fetchRequest: NSFetchRequest<FavoriteMovieEntity> = FavoriteMovieEntity.fetchRequest()
         
@@ -61,6 +63,17 @@ final class CoreDataService {
             genreEntity.id = Int16(genre.id)
             genreEntity.name = genre.name
             genreEntity.movie = favoriteMovie
+        }
+        
+        saveContext()
+    }
+    
+    func deleteFavorite(with id: Int) {
+        let fetchRequest: NSFetchRequest<FavoriteMovieEntity> = FavoriteMovieEntity.fetchRequest()
+        fetchRequest.predicate = NSPredicate(format: "id == %d", id)
+        
+        if let result = try? managedContext.fetch(fetchRequest) {
+            result.forEach(managedContext.delete(_:))
         }
         
         saveContext()
