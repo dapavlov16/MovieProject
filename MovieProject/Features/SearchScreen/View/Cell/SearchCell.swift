@@ -124,8 +124,7 @@ class SearchCell: UITableViewCell {
             stackView.topAnchor.constraint(equalTo: topAnchor, constant: 15),
             stackView.leadingAnchor.constraint(equalTo: posterImageView.trailingAnchor,
                                                constant: 10),
-            stackView.trailingAnchor.constraint(equalTo: trailingAnchor,
-                                                constant: -50),
+            stackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -50),
             stackView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -15)
         ])
     }

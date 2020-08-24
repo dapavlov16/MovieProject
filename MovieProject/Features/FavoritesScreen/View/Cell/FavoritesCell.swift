@@ -10,6 +10,20 @@ import UIKit
 
 class FavoritesCell: UITableViewCell {
     
+    //MARK: - Constants
+    
+    private enum Constants {
+        static let titleFont = UIFont.systemFont(ofSize: 20, weight: .semibold)
+        static let genresFont = UIFont.systemFont(ofSize: 16, weight: .thin)
+        static let stackViewSpacing: CGFloat = 10
+    }
+    
+    //MARK: - Properties
+    
+    private var titleLabel: UILabel!
+    private var genresLabel: UILabel!
+    private var posterImageView: UIImageView!
+    
     var viewModel: FavoritesCellModel? {
         didSet {
             if let viewModel = viewModel {
@@ -17,19 +31,71 @@ class FavoritesCell: UITableViewCell {
             }
         }
     }
-
+    
+    //MARK: - Init
+    
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+        
+        configurePosterImageView()
+        configureLabels()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
+    }
+    
+    //MARK: - Private
+    
+    private func configurePosterImageView() {
+        posterImageView = UIImageView()
+        
+        posterImageView.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(posterImageView)
+        NSLayoutConstraint.activate([
+            posterImageView.topAnchor.constraint(equalTo: topAnchor, constant: 10),
+            posterImageView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -10),
+            posterImageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10),
+            posterImageView.widthAnchor.constraint(equalTo: posterImageView.heightAnchor,
+                                                   multiplier: 2/3)
+        ])
+    }
+    
+    private func configureLabels() {
+        titleLabel = UILabel()
+        titleLabel.font = Constants.titleFont
+        titleLabel.numberOfLines = 0
+        
+        genresLabel = UILabel()
+        genresLabel.font = Constants.genresFont
+        genresLabel.numberOfLines = 0
+        
+        let stackView = UIStackView(arrangedSubviews: [titleLabel, genresLabel])
+        stackView.axis = .vertical
+        stackView.alignment = .top
+        stackView.spacing = Constants.stackViewSpacing
+        
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(stackView)
+        NSLayoutConstraint.activate([
+            stackView.topAnchor.constraint(equalTo: topAnchor, constant: 15),
+            stackView.leadingAnchor.constraint(equalTo: posterImageView.trailingAnchor,
+                                               constant: 10),
+            stackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10)
+        ])
     }
     
     private func updateContent(with model: FavoritesCellModel) {
-        
+        posterImageView.setImage(from: model.posterURL)
+        titleLabel.text = model.title
+        genresLabel.text = model.genres
     }
 }

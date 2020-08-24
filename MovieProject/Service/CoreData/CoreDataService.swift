@@ -39,6 +39,17 @@ final class CoreDataService {
         saveContext()
     }
     
+    func getFavorites() -> [FavoriteMovieEntity] {
+        let fetchRequest: NSFetchRequest<FavoriteMovieEntity> = FavoriteMovieEntity.fetchRequest()
+        
+        do {
+            let movies = try managedContext.fetch(fetchRequest)
+            return movies
+        } catch {
+            return []
+        }
+    }
+    
     func addFavorite(movie: MovieDetails) {
         let favoriteMovie = FavoriteMovieEntity(context: managedContext)
         favoriteMovie.id = Int32(movie.id)

@@ -9,7 +9,7 @@
 import UIKit
 
 protocol FavoritesRouterInput {
-    
+    func navigateToDetails(of id: Int)
 }
 
 final class FavoritesRouter {
@@ -22,4 +22,8 @@ final class FavoritesRouter {
 //MARK: - FavoritesRouterInput
 extension FavoritesRouter: FavoritesRouterInput {
     
+    func navigateToDetails(of id: Int) {
+        view?.navigationController?.pushViewController(DetailsAssembly.assembly(movieId: id),
+                                                       animated: true)
+    }
 }

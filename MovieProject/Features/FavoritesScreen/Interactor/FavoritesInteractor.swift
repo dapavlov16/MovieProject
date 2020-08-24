@@ -19,17 +19,21 @@ final class FavoritesInteractor {
     var presenter: FavoritesPresenterInput?
     
     private let coreDataService: CoreDataService
+    private let mapper: FavoritesMapper
     
     //MARK: - Init
     
-    init(coreDataService: CoreDataService) {
+    init(coreDataService: CoreDataService, mapper: FavoritesMapper) {
         self.coreDataService = coreDataService
+        self.mapper = mapper
     }
 }
 
 //MARK: - FavoritesInteractorInput
 extension FavoritesInteractor: FavoritesInteractorInput {
+    
     func loadFavorites() {
-        
+        let favorites = mapper.map(from: coreDataService.getFavorites())
+        presenter?.favoritesLoaded(favorites: favorites)
     }
 }

@@ -9,7 +9,7 @@
 import Foundation
 
 protocol FavoritesPresenterInput {
-    
+    func favoritesLoaded(favorites: [FavoriteMovie])
 }
 
 final class FavoritesPresenter {
@@ -17,9 +17,21 @@ final class FavoritesPresenter {
     //MARK: - Properties
     
     weak var view: FavoritesViewControllerInput?
+    
+    private let formatter: FavoritesFormatter
+    
+    //MARK: - Init
+    
+    init(formatter: FavoritesFormatter) {
+        self.formatter = formatter
+    }
 }
 
 //MARK: - FavoritesPresenterInput
 extension FavoritesPresenter: FavoritesPresenterInput {
     
+    func favoritesLoaded(favorites: [FavoriteMovie]) {
+        let models = formatter.format(movies: favorites)
+        view?.showFavorites(models: models)
+    }
 }

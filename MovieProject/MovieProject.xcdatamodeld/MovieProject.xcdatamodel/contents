@@ -3,7 +3,7 @@
     <entity name="FavoriteMovieEntity" representedClassName="FavoriteMovieEntity" syncable="YES" codeGenerationType="class">
         <attribute name="id" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="posterUrl" optional="YES" attributeType="String"/>
-        <attribute name="title" optional="YES" attributeType="String"/>
+        <attribute name="title" attributeType="String"/>
         <relationship name="genres" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="GenreEntity" inverseName="movie" inverseEntity="GenreEntity"/>
     </entity>
     <entity name="GenreEntity" representedClassName="GenreEntity" syncable="YES" codeGenerationType="class">

@@ -9,7 +9,7 @@
 import UIKit
 
 protocol FavoritesViewControllerInput: AnyObject {
-    
+    func showFavorites(models: [FavoritesCellModel])
 }
 
 final class FavoritesViewController: UIViewController {
@@ -28,6 +28,7 @@ final class FavoritesViewController: UIViewController {
         super.viewDidLoad()
         title = "Избранное"
         configureTableView()
+        interactor?.loadFavorites()
     }
     
     //MARK: - Private
@@ -52,6 +53,14 @@ final class FavoritesViewController: UIViewController {
 //MARK: - UITableViewDelegate
 extension FavoritesViewController: UITableViewDelegate {
     
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 120
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        router?.navigateToDetails(of: cellModels[indexPath.item].id)
+    }
 }
 
 //MARK: - UITableViewDataSource
@@ -74,4 +83,8 @@ extension FavoritesViewController: UITableViewDataSource {
 //MARK: - FavoritesViewControllerInput
 extension FavoritesViewController: FavoritesViewControllerInput {
     
+    func showFavorites(models: [FavoritesCellModel]) {
+        cellModels = models
+        tableView.reloadData()
+    }
 }

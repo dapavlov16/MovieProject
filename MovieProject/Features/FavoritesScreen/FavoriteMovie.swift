@@ -1,16 +1,16 @@
 //
-//  File.swift
+//  FavoriteMovie.swift
 //  MovieProject
 //
-//  Created by Дмитрий Павлов on 21.08.2020.
+//  Created by Дмитрий Павлов on 24.08.2020.
 //  Copyright © 2020 Дмитрий Павлов. All rights reserved.
 //
 
 import Foundation
 
-struct FavoritesCellModel {
+struct FavoriteMovie {
     let id: Int
     let title: String
-    let genres: String
-    let posterURL: URL?
+    let genres: [Genre]
+    let posterPath: URL?
 }
