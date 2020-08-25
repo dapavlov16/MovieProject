@@ -9,7 +9,7 @@
 import UIKit
 
 protocol TrendingViewControllerInput: AnyObject {
-    func showMovies(models: [TrendingCellModel])
+    func showMovies(models: [TrendingCellModel], contentOffset: CGPoint)
     func appendNextPage(models: [TrendingCellModel])
     func updateFavoriteStatus(index: Int, isFavorite: Bool)
 }
@@ -90,6 +90,7 @@ final class TrendingViewController: UIViewController {
     
     @objc private func segmentedControlAction(_ sender: Any) {
         let state = TrendingState(rawValue: segmentedControl.selectedSegmentIndex)
+        interactor?.saveContentOffset(collectionView.contentOffset)
         interactor?.changeState(to: state ?? .trending)
     }
 }
@@ -140,9 +141,9 @@ extension TrendingViewController: UICollectionViewDataSource {
 //MARK: - TrendingViewControllerInput
 extension TrendingViewController: TrendingViewControllerInput {
     
-    func showMovies(models: [TrendingCellModel]) {
+    func showMovies(models: [TrendingCellModel], contentOffset: CGPoint) {
         movies = models
-        collectionView.setContentOffset(.zero, animated: false)
+        collectionView.setContentOffset(contentOffset, animated: false)
         collectionView.reloadData()
         isLoading = false
     }

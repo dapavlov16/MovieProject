@@ -6,10 +6,13 @@
 //  Copyright © 2020 Дмитрий Павлов. All rights reserved.
 //
 
+import CoreGraphics
+
 protocol TrendingInteractorInput {
     func loadNextPage()
     func changeState(to state: TrendingState)
     func updateFavorites()
+    func saveContentOffset(_ offset: CGPoint)
 }
 
 enum TrendingState: Int {
@@ -21,6 +24,7 @@ struct PagedMovies {
     var page: Int = 1
     var totalPages: Int = 1
     var movies: [Movie] = []
+    var contentOffset: CGPoint = .zero
 }
 
 final class TrendingInteractor {
@@ -133,7 +137,7 @@ extension TrendingInteractor: TrendingInteractorInput {
             }
         } else {
             setFavorites(movies: movies)
-            presenter?.stateChanged(movies: movies)
+            presenter?.stateChanged(movies: movies, contentOffset: currentData.contentOffset)
         }
     }
     
@@ -145,5 +149,9 @@ extension TrendingInteractor: TrendingInteractorInput {
                 presenter?.updateFavoriteStatus(index: index, isFavorite: isFavorite)
             }
         }
+    }
+    
+    func saveContentOffset(_ offset: CGPoint) {
+        currentData.contentOffset = offset
     }
 }

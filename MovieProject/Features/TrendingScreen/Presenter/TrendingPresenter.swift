@@ -7,11 +7,18 @@
 //
 
 import Foundation
+import CoreGraphics
 
 protocol TrendingPresenterInput {
-    func stateChanged(movies: [Movie])
+    func stateChanged(movies: [Movie], contentOffset: CGPoint)
     func nextPageLoaded(movies: [Movie])
     func updateFavoriteStatus(index: Int, isFavorite: Bool)
+}
+
+extension TrendingPresenterInput {
+    func stateChanged(movies: [Movie], contentOffset: CGPoint = .zero) {
+        stateChanged(movies: movies, contentOffset: contentOffset)
+    }
 }
 
 final class TrendingPresenter {
@@ -31,10 +38,10 @@ final class TrendingPresenter {
 //MARK: - TrendingPresenterInput
 extension TrendingPresenter: TrendingPresenterInput {
     
-    func stateChanged(movies: [Movie]) {
+    func stateChanged(movies: [Movie], contentOffset: CGPoint) {
         let models = formatter.format(from: movies)
         DispatchQueue.main.async {
-            self.view?.showMovies(models: models)
+            self.view?.showMovies(models: models, contentOffset: contentOffset)
         }
     }
     
