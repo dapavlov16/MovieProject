@@ -45,7 +45,6 @@ final class MovieMapper {
                                 releaseDate: date,
                                 posterPath: posterURL,
                                 backdropPath: backdropURL,
-                                popularity: result.popularity,
                                 voteCount: result.voteCount,
                                 voteAverage: result.voteAverage))
         }

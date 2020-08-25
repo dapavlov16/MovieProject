@@ -18,10 +18,9 @@ final class Movie {
     let releaseDate: Date?
     let posterPath: URL?
     let backdropPath: URL?
-    let popularity: Double
     let voteCount: Int
     let voteAverage: Double
-    var isFavorite: Bool = false
+    var isFavorite: Bool
     
     init(id: Int,
          title: String,
@@ -32,9 +31,9 @@ final class Movie {
          releaseDate: Date?,
          posterPath: URL?,
          backdropPath: URL?,
-         popularity: Double,
          voteCount: Int,
-         voteAverage: Double) {
+         voteAverage: Double,
+         isFavorite: Bool = false) {
         self.id = id
         self.title = title
         self.originalTitle = originalTitle
@@ -44,8 +43,8 @@ final class Movie {
         self.releaseDate = releaseDate
         self.posterPath = posterPath
         self.backdropPath = backdropPath
-        self.popularity = popularity
         self.voteCount = voteCount
         self.voteAverage = voteAverage
+        self.isFavorite = isFavorite
     }
 }
