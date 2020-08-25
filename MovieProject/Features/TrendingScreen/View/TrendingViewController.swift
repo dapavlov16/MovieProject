@@ -9,7 +9,8 @@
 import UIKit
 
 protocol TrendingViewControllerInput: AnyObject {
-    func showTrending(models: [TrendingCellModel])
+    func showMovies(models: [TrendingCellModel])
+    func appendNextPage(models: [TrendingCellModel])
 }
 
 final class TrendingViewController: UIViewController {
@@ -17,9 +18,11 @@ final class TrendingViewController: UIViewController {
     //MARK: - Constants
     
     private enum Constants {
-        static let trendingTitleText = "Популярное"
+        static let trendingTitleText = "В тренде"
+        static let popularTitleText = "Популярное"
         static let cellInsets = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
         static let numberOfCellInRow: CGFloat = 3
+        static let paginationOffset = 7
     }
     
     //MARK: - Properties
@@ -27,22 +30,35 @@ final class TrendingViewController: UIViewController {
     var interactor: TrendingInteractorInput?
     var router: TrendingRouterInput?
     private var collectionView: UICollectionView!
+    private var segmentedControl: UISegmentedControl!
     private var movies: [TrendingCellModel] = []
+    private var isLoading: Bool = false
     
     //MARK: - Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        setupView()
-        interactor?.loadTrending()
+        view.backgroundColor = .white
+        configureNavigationItem()
+        configureCollectionView()
+        interactor?.changeState(to: .trending)
     }
     
     //MARK: - Private
     
-    private func setupView() {
-        title = Constants.trendingTitleText
-        
+    private func configureNavigationItem() {
+        segmentedControl = UISegmentedControl(items: [
+            Constants.trendingTitleText,
+            Constants.popularTitleText
+        ])
+        segmentedControl.selectedSegmentIndex = TrendingState.trending.rawValue
+        segmentedControl.addTarget(self,
+                                   action: #selector(segmentedControlAction),
+                                   for: .valueChanged)
+        navigationItem.titleView = segmentedControl
+    }
+    
+    private func configureCollectionView() {
         let flowLayout = UICollectionViewFlowLayout()
         flowLayout.scrollDirection = .vertical
         collectionView = UICollectionView(frame: view.bounds,
@@ -57,11 +73,18 @@ final class TrendingViewController: UIViewController {
         collectionView.backgroundColor = .white
         
         NSLayoutConstraint.activate([
-            collectionView.topAnchor.constraint(equalTo: view.topAnchor),
+            collectionView.topAnchor.constraint(equalTo: topLayoutGuide.bottomAnchor),
             collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
         ])
+    }
+    
+    //MARK: - Actions
+    
+    @objc private func segmentedControlAction(_ sender: Any) {
+        let state = TrendingState(rawValue: segmentedControl.selectedSegmentIndex)
+        interactor?.changeState(to: state ?? .trending)
     }
 }
 
@@ -80,6 +103,14 @@ extension TrendingViewController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         router?.navigateToDetails(of: movies[indexPath.item].id)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        
+        if !isLoading && movies.count - Constants.paginationOffset < indexPath.item {
+            isLoading = true
+            interactor?.loadNextPage()
+        }
     }
 }
 
@@ -103,8 +134,20 @@ extension TrendingViewController: UICollectionViewDataSource {
 //MARK: - TrendingViewControllerInput
 extension TrendingViewController: TrendingViewControllerInput {
     
-    func showTrending(models: [TrendingCellModel]) {
-        movies.append(contentsOf: models)
+    func showMovies(models: [TrendingCellModel]) {
+        movies = models
+        collectionView.setContentOffset(.zero, animated: false)
         collectionView.reloadData()
+        isLoading = false
+    }
+    
+    func appendNextPage(models: [TrendingCellModel]) {
+        let startIndex = movies.count
+        let indexPaths = Array(startIndex..<startIndex + models.count).map {
+            IndexPath(item: $0, section: 0)
+        }
+        movies.append(contentsOf: models)
+        collectionView.insertItems(at: indexPaths)
+        isLoading = false
     }
 }

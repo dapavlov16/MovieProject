@@ -9,7 +9,8 @@
 import Foundation
 
 protocol TrendingPresenterInput {
-    func trendingLoaded(movies: [Movie])
+    func stateChanged(movies: [Movie])
+    func nextPageLoaded(movies: [Movie])
 }
 
 final class TrendingPresenter {
@@ -29,10 +30,17 @@ final class TrendingPresenter {
 //MARK: - TrendingPresenterInput
 extension TrendingPresenter: TrendingPresenterInput {
     
-    func trendingLoaded(movies: [Movie]) {
+    func stateChanged(movies: [Movie]) {
         let models = formatter.format(from: movies)
         DispatchQueue.main.async {
-            self.view?.showTrending(models: models)
+            self.view?.showMovies(models: models)
+        }
+    }
+    
+    func nextPageLoaded(movies: [Movie]) {
+        let models = formatter.format(from: movies)
+        DispatchQueue.main.async {
+            self.view?.appendNextPage(models: models)
         }
     }
 }

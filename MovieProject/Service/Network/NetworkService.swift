@@ -14,8 +14,12 @@ final class NetworkService {
         client.request(request: .searchMovie(text: text), completion)
     }
     
-    func getTrending(_ completion: @escaping (MovieListDto) -> Void) {
-        client.request(request: .getTrending, completion)
+    func getTrending(page: Int, _ completion: @escaping (MovieListDto) -> Void) {
+        client.request(request: .getTrending(page: page), completion)
+    }
+    
+    func getPopular(page: Int, _ completion: @escaping (MovieListDto) -> Void) {
+        client.request(request: .getPopular(page: page), completion)
     }
     
     func getDetails(by movieId: Int, _ completion: @escaping (MovieDto) -> Void) {

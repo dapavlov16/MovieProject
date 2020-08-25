@@ -131,6 +131,7 @@ class SearchCell: UITableViewCell {
     }
     
     private func updateContent(with model: SearchCellModel) {
+        posterImageView.image = UIImage(named: "poster_placeholder")
         dataTask = posterImageView.setImage(from: model.posterURL)
         titleLabel.text = model.title
         subtitleLabel.text = model.subtitle
