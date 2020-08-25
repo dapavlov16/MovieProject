@@ -56,7 +56,10 @@ final class CoreDataService {
         let favoriteMovie = FavoriteMovieEntity(context: managedContext)
         favoriteMovie.id = Int32(movie.id)
         favoriteMovie.title = movie.title
+        favoriteMovie.originalTitle = movie.originalTitle
+        favoriteMovie.releaseDate = movie.releaseDate
         favoriteMovie.posterUrl = movie.posterUrl?.absoluteString
+        favoriteMovie.date = Date()
         
         for genre in movie.genres {
             let genreEntity = GenreEntity(context: managedContext)

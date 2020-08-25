@@ -13,14 +13,16 @@ class FavoritesCell: UITableViewCell {
     //MARK: - Constants
     
     private enum Constants {
-        static let titleFont = UIFont.systemFont(ofSize: 20, weight: .semibold)
-        static let genresFont = UIFont.systemFont(ofSize: 16, weight: .thin)
+        static let titleFont = UIFont.systemFont(ofSize: 18, weight: .semibold)
+        static let originalTitleFont = UIFont.systemFont(ofSize: 14, weight: .thin)
+        static let genresFont = UIFont.systemFont(ofSize: 14, weight: .ultraLight)
         static let stackViewSpacing: CGFloat = 10
     }
     
     //MARK: - Properties
     
     private var titleLabel: UILabel!
+    private var originalTitleLabel: UILabel!
     private var genresLabel: UILabel!
     private var posterImageView: UIImageView!
     
@@ -48,7 +50,7 @@ class FavoritesCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
     }
-
+    
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
     }
@@ -74,11 +76,17 @@ class FavoritesCell: UITableViewCell {
         titleLabel.font = Constants.titleFont
         titleLabel.numberOfLines = 0
         
+        originalTitleLabel = UILabel()
+        originalTitleLabel.font = Constants.originalTitleFont
+        originalTitleLabel.numberOfLines = 0
+        
         genresLabel = UILabel()
         genresLabel.font = Constants.genresFont
         genresLabel.numberOfLines = 0
         
-        let stackView = UIStackView(arrangedSubviews: [titleLabel, genresLabel])
+        let stackView = UIStackView(arrangedSubviews: [titleLabel,
+                                                       originalTitleLabel,
+                                                       genresLabel])
         stackView.axis = .vertical
         stackView.alignment = .top
         stackView.spacing = Constants.stackViewSpacing
@@ -96,6 +104,7 @@ class FavoritesCell: UITableViewCell {
     private func updateContent(with model: FavoritesCellModel) {
         posterImageView.setImage(from: model.posterURL)
         titleLabel.text = model.title
+        originalTitleLabel.text = model.originalTitle
         genresLabel.text = model.genres
     }
 }

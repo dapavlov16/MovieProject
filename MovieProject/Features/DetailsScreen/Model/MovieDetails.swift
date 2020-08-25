@@ -17,7 +17,7 @@ struct MovieDetails {
     let countries: [String]
     let runtime: Int
     let overview: String?
-    let releaseDate: Date
+    let releaseDate: Date?
     let rating: Double
     let voteCount: Int
     let posterUrl: URL?
@@ -31,7 +31,7 @@ struct DetailsModel {
     let genresString: String?
     let countriesRuntimeString: String
     let overview: String?
-    let releaseDateString: String
+    let releaseDateString: String?
     let posterUrl: URL?
     let backdropUrl: URL?
 }

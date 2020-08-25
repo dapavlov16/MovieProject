@@ -28,6 +28,10 @@ final class FavoritesViewController: UIViewController {
         super.viewDidLoad()
         title = "Избранное"
         configureTableView()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         interactor?.loadFavorites()
     }
     

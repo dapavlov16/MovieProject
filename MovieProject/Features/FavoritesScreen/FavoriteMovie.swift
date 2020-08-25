@@ -11,6 +11,8 @@ import Foundation
 struct FavoriteMovie {
     let id: Int
     let title: String
+    let originalTitle: String
+    let releaseDate: Date?
     let genres: [Genre]
     let posterPath: URL?
 }

@@ -19,7 +19,10 @@ final class DetailsMapper {
     
     func map(from response: MovieDto) -> MovieDetails {
         
-        let date = dateFormatter.date(from: response.releaseDate)!
+        var date: Date?
+        if let releaseDate = response.releaseDate {
+            date = dateFormatter.date(from: releaseDate)
+        }
         
         var countries = [String]()
         for country in response.productionCountries {

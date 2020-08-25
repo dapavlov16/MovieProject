@@ -68,7 +68,7 @@ struct MovieDto: Decodable {
     var popularity: Double
     var posterPath: String?
     var productionCountries: [ProductionCountry]
-    var releaseDate: String
+    var releaseDate: String?
     var revenue: Int
     var runtime: Int
     var status: String

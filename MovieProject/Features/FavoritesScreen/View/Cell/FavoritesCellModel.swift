@@ -11,6 +11,7 @@ import Foundation
 struct FavoritesCellModel {
     let id: Int
     let title: String
+    let originalTitle: String
     let genres: String
     let posterURL: URL?
 }

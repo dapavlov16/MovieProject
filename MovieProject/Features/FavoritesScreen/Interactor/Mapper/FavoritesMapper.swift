@@ -13,7 +13,10 @@ final class FavoritesMapper {
     func map(from entities: [FavoriteMovieEntity]) -> [FavoriteMovie] {
         var movies = [FavoriteMovie]()
         for entity in entities {
-            if let title = entity.title, let genreEntities = entity.genres {
+            if let title = entity.title,
+                let originalTitle = entity.originalTitle,
+                let genreEntities = entity.genres {
+                
                 let id = Int(entity.id)
                 var posterURL: URL?
                 if let posterPath = entity.posterUrl {
@@ -22,6 +25,8 @@ final class FavoritesMapper {
                 let genres = map(genreEntities: genreEntities)
                 movies.append(FavoriteMovie(id: id,
                                             title: title,
+                                            originalTitle: originalTitle,
+                                            releaseDate: entity.releaseDate,
                                             genres: genres,
                                             posterPath: posterURL))
             }
