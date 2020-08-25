@@ -14,6 +14,13 @@ protocol FavoritesViewControllerInput: AnyObject {
 
 final class FavoritesViewController: UIViewController {
     
+    //MARK: - Constants
+    
+    private enum Constants {
+        static let cellHeight: CGFloat = 120
+        static let favoritesTitle = "Избранное"
+    }
+    
     //MARK: - Properties
     
     var interactor: FavoritesInteractorInput?
@@ -26,7 +33,7 @@ final class FavoritesViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = "Избранное"
+        title = Constants.favoritesTitle
         configureTableView()
     }
     
@@ -58,7 +65,7 @@ final class FavoritesViewController: UIViewController {
 extension FavoritesViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 120
+        return Constants.cellHeight
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
