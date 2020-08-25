@@ -11,9 +11,9 @@ protocol TrendingInteractorInput {
     func changeState(to state: TrendingState)
 }
 
-enum TrendingState {
-    case trending
-    case popular
+enum TrendingState: Int {
+    case trending = 0
+    case popular = 1
 }
 
 struct PagedMovies {
@@ -33,59 +33,47 @@ final class TrendingInteractor {
     private var currentState: TrendingState = .trending
     private var trendingData = PagedMovies()
     private var popularData = PagedMovies()
-    
-    private var page: Int {
+    private var currentData: PagedMovies {
         get {
             switch currentState {
             case .trending:
-                return trendingData.page
+                return trendingData
             case .popular:
-                return popularData.page
+                return popularData
             }
         }
         set {
             switch currentState {
             case .trending:
-                trendingData.page = newValue
+                trendingData = newValue
             case .popular:
-                popularData.page = newValue
+                popularData = newValue
             }
+        }
+    }
+    
+    private var page: Int {
+        get {
+            return currentData.page
+        }
+        set {
+            currentData.page = newValue
         }
     }
     private var totalPages: Int {
         get {
-            switch currentState {
-            case .trending:
-                return trendingData.totalPages
-            case .popular:
-                return popularData.totalPages
-            }
+            return currentData.totalPages
         }
         set {
-            switch currentState {
-            case .trending:
-                trendingData.totalPages = newValue
-            case .popular:
-                popularData.totalPages = newValue
-            }
+            currentData.totalPages = newValue
         }
     }
     private var movies: [Movie] {
         get {
-            switch currentState {
-            case .trending:
-                return trendingData.movies
-            case .popular:
-                return popularData.movies
-            }
+            return currentData.movies
         }
         set {
-            switch currentState {
-            case .trending:
-                trendingData.movies = newValue
-            case .popular:
-                popularData.movies = newValue
-            }
+            currentData.movies = newValue
         }
     }
     
