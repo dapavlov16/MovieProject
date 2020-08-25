@@ -57,7 +57,7 @@ final class TrendingViewController: UIViewController {
             Constants.trendingTitleText,
             Constants.popularTitleText
         ])
-        segmentedControl.selectedSegmentIndex = 0
+        segmentedControl.selectedSegmentIndex = TrendingState.trending.rawValue
         segmentedControl.addTarget(self,
                                    action: #selector(segmentedControlAction),
                                    for: .valueChanged)
@@ -89,16 +89,8 @@ final class TrendingViewController: UIViewController {
     //MARK: - Actions
     
     @objc private func segmentedControlAction(_ sender: Any) {
-        switch segmentedControl.selectedSegmentIndex {
-        case 0:
-            interactor?.changeState(to: .trending)
-            break
-        case 1:
-            interactor?.changeState(to: .popular)
-            break
-        default:
-            break
-        }
+        let state = TrendingState(rawValue: segmentedControl.selectedSegmentIndex)
+        interactor?.changeState(to: state ?? .trending)
     }
 }
 
