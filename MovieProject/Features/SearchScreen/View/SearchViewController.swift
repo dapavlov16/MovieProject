@@ -75,6 +75,9 @@ extension SearchViewController: SearchViewControllerInput {
     func showSearchResult(models: [SearchCellModel]) {
         movies = models
         tableView.reloadData()
+        if !movies.isEmpty {
+            tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .bottom, animated: true)
+        }
     }
 }
 
