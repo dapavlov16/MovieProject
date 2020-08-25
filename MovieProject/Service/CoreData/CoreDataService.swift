@@ -43,7 +43,8 @@ final class CoreDataService {
     
     func getFavorites() -> [FavoriteMovieEntity] {
         let fetchRequest: NSFetchRequest<FavoriteMovieEntity> = FavoriteMovieEntity.fetchRequest()
-        
+        let sortByDate = NSSortDescriptor(key: "date", ascending: false)
+        fetchRequest.sortDescriptors = [sortByDate]
         do {
             let movies = try managedContext.fetch(fetchRequest)
             return movies
