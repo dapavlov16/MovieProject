@@ -35,7 +35,7 @@ class MovieProjectTests: XCTestCase {
                             tagline: nil,
                             genres: [],
                             countries: ["Russia"],
-                            runtime: 60,
+                            runtime: 61,
                             overview: "overview",
                             releaseDate: nil,
                             rating: 10,
