@@ -19,6 +19,11 @@ class MovieProjectTests: XCTestCase {
         self.detailsMapper = DetailsMapper()
     }
     
+    override func tearDown() {
+        networkService = nil
+        detailsMapper = nil
+    }
+    
     func testDetailsMapper() {
         let expectedModel = generateMovieDetails(id: 1)
         networkService.getDetails(by: 1) {
