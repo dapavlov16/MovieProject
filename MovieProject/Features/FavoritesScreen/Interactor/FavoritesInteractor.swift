@@ -19,12 +19,12 @@ final class FavoritesInteractor {
     
     var presenter: FavoritesPresenterInput?
     
-    private let coreDataService: CoreDataService
+    private let coreDataService: CoreDataServiceInput
     private let mapper: FavoritesMapper
     
     //MARK: - Init
     
-    init(coreDataService: CoreDataService, mapper: FavoritesMapper) {
+    init(coreDataService: CoreDataServiceInput, mapper: FavoritesMapper) {
         self.coreDataService = coreDataService
         self.mapper = mapper
     }

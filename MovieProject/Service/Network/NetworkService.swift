@@ -6,9 +6,21 @@
 //  Copyright © 2020 Дмитрий Павлов. All rights reserved.
 //
 
+protocol NetworkServiceInput {
+    func searchMovie(_ text: String, _ completion: @escaping (MovieListDto) -> Void)
+    func getTrending(page: Int, _ completion: @escaping (MovieListDto) -> Void)
+    func getPopular(page: Int, _ completion: @escaping (MovieListDto) -> Void)
+    func getDetails(by movieId: Int, _ completion: @escaping (MovieDto) -> Void)
+    func getGenres(_ completion: @escaping (GenresListDto) -> Void)
+}
+
 final class NetworkService {
     
     private let client = TMDBClient()
+}
+
+//MARK: - NetworkServiceInput
+extension NetworkService: NetworkServiceInput {
     
     func searchMovie(_ text: String, _ completion: @escaping (MovieListDto) -> Void) {
         client.request(request: .searchMovie(text: text), completion)
