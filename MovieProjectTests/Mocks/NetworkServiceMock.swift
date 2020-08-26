@@ -23,7 +23,26 @@ final class NetworkServiceMock: NetworkServiceInput {
     }
     
     func getDetails(by movieId: Int, _ completion: @escaping (MovieDto) -> Void) {
-        //stub
+        completion(MovieDto(adult: false,
+                            backdropPath: nil,
+                            budget: 100,
+                            genres: [],
+                            homepage: nil,
+                            id: 1,
+                            imdb_id: nil,
+                            originalLanguage: "ru",
+                            originalTitle: "originalTitle",
+                            overview: "overview",
+                            posterPath: "/poster",
+                            productionCountries: [ProductionCountry(iso: "ru", name: "Russia")],
+                            releaseDate: nil,
+                            revenue: 100,
+                            runtime: 61,
+                            status: "",
+                            tagline: nil,
+                            title: "title",
+                            voteAverage: 10,
+                            voteCount: 10))
     }
     
     func getGenres(_ completion: @escaping (GenresListDto) -> Void) {
