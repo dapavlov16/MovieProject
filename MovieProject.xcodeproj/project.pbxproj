@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		53AA60D924F63945003299FF /* NetworkServiceMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53AA60D824F63945003299FF /* NetworkServiceMock.swift */; };
+		53AA60DB24F63C16003299FF /* CoreDataServiceMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53AA60DA24F63C16003299FF /* CoreDataServiceMock.swift */; };
 		53B8A72824EAD23D00BE745D /* SearchRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53B8A72724EAD23D00BE745D /* SearchRouter.swift */; };
 		53B8A72B24EAE40300BE745D /* CoreDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53B8A72A24EAE40300BE745D /* CoreDataService.swift */; };
 		53B8A72D24EAE5F900BE745D /* PersistentContainerProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53B8A72C24EAE5F900BE745D /* PersistentContainerProvider.swift */; };
@@ -76,6 +78,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		53AA60D824F63945003299FF /* NetworkServiceMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkServiceMock.swift; sourceTree = "<group>"; };
+		53AA60DA24F63C16003299FF /* CoreDataServiceMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataServiceMock.swift; sourceTree = "<group>"; };
 		53B8A72724EAD23D00BE745D /* SearchRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchRouter.swift; sourceTree = "<group>"; };
 		53B8A72A24EAE40300BE745D /* CoreDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataService.swift; sourceTree = "<group>"; };
 		53B8A72C24EAE5F900BE745D /* PersistentContainerProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistentContainerProvider.swift; sourceTree = "<group>"; };
@@ -158,6 +162,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		53AA60D724F6392B003299FF /* Mocks */ = {
+			isa = PBXGroup;
+			children = (
+				53AA60D824F63945003299FF /* NetworkServiceMock.swift */,
+				53AA60DA24F63C16003299FF /* CoreDataServiceMock.swift */,
+			);
+			path = Mocks;
+			sourceTree = "<group>";
+		};
 		53B8A72624EAD21A00BE745D /* Router */ = {
 			isa = PBXGroup;
 			children = (
@@ -293,6 +306,7 @@
 		53BF760C24AD362800526B3D /* MovieProjectTests */ = {
 			isa = PBXGroup;
 			children = (
+				53AA60D724F6392B003299FF /* Mocks */,
 				53BF760D24AD362800526B3D /* MovieProjectTests.swift */,
 				53BF760F24AD362800526B3D /* Info.plist */,
 			);
@@ -777,6 +791,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				53AA60D924F63945003299FF /* NetworkServiceMock.swift in Sources */,
+				53AA60DB24F63C16003299FF /* CoreDataServiceMock.swift in Sources */,
 				53BF760E24AD362800526B3D /* MovieProjectTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
