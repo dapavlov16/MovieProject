@@ -44,9 +44,7 @@ final class MovieMapper {
                                 genres: result.genreIds,
                                 releaseDate: date,
                                 posterPath: posterURL,
-                                isAdult: result.adult,
                                 backdropPath: backdropURL,
-                                popularity: result.popularity,
                                 voteCount: result.voteCount,
                                 voteAverage: result.voteAverage))
         }

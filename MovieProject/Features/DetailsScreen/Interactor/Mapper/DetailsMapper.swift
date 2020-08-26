@@ -19,11 +19,9 @@ final class DetailsMapper {
     
     func map(from response: MovieDto) -> MovieDetails {
         
-        let date = dateFormatter.date(from: response.releaseDate)!
-        
-        var genres = [String]()
-        for genre in response.genres {
-            genres.append(genre.name)
+        var date: Date?
+        if let releaseDate = response.releaseDate {
+            date = dateFormatter.date(from: releaseDate)
         }
         
         var countries = [String]()
@@ -41,10 +39,11 @@ final class DetailsMapper {
             backdropUrl = URL(string: imageEndpoint + backdropPath)
         }
         
-        return MovieDetails(title: response.title,
+        return MovieDetails(id: response.id,
+                            title: response.title,
                             originalTitle: response.originalTitle,
                             tagline: response.tagline,
-                            genres: genres,
+                            genres: response.genres,
                             countries: countries,
                             runtime: response.runtime,
                             overview: response.overview,

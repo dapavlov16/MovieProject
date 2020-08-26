@@ -9,8 +9,9 @@
 import UIKit
 
 protocol TrendingViewControllerInput: AnyObject {
-    func showMovies(models: [TrendingCellModel])
+    func showMovies(models: [TrendingCellModel], contentOffset: CGPoint)
     func appendNextPage(models: [TrendingCellModel])
+    func updateFavoriteStatus(index: Int, isFavorite: Bool)
 }
 
 final class TrendingViewController: UIViewController {
@@ -42,6 +43,11 @@ final class TrendingViewController: UIViewController {
         configureNavigationItem()
         configureCollectionView()
         interactor?.changeState(to: .trending)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        interactor?.updateFavorites()
     }
     
     //MARK: - Private
@@ -84,6 +90,7 @@ final class TrendingViewController: UIViewController {
     
     @objc private func segmentedControlAction(_ sender: Any) {
         let state = TrendingState(rawValue: segmentedControl.selectedSegmentIndex)
+        interactor?.saveContentOffset(collectionView.contentOffset)
         interactor?.changeState(to: state ?? .trending)
     }
 }
@@ -134,9 +141,9 @@ extension TrendingViewController: UICollectionViewDataSource {
 //MARK: - TrendingViewControllerInput
 extension TrendingViewController: TrendingViewControllerInput {
     
-    func showMovies(models: [TrendingCellModel]) {
+    func showMovies(models: [TrendingCellModel], contentOffset: CGPoint) {
         movies = models
-        collectionView.setContentOffset(.zero, animated: false)
+        collectionView.setContentOffset(contentOffset, animated: false)
         collectionView.reloadData()
         isLoading = false
     }
@@ -149,5 +156,11 @@ extension TrendingViewController: TrendingViewControllerInput {
         movies.append(contentsOf: models)
         collectionView.insertItems(at: indexPaths)
         isLoading = false
+    }
+    
+    func updateFavoriteStatus(index: Int, isFavorite: Bool) {
+        movies[index].isFavorite = isFavorite
+        let indexPath = IndexPath(item: index, section: 0)
+        collectionView.reloadItems(at: [indexPath])
     }
 }

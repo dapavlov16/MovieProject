@@ -16,8 +16,8 @@ final class TabBarAssembly {
         let trendingViewController = UINavigationController(
             rootViewController: TrendingAssembly.assembly()
         )
-        let viewController = UINavigationController(
-            rootViewController: ViewController()
+        let favoritesViewController = UINavigationController(
+            rootViewController: FavoritesAssembly.assembly()
         )
         let searchViewController = UINavigationController(
             rootViewController: SearchAssembly.assembly()
@@ -28,12 +28,15 @@ final class TabBarAssembly {
         trendingTabBarItem.image = UIImage(named: "trending_icon")
         trendingViewController.tabBarItem = trendingTabBarItem
         
+        let favoritesTabBarItem = UITabBarItem(tabBarSystemItem: .favorites, tag: 2)
+        favoritesViewController.tabBarItem = favoritesTabBarItem
+        
         let searchTabBarItem = UITabBarItem(tabBarSystemItem: .search, tag: 3)
         searchViewController.tabBarItem = searchTabBarItem
         
         tabBarController.viewControllers = [
-            viewController,
             trendingViewController,
+            favoritesViewController,
             searchViewController
         ]
         return tabBarController

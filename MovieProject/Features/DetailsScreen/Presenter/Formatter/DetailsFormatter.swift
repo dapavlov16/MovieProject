@@ -9,7 +9,7 @@
 import Foundation
 
 final class DetailsFormatter {
-
+    
     private lazy var calendar = Calendar.current
     private lazy var dateFormatter: DateFormatter = {
         let formatter = DateFormatter()
@@ -19,23 +19,30 @@ final class DetailsFormatter {
     
     func format(from details: MovieDetails) -> DetailsModel {
         
-        let year = calendar.component(.year, from: details.releaseDate)
-        let titleDescription = details.originalTitle.appending(" (\(year))")
+        var titleDescription = details.originalTitle
+        var releaseDateString: String?
+        if let date = details.releaseDate {
+            let year = calendar.component(.year, from: date)
+            titleDescription.append(" (\(year))")
+            
+            releaseDateString = dateFormatter.string(from: date)
+        }
         
         var tagline: String?
         if let tag = details.tagline, !tag.isEmpty, let first = tag.first {
             tagline = first.isLetter ? "«\(tag)»" : tag
         }
         
-        let genresString = details.genres.joined(separator: ", ")
-        
-        let runtime = String(format: "%d:%02d", details.runtime / 60, details.runtime % 60)
+        let genresString = details.genres
+            .map { $0.name }
+            .joined(separator: ", ")
         
         var countries = details.countries
-        countries.append(runtime)
+        if details.runtime > 0 {
+            let runtime = String(format: "%d:%02d", details.runtime / 60, details.runtime % 60)
+            countries.append(runtime)
+        }
         let countriesRuntimeString = countries.joined(separator: ", ")
-        
-        let releaseDateString = dateFormatter.string(from: details.releaseDate)
         
         return DetailsModel(title: details.title,
                             titleDescription: titleDescription,

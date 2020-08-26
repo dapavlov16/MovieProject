@@ -31,9 +31,7 @@ struct Result: Decodable {
     var originalLanguage: String
     var title: String
     var backdropPath: String?
-    var popularity: Double
     var voteCount: Int
-    var video: Bool
     var voteAverage: Double
     
     enum CodingKeys: String, CodingKey {
@@ -47,9 +45,7 @@ struct Result: Decodable {
         case originalLanguage = "original_language"
         case title
         case backdropPath = "backdrop_path"
-        case popularity
         case voteCount = "vote_count"
-        case video
         case voteAverage = "vote_average"
     }
 }
@@ -65,16 +61,14 @@ struct MovieDto: Decodable {
     var originalLanguage: String
     var originalTitle: String
     var overview: String?
-    var popularity: Double
     var posterPath: String?
     var productionCountries: [ProductionCountry]
-    var releaseDate: String
+    var releaseDate: String?
     var revenue: Int
     var runtime: Int
     var status: String
     var tagline: String?
     var title: String
-    var video: Bool
     var voteAverage: Double
     var voteCount: Int
     
@@ -89,7 +83,6 @@ struct MovieDto: Decodable {
         case originalLanguage = "original_language"
         case originalTitle = "original_title"
         case overview
-        case popularity
         case posterPath = "poster_path"
         case productionCountries = "production_countries"
         case releaseDate = "release_date"
@@ -98,7 +91,6 @@ struct MovieDto: Decodable {
         case status
         case tagline
         case title
-        case video
         case voteAverage = "vote_average"
         case voteCount = "vote_count"
     }

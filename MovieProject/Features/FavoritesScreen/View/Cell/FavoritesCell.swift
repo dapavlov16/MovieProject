@@ -1,36 +1,32 @@
 //
-//  SearchCell.swift
+//  FavoritesCell.swift
 //  MovieProject
 //
-//  Created by Дмитрий Павлов on 14.08.2020.
+//  Created by Дмитрий Павлов on 21.08.2020.
 //  Copyright © 2020 Дмитрий Павлов. All rights reserved.
 //
 
 import UIKit
 
-class SearchCell: UITableViewCell {
+class FavoritesCell: UITableViewCell {
     
     //MARK: - Constants
     
     private enum Constants {
-        static let titleFont = UIFont.systemFont(ofSize: 18, weight: .bold)
-        static let subtitleFont = UIFont.systemFont(ofSize: 14, weight: .light)
-        static let genresFont = UIFont.systemFont(ofSize: 12, weight: .thin)
-        static let ratingFont = UIFont.systemFont(ofSize: 16, weight: .semibold)
-        static let stackViewSpacing: CGFloat = 5
-        static let posterCornerRadius: CGFloat = 7
+        static let titleFont = UIFont.systemFont(ofSize: 18, weight: .semibold)
+        static let originalTitleFont = UIFont.systemFont(ofSize: 14, weight: .thin)
+        static let genresFont = UIFont.systemFont(ofSize: 14, weight: .ultraLight)
+        static let stackViewSpacing: CGFloat = 10
     }
     
     //MARK: - Properties
     
-    private var posterImageView: UIImageView!
     private var titleLabel: UILabel!
-    private var subtitleLabel: UILabel!
+    private var originalTitleLabel: UILabel!
     private var genresLabel: UILabel!
-    private var ratingLabel: UILabel!
+    private var posterImageView: UIImageView!
     
-    private var dataTask: URLSessionDataTask?
-    var viewModel: SearchCellModel? {
+    var viewModel: FavoritesCellModel? {
         didSet {
             if let viewModel = viewModel {
                 updateContent(with: viewModel)
@@ -44,8 +40,7 @@ class SearchCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
         configurePosterImageView()
-        configureRatingLabel()
-        configureTitleLabels()
+        configureLabels()
     }
     
     required init?(coder: NSCoder) {
@@ -60,18 +55,10 @@ class SearchCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
     }
     
-    override func prepareForReuse() {
-        super.prepareForReuse()
-        dataTask?.cancel()
-        posterImageView.image = nil
-    }
-    
     //MARK: - Private
     
     private func configurePosterImageView() {
         posterImageView = UIImageView()
-        posterImageView.clipsToBounds = true
-        posterImageView.layer.cornerRadius = Constants.posterCornerRadius
         
         posterImageView.translatesAutoresizingMaskIntoConstraints = false
         addSubview(posterImageView)
@@ -84,36 +71,22 @@ class SearchCell: UITableViewCell {
         ])
     }
     
-    private func configureRatingLabel() {
-        ratingLabel = UILabel()
-        ratingLabel.font = Constants.ratingFont
-        
-        ratingLabel.translatesAutoresizingMaskIntoConstraints = false
-        addSubview(ratingLabel)
-        NSLayoutConstraint.activate([
-            ratingLabel.topAnchor.constraint(equalTo: topAnchor, constant: 15),
-            ratingLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -15)
-        ])
-    }
-    
-    private func configureTitleLabels() {
+    private func configureLabels() {
         titleLabel = UILabel()
         titleLabel.font = Constants.titleFont
         titleLabel.numberOfLines = 0
         
-        subtitleLabel = UILabel()
-        subtitleLabel.font = Constants.subtitleFont
-        subtitleLabel.numberOfLines = 0
+        originalTitleLabel = UILabel()
+        originalTitleLabel.font = Constants.originalTitleFont
+        originalTitleLabel.numberOfLines = 0
         
         genresLabel = UILabel()
         genresLabel.font = Constants.genresFont
         genresLabel.numberOfLines = 0
         
-        let stackView = UIStackView(arrangedSubviews: [
-            titleLabel,
-            subtitleLabel,
-            genresLabel
-        ])
+        let stackView = UIStackView(arrangedSubviews: [titleLabel,
+                                                       originalTitleLabel,
+                                                       genresLabel])
         stackView.axis = .vertical
         stackView.alignment = .top
         stackView.spacing = Constants.stackViewSpacing
@@ -124,25 +97,14 @@ class SearchCell: UITableViewCell {
             stackView.topAnchor.constraint(equalTo: topAnchor, constant: 15),
             stackView.leadingAnchor.constraint(equalTo: posterImageView.trailingAnchor,
                                                constant: 10),
-            stackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -50),
-            stackView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -15)
+            stackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10)
         ])
     }
     
-    private func updateContent(with model: SearchCellModel) {
-        posterImageView.image = UIImage(named: "poster_placeholder")
-        dataTask = posterImageView.setImage(from: model.posterURL)
+    private func updateContent(with model: FavoritesCellModel) {
+        posterImageView.setImage(from: model.posterURL)
         titleLabel.text = model.title
-        subtitleLabel.text = model.subtitle
+        originalTitleLabel.text = model.originalTitle
         genresLabel.text = model.genres
-        let rating = model.rating
-        ratingLabel.text = "\(rating)"
-        if rating > 7 {
-            ratingLabel.textColor = .green
-        } else if rating > 5 {
-            ratingLabel.textColor = .lightGray
-        } else {
-            ratingLabel.textColor = .red
-        }
     }
 }
