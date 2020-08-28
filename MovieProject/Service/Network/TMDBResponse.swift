@@ -8,7 +8,7 @@
 
 struct MovieListDto: Decodable {
     var page: Int
-    var results: [Result]
+    var results: [ResultMovie]
     var totalPages: Int
     var totalResults: Int
     
@@ -20,7 +20,7 @@ struct MovieListDto: Decodable {
     }
 }
 
-struct Result: Decodable {
+struct ResultMovie: Decodable {
     var posterPath: String?
     var adult: Bool
     var overview: String

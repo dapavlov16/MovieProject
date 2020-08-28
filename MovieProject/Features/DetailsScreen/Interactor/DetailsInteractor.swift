@@ -40,12 +40,17 @@ final class DetailsInteractor {
 //MARK: - DetailsInteractorInput
 extension DetailsInteractor: DetailsInteractorInput {
     func loadDetails() {
-        networkService.getDetails(by: movieId) { [weak self] response in
+        networkService.getDetails(by: movieId) { [weak self] result in
             guard let self = self else { return }
-            let details = self.mapper.map(from: response)
-            self.details = details
-            let isFavorite = self.coreDataService.isFavorite(movieId: self.movieId)
-            self.presenter?.detailsLoaded(details: details, isFavorite: isFavorite)
+            
+            switch result {
+            case .success(let response):
+                let details = self.mapper.map(from: response)
+                self.details = details
+                let isFavorite = self.coreDataService.isFavorite(movieId: self.movieId)
+                self.presenter?.detailsLoaded(details: details, isFavorite: isFavorite)
+            case .failure: break //no-op
+            }
         }
     }
     
