@@ -10,6 +10,8 @@
 
 final class NetworkServiceMock: NetworkServiceInput {
     
+    private lazy var modelMockProvider = ModelMockProvider()
+    
     func searchMovie(_ text: String, _ completion: @escaping (MovieListDto) -> Void) {
         //stub
     }
@@ -23,33 +25,10 @@ final class NetworkServiceMock: NetworkServiceInput {
     }
     
     func getDetails(by movieId: Int, _ completion: @escaping (MovieDto) -> Void) {
-        completion(MovieDto(adult: false,
-                            backdropPath: nil,
-                            budget: 100,
-                            genres: [],
-                            homepage: nil,
-                            id: 1,
-                            imdb_id: nil,
-                            originalLanguage: "ru",
-                            originalTitle: "originalTitle",
-                            overview: "overview",
-                            posterPath: "/poster",
-                            productionCountries: [ProductionCountry(iso: "ru", name: "Russia")],
-                            releaseDate: nil,
-                            revenue: 100,
-                            runtime: 61,
-                            status: "",
-                            tagline: nil,
-                            title: "title",
-                            voteAverage: 10,
-                            voteCount: 10))
+        completion(modelMockProvider.movieDto)
     }
     
     func getGenres(_ completion: @escaping (GenresListDto) -> Void) {
-        var genres = [Genre]()
-        for i in 1...10 {
-            genres.append(Genre(id: i, name: "genre\(i)"))
-        }
-        completion(GenresListDto(genres: genres))
+        completion(modelMockProvider.genresListDto)
     }
 }

@@ -13,15 +13,18 @@ class MovieProjectTests: XCTestCase {
     
     var networkService: NetworkServiceInput!
     var detailsMapper: DetailsMapper!
+    var modelMockProvider: ModelMockProvider!
     
     override func setUp() {
         self.networkService = NetworkServiceMock()
         self.detailsMapper = DetailsMapper()
+        self.modelMockProvider = ModelMockProvider()
     }
     
     override func tearDown() {
         networkService = nil
         detailsMapper = nil
+        modelMockProvider = nil
     }
     
     func testDetailsMapper() {
@@ -33,19 +36,6 @@ class MovieProjectTests: XCTestCase {
     }
     
     private func generateMovieDetails(id: Int) -> MovieDetails {
-        let posterUrl = URL(string: "https://image.tmdb.org/t/p/w500/poster")
-        return MovieDetails(id: id,
-                            title: "title",
-                            originalTitle: "originalTitle",
-                            tagline: nil,
-                            genres: [],
-                            countries: ["Russia"],
-                            runtime: 61,
-                            overview: "overview",
-                            releaseDate: nil,
-                            rating: 10,
-                            voteCount: 10,
-                            posterUrl: posterUrl,
-                            backdropUrl: nil)
+        return modelMockProvider.movieDetails
     }
 }
