@@ -9,7 +9,8 @@
 import UIKit
 
 protocol DetailsViewControllerInput: AnyObject {
-    func showDetails(model: DetailsModel, isFavorite: Bool)
+    func showDetails(model: DetailsModel)
+    func changeFavoriteState(isFavorite: Bool)
 }
 
 final class DetailsViewController: UIViewController {
@@ -58,6 +59,12 @@ final class DetailsViewController: UIViewController {
         configureAddToFavoriteButton()
         
         interactor?.loadDetails()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        interactor?.checkFavoriteState()
     }
     
     //MARK: - Private
@@ -203,11 +210,9 @@ final class DetailsViewController: UIViewController {
 
 //MARK: - DetailsViewControllerInput
 extension DetailsViewController: DetailsViewControllerInput {
-    func showDetails(model: DetailsModel, isFavorite: Bool) {
+    
+    func showDetails(model: DetailsModel) {
         title = model.title
-        if isFavorite {
-            navigationItem.rightBarButtonItem?.isEnabled = false
-        }
         posterImageView.image = UIImage(named: "poster_placeholder")
         backdropImageView.image = UIImage(named: "backdrop_placeholder")
         backdropImageView.setImage(from: model.backdropUrl)
@@ -218,5 +223,9 @@ extension DetailsViewController: DetailsViewControllerInput {
         genresLabel.text = model.genresString
         countriesRuntimeLabel.text = model.countriesRuntimeString
         overviewLabel.text = model.overview
+    }
+    
+    func changeFavoriteState(isFavorite: Bool) {
+        navigationItem.rightBarButtonItem?.isEnabled = !isFavorite
     }
 }

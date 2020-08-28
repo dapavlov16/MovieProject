@@ -11,6 +11,7 @@ import Foundation
 protocol DetailsInteractorInput {
     func loadDetails()
     func addToFavorite()
+    func checkFavoriteState()
 }
 
 final class DetailsInteractor {
@@ -47,8 +48,7 @@ extension DetailsInteractor: DetailsInteractorInput {
             case .success(let response):
                 let details = self.mapper.map(from: response)
                 self.details = details
-                let isFavorite = self.coreDataService.isFavorite(movieId: self.movieId)
-                self.presenter?.detailsLoaded(details: details, isFavorite: isFavorite)
+                self.presenter?.detailsLoaded(details: details)
             case .failure: break //no-op
             }
         }
@@ -56,5 +56,9 @@ extension DetailsInteractor: DetailsInteractorInput {
     
     func addToFavorite() {
         coreDataService.addFavorite(movie: details)
+    }
+    
+    func checkFavoriteState() {
+        presenter?.favoriteState(isFavorite: coreDataService.isFavorite(movieId: movieId))
     }
 }
