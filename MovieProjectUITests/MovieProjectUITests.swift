@@ -10,6 +10,11 @@ import XCTest
 
 class MovieProjectUITests: XCTestCase {
 
+    private enum Constants {
+        static let favoritesTabIndex = 1
+        static let searchTabIndex = 2
+    }
+    
     var app: XCUIApplication!
     
     override func setUp() {
@@ -18,16 +23,35 @@ class MovieProjectUITests: XCTestCase {
     }
     
     func testTrendingScreenFlow() {
-        openDetails()
+        let trendingCollectionView = app.collectionViews.element
+        openDetails(from: trendingCollectionView)
         app.navigationBars.buttons["Back"].tap()
         app.segmentedControls.firstMatch.buttons["Популярное"].tap()
-        openDetails()
+        openDetails(from: trendingCollectionView)
+    }
+    
+    func testFavoritesScreenFlow() {
+        let trendingCollectionView = app.collectionViews.element
+        openDetails(from: trendingCollectionView)
+        let title = app.staticTexts.firstMatch.label
+        app.buttons["В избранное"].tap()
+        app.tabBars.buttons.element(boundBy: Constants.favoritesTabIndex).tap()
+        let favoritesTable = app.tables.element
+        XCTAssert(favoritesTable.staticTexts[title].exists)
+    }
+    
+    func testSearchScreenFlow() {
+        app.tabBars.buttons.element(boundBy: Constants.searchTabIndex).tap()
+        let searchBar = app.searchFields.firstMatch
+        searchBar.tap()
+        searchBar.typeText("Snatch")
+        let searchTable = app.tables.element
+        openDetails(from: searchTable)
     }
 
-    private func openDetails() {
-        let collectionView = app.collectionViews.element
-        XCTAssert(collectionView.exists)
-        let cell = collectionView.cells.firstMatch
+    private func openDetails(from collection: XCUIElement) {
+        XCTAssert(collection.exists)
+        let cell = collection.cells.firstMatch
         XCTAssert(cell.exists)
         let title = cell.staticTexts.firstMatch.label
         cell.tap()
