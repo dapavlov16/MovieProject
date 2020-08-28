@@ -90,7 +90,6 @@ final class TrendingViewController: UIViewController {
         errorDescriptionLabel.textAlignment = .center
         errorDescriptionLabel.font = Constants.errorDescriptionFont
         errorDescriptionLabel.text = Constants.defaultErrorText
-        errorDescriptionLabel.alpha = 0
         
         view.addSubview(errorDescriptionLabel)
         errorDescriptionLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -123,9 +122,9 @@ final class TrendingViewController: UIViewController {
     }
     
     private func changeState(to state: TrendingState) {
-        errorDescriptionLabel.alpha = 0
+        errorDescriptionLabel.fadeOut(withDuration: 0)
+        collectionView.fadeOut(withDuration: 0)
         activityIndicator.startAnimating()
-        collectionView.alpha = 0
         interactor?.changeState(to: state)
     }
     
