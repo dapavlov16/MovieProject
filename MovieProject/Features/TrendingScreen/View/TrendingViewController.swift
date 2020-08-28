@@ -46,6 +46,7 @@ final class TrendingViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         view.backgroundColor = .white
         configureNavigationItem()
         configureActivityIndicator()
@@ -110,12 +111,11 @@ final class TrendingViewController: UIViewController {
         collectionView.register(TrendingCell.self,
                                 forCellWithReuseIdentifier: "\(TrendingCell.self)")
         
+        collectionView.backgroundColor = .clear
         view.addSubview(collectionView)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
-        collectionView.backgroundColor = .white
-        
         NSLayoutConstraint.activate([
-            collectionView.topAnchor.constraint(equalTo: topLayoutGuide.bottomAnchor),
+            collectionView.topAnchor.constraint(equalTo: view.topAnchor),
             collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
@@ -186,8 +186,12 @@ extension TrendingViewController: TrendingViewControllerInput {
     
     func showMovies(models: [TrendingCellModel], contentOffset: CGPoint) {
         movies = models
-        collectionView.setContentOffset(contentOffset, animated: false)
         collectionView.reloadData()
+        if contentOffset.y > 0 {
+            collectionView.setContentOffset(contentOffset, animated: false)
+        } else {
+            collectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .bottom, animated: false)
+        }
         collectionView.fadeIn(withDuration: 0.7) { completed in
             self.activityIndicator.stopAnimating()
         }
