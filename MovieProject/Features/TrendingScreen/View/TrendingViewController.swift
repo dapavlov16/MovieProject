@@ -188,9 +188,7 @@ extension TrendingViewController: TrendingViewControllerInput {
         movies = models
         collectionView.setContentOffset(contentOffset, animated: false)
         collectionView.reloadData()
-        UIView.animate(withDuration: 0.7, animations: {
-            self.collectionView.alpha = 1
-        }) { completed in
+        collectionView.fadeIn(withDuration: 0.7) { completed in
             self.activityIndicator.stopAnimating()
         }
     }
@@ -213,8 +211,6 @@ extension TrendingViewController: TrendingViewControllerInput {
     
     func showErrorDescription() {
         activityIndicator.stopAnimating()
-        UIView.animate(withDuration: 1) {
-            self.errorDescriptionLabel.alpha = 1
-        }
+        errorDescriptionLabel.fadeIn(withDuration: 1)
     }
 }
