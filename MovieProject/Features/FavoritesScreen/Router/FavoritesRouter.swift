@@ -10,6 +10,7 @@ import UIKit
 
 protocol FavoritesRouterInput {
     func navigateToDetails(of id: Int)
+    func navigateToSearch()
 }
 
 final class FavoritesRouter {
@@ -25,5 +26,9 @@ extension FavoritesRouter: FavoritesRouterInput {
     func navigateToDetails(of id: Int) {
         view?.navigationController?.pushViewController(DetailsAssembly.assembly(movieId: id),
                                                        animated: true)
+    }
+    
+    func navigateToSearch() {
+        view?.tabBarController?.selectedIndex = 2
     }
 }

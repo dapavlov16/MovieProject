@@ -37,10 +37,10 @@ final class FavoritesViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = Constants.favoritesTitle
         view.backgroundColor = .white
         configureTableView()
         configureDescriptionLabel()
+        configureNavigationBar()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -85,6 +85,19 @@ final class FavoritesViewController: UIViewController {
         ])
         
         descriptionLabel.fadeIn(withDuration: 0)
+    }
+    
+    private func configureNavigationBar() {
+        title = Constants.favoritesTitle
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add,
+                                                            target: self,
+                                                            action: #selector(navigateToSearch))
+    }
+    
+    //MARK: - Action
+    
+    @objc private func navigateToSearch(_ sender: Any) {
+        router?.navigateToSearch()
     }
 }
 
