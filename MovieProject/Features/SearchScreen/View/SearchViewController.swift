@@ -36,6 +36,7 @@ final class SearchViewController: UIViewController {
         super.viewDidLoad()
         
         title = Constants.searchTitle
+        view.backgroundColor = .white
         configureSearchController()
         configureTableView()
     }
@@ -44,6 +45,7 @@ final class SearchViewController: UIViewController {
     
     private func configureSearchController() {
         searchController = UISearchController(searchResultsController: nil)
+        searchController.searchBar.showsCancelButton = false
         searchController.searchResultsUpdater = self
         searchController.searchBar.sizeToFit()
         searchController.dimsBackgroundDuringPresentation = false
@@ -61,7 +63,7 @@ final class SearchViewController: UIViewController {
         view.addSubview(tableView)
         tableView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            tableView.topAnchor.constraint(equalTo: view.topAnchor),
+            tableView.topAnchor.constraint(equalTo: topLayoutGuide.bottomAnchor),
             tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
@@ -86,6 +88,10 @@ extension SearchViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         router?.navigateToDetails(of: movies[indexPath.item].id)
+    }
+    
+    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        searchController.searchBar.resignFirstResponder()
     }
 }
 
