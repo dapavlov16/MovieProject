@@ -73,9 +73,9 @@ final class SearchViewController: UIViewController {
 //MARK: - SearchViewControllerInput
 extension SearchViewController: SearchViewControllerInput {
     func showSearchResult(models: [SearchCellModel]) {
-        movies = models
-        tableView.reloadData()
-        if !movies.isEmpty {
+        if !models.isEmpty {
+            movies = models
+            tableView.reloadData()
             tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .bottom, animated: true)
         }
     }
@@ -119,7 +119,7 @@ extension SearchViewController: UISearchResultsUpdating {
         guard let searchText = searchController.searchBar.text else { return }
         
         let query = searchText.trimmingCharacters(in: .whitespacesAndNewlines).lowercased()
-        if query.count > 2 {
+        if query.count > 1 {
             interactor?.searchMovie(query: query)
         }
     }
