@@ -9,7 +9,7 @@
 import XCTest
 
 class MovieProjectUITests: XCTestCase {
-
+    
     private enum Constants {
         static let favoritesTabIndex = 1
         static let searchTabIndex = 2
@@ -22,6 +22,8 @@ class MovieProjectUITests: XCTestCase {
         app.launch()
     }
     
+    //MARK: - Trending
+    
     func testTrendingScreenFlow() {
         let trendingCollectionView = app.collectionViews.element
         openDetails(from: trendingCollectionView)
@@ -30,7 +32,14 @@ class MovieProjectUITests: XCTestCase {
         openDetails(from: trendingCollectionView)
     }
     
+    //MARK: - Favorites
+    
     func testFavoritesScreenFlow() {
+        addFavorite()
+        deleteFavorite()
+    }
+    
+    private func addFavorite() {
         let trendingCollectionView = app.collectionViews.element
         openDetails(from: trendingCollectionView)
         let title = app.staticTexts.firstMatch.label
@@ -40,6 +49,18 @@ class MovieProjectUITests: XCTestCase {
         XCTAssert(favoritesTable.staticTexts[title].exists)
     }
     
+    private func deleteFavorite() {
+        app.tabBars.buttons.element(boundBy: Constants.favoritesTabIndex).tap()
+        let favoritesTable = app.tables.element
+        let cell = favoritesTable.cells.firstMatch
+        let title = cell.staticTexts.firstMatch.label
+        cell.swipeLeft()
+        app.buttons["Delete"].tap()
+        XCTAssertFalse(favoritesTable.staticTexts[title].exists)
+    }
+    
+    //MARK: - Search
+    
     func testSearchScreenFlow() {
         app.tabBars.buttons.element(boundBy: Constants.searchTabIndex).tap()
         let searchBar = app.searchFields.firstMatch
@@ -48,7 +69,9 @@ class MovieProjectUITests: XCTestCase {
         let searchTable = app.tables.element
         openDetails(from: searchTable)
     }
-
+    
+    //MARK: - Private
+    
     private func openDetails(from collection: XCUIElement) {
         XCTAssert(collection.exists)
         let cell = collection.cells.firstMatch
