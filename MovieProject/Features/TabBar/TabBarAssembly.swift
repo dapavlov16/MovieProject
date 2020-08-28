@@ -23,9 +23,7 @@ final class TabBarAssembly {
             rootViewController: SearchAssembly.assembly()
         )
         
-        let trendingTabBarItem = UITabBarItem()
-        trendingTabBarItem.title = "Популярное"
-        trendingTabBarItem.image = UIImage(named: "trending_icon")
+        let trendingTabBarItem = UITabBarItem(tabBarSystemItem: .mostViewed, tag: 1)
         trendingViewController.tabBarItem = trendingTabBarItem
         
         let favoritesTabBarItem = UITabBarItem(tabBarSystemItem: .favorites, tag: 2)
