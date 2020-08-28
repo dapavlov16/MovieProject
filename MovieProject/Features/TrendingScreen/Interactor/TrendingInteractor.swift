@@ -142,7 +142,8 @@ extension TrendingInteractor: TrendingInteractorInput {
                     self.page += 1
                     self.totalPages = response.totalPages
                     self.presenter?.stateChanged(movies: movies)
-                case .failure: break
+                case .failure:
+                    self.presenter?.errorOccured()
                 }
             }
         } else {

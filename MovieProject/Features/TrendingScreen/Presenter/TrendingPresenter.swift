@@ -13,6 +13,7 @@ protocol TrendingPresenterInput {
     func stateChanged(movies: [Movie], contentOffset: CGPoint)
     func nextPageLoaded(movies: [Movie])
     func updateFavoriteStatus(index: Int, isFavorite: Bool)
+    func errorOccured()
 }
 
 extension TrendingPresenterInput {
@@ -54,5 +55,11 @@ extension TrendingPresenter: TrendingPresenterInput {
     
     func updateFavoriteStatus(index: Int, isFavorite: Bool) {
         view?.updateFavoriteStatus(index: index, isFavorite: isFavorite)
+    }
+    
+    func errorOccured() {
+        DispatchQueue.main.async {
+            self.view?.showErrorDescription()
+        }
     }
 }
