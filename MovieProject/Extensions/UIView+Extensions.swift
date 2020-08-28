@@ -11,12 +11,13 @@ import UIKit
 extension UIView {
     
     func fadeIn(withDuration duration: TimeInterval, onComplete: ((Bool) -> Void)? = nil) {
+        self.isHidden = false
+        
         if duration <= 0 {
             self.alpha = 1
             return
         }
         self.alpha = 0
-        self.isHidden = false
         
         UIView.animate(withDuration: duration,
                        animations: { self.alpha = 1 },
