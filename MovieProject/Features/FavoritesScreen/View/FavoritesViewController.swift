@@ -19,6 +19,8 @@ final class FavoritesViewController: UIViewController {
     private enum Constants {
         static let cellHeight: CGFloat = 150
         static let favoritesTitle = "Избранное"
+        static let descriptionFont = UIFont.systemFont(ofSize: 20, weight: .thin)
+        static let defaultDescriptionText = "Добавьте понравившиеся фильмы в избранное и они будут отображаться тут"
     }
     
     //MARK: - Properties
@@ -27,6 +29,8 @@ final class FavoritesViewController: UIViewController {
     var router: FavoritesRouterInput?
     
     private var tableView: UITableView!
+    private var descriptionLabel: UILabel!
+    
     private var cellModels = [FavoritesCellModel]()
     
     //MARK: - Lifecycle
@@ -34,7 +38,9 @@ final class FavoritesViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         title = Constants.favoritesTitle
+        view.backgroundColor = .white
         configureTableView()
+        configureDescriptionLabel()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -59,6 +65,26 @@ final class FavoritesViewController: UIViewController {
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
         ])
+        
+        tableView.fadeOut(withDuration: 0)
+    }
+    
+    private func configureDescriptionLabel() {
+        descriptionLabel = UILabel()
+        descriptionLabel.numberOfLines = 0
+        descriptionLabel.font = Constants.descriptionFont
+        descriptionLabel.textAlignment = .center
+        descriptionLabel.text = Constants.defaultDescriptionText
+        
+        view.addSubview(descriptionLabel)
+        descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            descriptionLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 30),
+            descriptionLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -30),
+            descriptionLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor)
+        ])
+        
+        descriptionLabel.fadeIn(withDuration: 0)
     }
 }
 
@@ -73,7 +99,7 @@ extension FavoritesViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         return true
     }
-
+    
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if (editingStyle == .delete) {
             tableView.beginUpdates()
@@ -81,6 +107,11 @@ extension FavoritesViewController: UITableViewDelegate {
             tableView.deleteRows(at: [indexPath], with: .left)
             cellModels.remove(at: indexPath.item)
             tableView.endUpdates()
+            
+            if cellModels.isEmpty {
+                tableView.fadeOut(withDuration: 0)
+                descriptionLabel.fadeIn(withDuration: 1)
+            }
         }
     }
 }
@@ -106,7 +137,11 @@ extension FavoritesViewController: UITableViewDataSource {
 extension FavoritesViewController: FavoritesViewControllerInput {
     
     func showFavorites(models: [FavoritesCellModel]) {
-        cellModels = models
-        tableView.reloadData()
+        if !models.isEmpty {
+            cellModels = models
+            tableView.reloadData()
+            descriptionLabel.fadeOut(withDuration: 0)
+            tableView.fadeIn(withDuration: 0)
+        }
     }
 }
