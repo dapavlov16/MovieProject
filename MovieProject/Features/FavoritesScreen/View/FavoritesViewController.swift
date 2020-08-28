@@ -49,6 +49,7 @@ final class FavoritesViewController: UIViewController {
         tableView.register(FavoritesCell.self, forCellReuseIdentifier: "\(FavoritesCell.self)")
         tableView.delegate = self
         tableView.dataSource = self
+        tableView.rowHeight = Constants.cellHeight
         
         view.addSubview(tableView)
         tableView.translatesAutoresizingMaskIntoConstraints = false
@@ -63,10 +64,6 @@ final class FavoritesViewController: UIViewController {
 
 //MARK: - UITableViewDelegate
 extension FavoritesViewController: UITableViewDelegate {
-    
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return Constants.cellHeight
-    }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
