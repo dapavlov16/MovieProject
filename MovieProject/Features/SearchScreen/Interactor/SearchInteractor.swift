@@ -15,16 +15,16 @@ final class SearchInteractor {
     //MARK: - Properties
     
     var presenter: SearchPresenterInput?
-    private let networkService: NetworkService
-    private let coreDataService: CoreDataService
+    private let networkService: NetworkServiceInput
+    private let coreDataService: CoreDataServiceInput
     private let movieMapper: MovieMapper
     private let genresMapper: GenresMapper
     private var genres = [Genre]()
     
     //MARK: - Init
     
-    init(networkService: NetworkService,
-         coreDataService: CoreDataService,
+    init(networkService: NetworkServiceInput,
+         coreDataService: CoreDataServiceInput,
          movieMapper: MovieMapper,
          genresMapper: GenresMapper) {
         

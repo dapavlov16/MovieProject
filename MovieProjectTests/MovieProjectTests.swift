@@ -10,25 +10,32 @@ import XCTest
 @testable import MovieProject
 
 class MovieProjectTests: XCTestCase {
-
-    override func setUpWithError() throws {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+    
+    var networkService: NetworkServiceInput!
+    var detailsMapper: DetailsMapper!
+    var modelMockProvider: ModelMockProvider!
+    
+    override func setUp() {
+        self.networkService = NetworkServiceMock()
+        self.detailsMapper = DetailsMapper()
+        self.modelMockProvider = ModelMockProvider()
     }
-
-    override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
+    
+    override func tearDown() {
+        networkService = nil
+        detailsMapper = nil
+        modelMockProvider = nil
     }
-
-    func testExample() throws {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-    }
-
-    func testPerformanceExample() throws {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
+    
+    func testDetailsMapper() {
+        let expectedModel = generateMovieDetails(id: 1)
+        networkService.getDetails(by: 1) {
+            let details = self.detailsMapper.map(from: $0)
+            XCTAssertEqual(details, expectedModel)
         }
     }
-
+    
+    private func generateMovieDetails(id: Int) -> MovieDetails {
+        return modelMockProvider.movieDetails
+    }
 }
