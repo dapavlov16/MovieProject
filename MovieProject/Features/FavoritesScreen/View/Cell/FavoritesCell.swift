@@ -26,6 +26,7 @@ class FavoritesCell: UITableViewCell {
     private var genresLabel: UILabel!
     private var posterImageView: UIImageView!
     
+    private var dataTask: URLSessionDataTask?
     var viewModel: FavoritesCellModel? {
         didSet {
             if let viewModel = viewModel {
@@ -47,12 +48,11 @@ class FavoritesCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func awakeFromNib() {
-        super.awakeFromNib()
-    }
-    
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        
+        dataTask?.cancel()
+        posterImageView.image = nil
     }
     
     //MARK: - Private
@@ -102,7 +102,8 @@ class FavoritesCell: UITableViewCell {
     }
     
     private func updateContent(with model: FavoritesCellModel) {
-        posterImageView.setImage(from: model.posterURL)
+        posterImageView.image = UIImage(named: "poster_placeholder")
+        dataTask = posterImageView.setImage(from: model.posterURL)
         titleLabel.text = model.title
         originalTitleLabel.text = model.originalTitle
         genresLabel.text = model.genres
