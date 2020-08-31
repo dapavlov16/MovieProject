@@ -138,11 +138,11 @@ class SearchCell: UITableViewCell {
         let rating = model.rating
         ratingLabel.text = "\(rating)"
         if rating > 7 {
-            ratingLabel.textColor = .green
-        } else if rating > 5 {
-            ratingLabel.textColor = .lightGray
+            ratingLabel.textColor = .systemGreen
+        } else if rating > 5 || rating == 0 {
+            ratingLabel.textColor = .systemGray
         } else {
-            ratingLabel.textColor = .red
+            ratingLabel.textColor = .systemRed
         }
     }
 }

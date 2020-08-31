@@ -47,7 +47,12 @@ final class TrendingViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = .white
+        if #available(iOS 13.0, *) {
+            view.backgroundColor = .systemBackground
+        } else {
+            view.backgroundColor = .white
+        }
+        
         configureNavigationItem()
         configureActivityIndicator()
         configureDescriptionLabel()
@@ -57,6 +62,7 @@ final class TrendingViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
         interactor?.updateFavorites()
     }
     
@@ -191,7 +197,7 @@ extension TrendingViewController: TrendingViewControllerInput {
         } else {
             collectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .bottom, animated: false)
         }
-        collectionView.fadeIn(withDuration: 0.7) { completed in
+        collectionView.fadeIn(withDuration: 0.5) { completed in
             self.activityIndicator.stopAnimating()
         }
         isLoading = false

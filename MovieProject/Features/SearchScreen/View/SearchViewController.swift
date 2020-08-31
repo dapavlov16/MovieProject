@@ -20,7 +20,7 @@ final class SearchViewController: UIViewController {
     private enum Constants {
         static let searchTitle = "Поиск"
         static let cellHeight: CGFloat = 150
-        static let paginationOffset = 3
+        static let paginationOffset = 5
     }
     //MARK: - Properties
     
@@ -39,7 +39,13 @@ final class SearchViewController: UIViewController {
         super.viewDidLoad()
         
         title = Constants.searchTitle
-        view.backgroundColor = .white
+        
+        if #available(iOS 13.0, *) {
+            view.backgroundColor = .systemBackground
+        } else {
+            view.backgroundColor = .white
+        }
+        
         configureSearchController()
         configureTableView()
     }
@@ -62,6 +68,7 @@ final class SearchViewController: UIViewController {
         tableView.dataSource = self
         tableView.register(SearchCell.self, forCellReuseIdentifier: "\(SearchCell.self)")
         tableView.rowHeight = Constants.cellHeight
+        tableView.isScrollEnabled = false
         
         view.addSubview(tableView)
         tableView.translatesAutoresizingMaskIntoConstraints = false
@@ -82,6 +89,7 @@ extension SearchViewController: SearchViewControllerInput {
             movies = models
             tableView.reloadData()
             tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .bottom, animated: true)
+            tableView.isScrollEnabled = true
         }
         isLoading = false
     }
