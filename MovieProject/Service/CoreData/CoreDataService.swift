@@ -6,12 +6,36 @@
 //  Copyright © 2020 Дмитрий Павлов. All rights reserved.
 //
 
-import UIKit
 import CoreData
+
+protocol CoreDataServiceInput {
+    func getGenresList() -> GenresListEntity?
+    func addGenresList(genres: [Genre])
+    
+    func getFavorites() -> [FavoriteMovieEntity]
+    func addFavorite(movie: MovieDetails)
+    func deleteFavorite(with id: Int)
+    func isFavorite(movieId: Int) -> Bool
+}
 
 final class CoreDataService {
     
     private lazy var managedContext = PersistentContainerProvider.persistentContainer.viewContext
+    
+    private func saveContext() {
+        if managedContext.hasChanges {
+            do {
+                try managedContext.save()
+            } catch {
+                let nserror = error as NSError
+                fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
+            }
+        }
+    }
+}
+
+//MARK: - CoreDataServiceInput
+extension CoreDataService: CoreDataServiceInput {
     
     //MARK: - Genres
     
@@ -93,19 +117,6 @@ final class CoreDataService {
             return result.count > 0
         } catch {
             return false
-        }
-    }
-    
-    //MARK: - Private
-    
-    private func saveContext() {
-        if managedContext.hasChanges {
-            do {
-                try managedContext.save()
-            } catch {
-                let nserror = error as NSError
-                fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
-            }
         }
     }
 }

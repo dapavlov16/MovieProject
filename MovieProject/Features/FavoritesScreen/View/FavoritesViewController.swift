@@ -17,7 +17,7 @@ final class FavoritesViewController: UIViewController {
     //MARK: - Constants
     
     private enum Constants {
-        static let cellHeight: CGFloat = 120
+        static let cellHeight: CGFloat = 150
         static let favoritesTitle = "Избранное"
     }
     

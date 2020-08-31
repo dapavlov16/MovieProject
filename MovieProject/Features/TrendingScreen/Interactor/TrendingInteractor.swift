@@ -32,8 +32,8 @@ final class TrendingInteractor {
     //MARK: - Properties
     
     var presenter: TrendingPresenterInput?
-    private let networkService: NetworkService
-    private let coreDataService: CoreDataService
+    private let networkService: NetworkServiceInput
+    private let coreDataService: CoreDataServiceInput
     private let mapper: MovieMapper
     
     private var currentState: TrendingState = .trending
@@ -85,7 +85,9 @@ final class TrendingInteractor {
     
     //MARK: - Init
     
-    init(networkService: NetworkService, coreDataService: CoreDataService, mapper: MovieMapper) {
+    init(networkService: NetworkServiceInput,
+         coreDataService: CoreDataServiceInput,
+         mapper: MovieMapper) {
         self.networkService = networkService
         self.coreDataService = coreDataService
         self.mapper = mapper

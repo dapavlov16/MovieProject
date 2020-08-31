@@ -50,7 +50,7 @@ struct Result: Decodable {
     }
 }
 
-struct MovieDto: Decodable {
+struct MovieDto: Decodable, Equatable {
     var adult: Bool
     var backdropPath: String?
     var budget: Int
@@ -100,12 +100,12 @@ struct GenresListDto: Decodable {
     var genres: [Genre]
 }
 
-struct Genre: Decodable {
+struct Genre: Decodable, Equatable {
     var id: Int
     var name: String
 }
 
-struct ProductionCountry: Decodable {
+struct ProductionCountry: Decodable, Equatable {
     var iso: String
     var name: String
     

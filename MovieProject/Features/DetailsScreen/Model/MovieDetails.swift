@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct MovieDetails {
+struct MovieDetails: Equatable {
     let id: Int
     let title: String
     let originalTitle: String

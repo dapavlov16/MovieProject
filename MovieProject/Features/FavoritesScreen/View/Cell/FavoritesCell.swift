@@ -15,8 +15,8 @@ class FavoritesCell: UITableViewCell {
     private enum Constants {
         static let titleFont = UIFont.systemFont(ofSize: 18, weight: .semibold)
         static let originalTitleFont = UIFont.systemFont(ofSize: 14, weight: .thin)
-        static let genresFont = UIFont.systemFont(ofSize: 14, weight: .ultraLight)
-        static let stackViewSpacing: CGFloat = 10
+        static let genresFont = UIFont.systemFont(ofSize: 12, weight: .ultraLight)
+        static let stackViewSpacing: CGFloat = 5
     }
     
     //MARK: - Properties

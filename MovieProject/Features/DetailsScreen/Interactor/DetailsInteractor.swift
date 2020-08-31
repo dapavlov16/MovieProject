@@ -19,16 +19,16 @@ final class DetailsInteractor {
     
     var presenter: DetailsPresenterInput?
     private let movieId: Int
-    private let networkService: NetworkService
-    private let coreDataService: CoreDataService
+    private let networkService: NetworkServiceInput
+    private let coreDataService: CoreDataServiceInput
     private let mapper: DetailsMapper
     private var details: MovieDetails!
     
     //MARK: - Init
     
     init(movieId: Int,
-         networkService: NetworkService,
-         coreDataService: CoreDataService,
+         networkService: NetworkServiceInput,
+         coreDataService: CoreDataServiceInput,
          mapper: DetailsMapper) {
         self.movieId = movieId
         self.networkService = networkService
