@@ -20,7 +20,7 @@ final class SearchViewController: UIViewController {
     private enum Constants {
         static let searchTitle = "Поиск"
         static let cellHeight: CGFloat = 150
-        static let paginationOffset = 5
+        static let paginationOffset = 7
     }
     //MARK: - Properties
     
@@ -98,7 +98,7 @@ extension SearchViewController: SearchViewControllerInput {
         let index = movies.count
         let indexPaths = Array(index ..< index + models.count).map{ IndexPath(item: $0, section: 0) }
         movies.append(contentsOf: models)
-        tableView.insertRows(at: indexPaths, with: .automatic)
+        tableView.insertRows(at: indexPaths, with: .none)
         isLoading = false
     }
 }
