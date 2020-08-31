@@ -40,6 +40,7 @@ final class DetailsInteractor {
 
 //MARK: - DetailsInteractorInput
 extension DetailsInteractor: DetailsInteractorInput {
+    
     func loadDetails() {
         networkService.getDetails(by: movieId) { [weak self] result in
             guard let self = self else { return }
@@ -49,7 +50,8 @@ extension DetailsInteractor: DetailsInteractorInput {
                 let details = self.mapper.map(from: response)
                 self.details = details
                 self.presenter?.detailsLoaded(details: details)
-            case .failure: break //no-op
+            case .failure:
+                self.presenter?.errorOccured()
             }
         }
     }

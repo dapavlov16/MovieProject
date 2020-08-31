@@ -84,8 +84,8 @@ final class FavoritesViewController: UIViewController {
         view.addSubview(descriptionLabel)
         descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            descriptionLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 30),
-            descriptionLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -30),
+            descriptionLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 40),
+            descriptionLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -40),
             descriptionLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor)
         ])
         

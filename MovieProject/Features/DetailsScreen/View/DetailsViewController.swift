@@ -10,6 +10,7 @@ import UIKit
 
 protocol DetailsViewControllerInput: AnyObject {
     func showDetails(model: DetailsModel)
+    func showError()
     func changeFavoriteState(isFavorite: Bool)
 }
 
@@ -29,6 +30,8 @@ final class DetailsViewController: UIViewController {
         static let genresFont = UIFont.systemFont(ofSize: 12, weight: .thin)
         static let countriesRuntimeFont = UIFont.systemFont(ofSize: 12, weight: .thin)
         static let overviewFont = UIFont.systemFont(ofSize: 16)
+        static let errorDescriptionFont = UIFont.systemFont(ofSize: 18, weight: .thin)
+        static let defaultErrorText = "Что-то пошло не так..."
     }
     
     //MARK: - Properties
@@ -44,6 +47,7 @@ final class DetailsViewController: UIViewController {
     private var genresLabel: UILabel!
     private var countriesRuntimeLabel: UILabel!
     private var overviewLabel: UILabel!
+    private var errorDescriptionLabel: UILabel!
     
     //MARK: - Lifecycle
     
@@ -62,6 +66,7 @@ final class DetailsViewController: UIViewController {
         configureTitleLabels()
         configureOverviewLabel()
         configureAddToFavoriteButton()
+        configureErrorDescriptionLabel()
         
         interactor?.loadDetails()
     }
@@ -196,6 +201,23 @@ final class DetailsViewController: UIViewController {
                                                             action: #selector(addToFavorite))
     }
     
+    private func configureErrorDescriptionLabel() {
+        errorDescriptionLabel = UILabel()
+        errorDescriptionLabel.font = Constants.errorDescriptionFont
+        errorDescriptionLabel.numberOfLines = 0
+        errorDescriptionLabel.text = Constants.defaultErrorText
+        errorDescriptionLabel.textAlignment = .center
+        errorDescriptionLabel.fadeOut(withDuration: 0)
+        
+        errorDescriptionLabel.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(errorDescriptionLabel)
+        NSLayoutConstraint.activate([
+            errorDescriptionLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            errorDescriptionLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 40),
+            errorDescriptionLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -40)
+        ])
+    }
+    
     private func dropShadow(view: UIView) {
         view.layer.shadowColor = UIColor.black.cgColor
         view.layer.shadowOpacity = 1
@@ -217,6 +239,9 @@ final class DetailsViewController: UIViewController {
 extension DetailsViewController: DetailsViewControllerInput {
     
     func showDetails(model: DetailsModel) {
+        errorDescriptionLabel.fadeOut(withDuration: 0)
+        contentView.fadeIn(withDuration: 0.5)
+        
         title = model.title
         posterImageView.image = UIImage(named: "poster_placeholder")
         backdropImageView.image = UIImage(named: "backdrop_placeholder")
@@ -228,6 +253,11 @@ extension DetailsViewController: DetailsViewControllerInput {
         genresLabel.text = model.genresString
         countriesRuntimeLabel.text = model.countriesRuntimeString
         overviewLabel.text = model.overview
+    }
+    
+    func showError() {
+        contentView.fadeOut(withDuration: 0)
+        errorDescriptionLabel.fadeIn(withDuration: 1)
     }
     
     func changeFavoriteState(isFavorite: Bool) {
