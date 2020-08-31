@@ -197,8 +197,8 @@ extension TrendingViewController: TrendingViewControllerInput {
         } else {
             collectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .bottom, animated: false)
         }
+        collectionView.fadeIn(withDuration: 1)
         activityIndicator.stopAnimating()
-        collectionView.fadeIn(withDuration: 0.5)
         isLoading = false
     }
     
