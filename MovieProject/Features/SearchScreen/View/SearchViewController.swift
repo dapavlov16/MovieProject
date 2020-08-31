@@ -83,6 +83,7 @@ extension SearchViewController: SearchViewControllerInput {
             tableView.reloadData()
             tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .bottom, animated: true)
         }
+        isLoading = false
     }
     
     func appendNextPage(models: [SearchCellModel]) {

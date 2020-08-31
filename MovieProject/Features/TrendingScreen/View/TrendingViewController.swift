@@ -40,7 +40,7 @@ final class TrendingViewController: UIViewController {
     private var errorDescriptionLabel: UILabel!
     
     private var movies: [TrendingCellModel] = []
-    private var isLoading: Bool = false
+    private var isLoading = false
     
     //MARK: - Lifecycle
     
@@ -194,6 +194,7 @@ extension TrendingViewController: TrendingViewControllerInput {
         collectionView.fadeIn(withDuration: 0.7) { completed in
             self.activityIndicator.stopAnimating()
         }
+        isLoading = false
     }
     
     func appendNextPage(models: [TrendingCellModel]) {
@@ -215,5 +216,6 @@ extension TrendingViewController: TrendingViewControllerInput {
     func showErrorDescription() {
         activityIndicator.stopAnimating()
         errorDescriptionLabel.fadeIn(withDuration: 1)
+        isLoading = false
     }
 }
