@@ -15,6 +15,9 @@ extension UIView {
         
         if duration <= 0 {
             self.alpha = 1
+            if let onComplete = onComplete {
+                onComplete(true)
+            }
             return
         }
         self.alpha = 0
@@ -28,6 +31,9 @@ extension UIView {
         if duration <= 0 {
             self.alpha = 0
             self.isHidden = true
+            if let onComplete = onComplete {
+                onComplete(true)
+            }
             return
         }
         
