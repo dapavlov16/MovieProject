@@ -10,6 +10,7 @@ import Foundation
 
 protocol SearchInteractorInput {
     func searchMovie(query: String)
+    func loadNextPage()
 }
 
 final class SearchInteractor {
@@ -22,6 +23,9 @@ final class SearchInteractor {
     private let movieMapper: MovieMapper
     private let genresMapper: GenresMapper
     private var genres = [Genre]()
+    private var nextPage = 1
+    private var totalPages = 1
+    private var currentQuery: String!
     private var currentDataTask: URLSessionDataTask?
     
     //MARK: - Init
@@ -61,13 +65,34 @@ final class SearchInteractor {
 extension SearchInteractor: SearchInteractorInput {
     
     func searchMovie(query: String) {
+        currentQuery = query
         currentDataTask?.cancel()
-        currentDataTask = networkService.searchMovie(query) { result in
+        currentDataTask = networkService.searchMovie(query, page: 1) { [weak self] result in
+            guard let self = self else { return }
             switch result {
             case .success(let response):
-                let result = self.movieMapper.map(from: response)
-                self.presenter?.searchCompleted(movies: result, genres: self.genres)
+                let searchResult = self.movieMapper.map(from: response)
+                self.totalPages = response.totalPages
+                self.nextPage = response.page + 1
+                self.presenter?.searchCompleted(movies: searchResult, genres: self.genres)
             case .failure: break
+            }
+        }
+    }
+    
+    func loadNextPage() {
+        if nextPage <= totalPages {
+            currentDataTask?.cancel()
+            currentDataTask = networkService.searchMovie(currentQuery, page: nextPage) { [weak self] result in
+                guard let self = self else { return }
+                switch result {
+                case .success(let response):
+                    let searchResult = self.movieMapper.map(from: response)
+                    self.totalPages = response.totalPages
+                    self.nextPage = response.page + 1
+                    self.presenter?.nextPageLoaded(movies: searchResult, genres: self.genres)
+                case .failure: break
+                }
             }
         }
     }

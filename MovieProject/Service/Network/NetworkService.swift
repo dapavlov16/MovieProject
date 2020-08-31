@@ -9,7 +9,9 @@
 import Foundation
 
 protocol NetworkServiceInput {
-    func searchMovie(_ text: String, _ completion: @escaping (Result<MovieListDto, Error>) -> Void) -> URLSessionDataTask?
+    func searchMovie(_ text: String,
+                     page: Int,
+                     _ completion: @escaping (Result<MovieListDto, Error>) -> Void) -> URLSessionDataTask?
     func getTrending(page: Int, _ completion: @escaping (Result<MovieListDto, Error>) -> Void)
     func getPopular(page: Int, _ completion: @escaping (Result<MovieListDto, Error>) -> Void)
     func getDetails(by movieId: Int, _ completion: @escaping (Result<MovieDto, Error>) -> Void)
@@ -24,8 +26,10 @@ final class NetworkService {
 //MARK: - NetworkServiceInput
 extension NetworkService: NetworkServiceInput {
     
-    func searchMovie(_ text: String, _ completion: @escaping (Result<MovieListDto, Error>) -> Void) -> URLSessionDataTask? {
-        return client.request(request: .searchMovie(text: text), completion)
+    func searchMovie(_ text: String,
+                     page: Int,
+                     _ completion: @escaping (Result<MovieListDto, Error>) -> Void) -> URLSessionDataTask? {
+        return client.request(request: .searchMovie(text: text, page: page), completion)
     }
     
     func getTrending(page: Int, _ completion: @escaping (Result<MovieListDto, Error>) -> Void) {

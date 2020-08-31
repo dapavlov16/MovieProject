@@ -10,6 +10,7 @@ import UIKit
 
 protocol SearchViewControllerInput: AnyObject {
     func showSearchResult(models: [SearchCellModel])
+    func appendNextPage(models: [SearchCellModel])
 }
 
 final class SearchViewController: UIViewController {
@@ -19,6 +20,7 @@ final class SearchViewController: UIViewController {
     private enum Constants {
         static let searchTitle = "Поиск"
         static let cellHeight: CGFloat = 150
+        static let paginationOffset = 3
     }
     //MARK: - Properties
     
@@ -26,6 +28,7 @@ final class SearchViewController: UIViewController {
     var router: SearchRouterInput?
     
     var movies = [SearchCellModel]()
+    private var isLoading = false
     
     private var searchController: UISearchController!
     private var tableView: UITableView!
@@ -73,12 +76,21 @@ final class SearchViewController: UIViewController {
 
 //MARK: - SearchViewControllerInput
 extension SearchViewController: SearchViewControllerInput {
+    
     func showSearchResult(models: [SearchCellModel]) {
         if !models.isEmpty {
             movies = models
             tableView.reloadData()
             tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .bottom, animated: true)
         }
+    }
+    
+    func appendNextPage(models: [SearchCellModel]) {
+        let index = movies.count
+        let indexPaths = Array(index ..< index + models.count).map{ IndexPath(item: $0, section: 0) }
+        movies.append(contentsOf: models)
+        tableView.insertRows(at: indexPaths, with: .automatic)
+        isLoading = false
     }
 }
 
@@ -88,6 +100,13 @@ extension SearchViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         router?.navigateToDetails(of: movies[indexPath.item].id)
+    }
+    
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        if !isLoading && indexPath.item > movies.count - Constants.paginationOffset {
+            isLoading = true
+            interactor?.loadNextPage()
+        }
     }
     
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
