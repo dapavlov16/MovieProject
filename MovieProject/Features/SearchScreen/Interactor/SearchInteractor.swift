@@ -6,6 +6,8 @@
 //  Copyright © 2020 Дмитрий Павлов. All rights reserved.
 //
 
+import Foundation
+
 protocol SearchInteractorInput {
     func searchMovie(query: String)
 }
@@ -20,6 +22,7 @@ final class SearchInteractor {
     private let movieMapper: MovieMapper
     private let genresMapper: GenresMapper
     private var genres = [Genre]()
+    private var currentDataTask: URLSessionDataTask?
     
     //MARK: - Init
     
@@ -54,7 +57,8 @@ final class SearchInteractor {
 extension SearchInteractor: SearchInteractorInput {
     
     func searchMovie(query: String) {
-        networkService.searchMovie(query) { (response) in
+        currentDataTask?.cancel()
+        currentDataTask = networkService.searchMovie(query) { (response) in
             let result = self.movieMapper.map(from: response)
             self.presenter?.searchCompleted(movies: result, genres: self.genres)
         }

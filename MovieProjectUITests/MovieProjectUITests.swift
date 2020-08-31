@@ -9,35 +9,76 @@
 import XCTest
 
 class MovieProjectUITests: XCTestCase {
-
-    override func setUpWithError() throws {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
-
-        // In UI tests it is usually best to stop immediately when a failure occurs.
-        continueAfterFailure = false
-
-        // In UI tests it’s important to set the initial state - such as interface orientation - required for your tests before they run. The setUp method is a good place to do this.
+    
+    private enum Constants {
+        static let favoritesTabIndex = 1
+        static let searchTabIndex = 2
     }
-
-    override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
-    }
-
-    func testExample() throws {
-        // UI tests must launch the application that they test.
-        let app = XCUIApplication()
+    
+    var app: XCUIApplication!
+    
+    override func setUp() {
+        app = XCUIApplication()
         app.launch()
-
-        // Use recording to get started writing UI tests.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
     }
-
-    func testLaunchPerformance() throws {
-        if #available(macOS 10.15, iOS 13.0, tvOS 13.0, *) {
-            // This measures how long it takes to launch your application.
-            measure(metrics: [XCTOSSignpostMetric.applicationLaunch]) {
-                XCUIApplication().launch()
-            }
-        }
+    
+    //MARK: - Trending
+    
+    func testTrendingScreenFlow() {
+        let trendingCollectionView = app.collectionViews.element
+        openDetails(from: trendingCollectionView)
+        app.navigationBars.buttons["Back"].tap()
+        app.segmentedControls.firstMatch.buttons["Популярное"].tap()
+        openDetails(from: trendingCollectionView)
+    }
+    
+    //MARK: - Favorites
+    
+    func testFavoritesScreenFlow() {
+        addFavorite()
+        deleteFavorite()
+    }
+    
+    private func addFavorite() {
+        let trendingCollectionView = app.collectionViews.element
+        openDetails(from: trendingCollectionView)
+        let title = app.staticTexts.firstMatch.label
+        app.buttons["В избранное"].tap()
+        app.tabBars.buttons.element(boundBy: Constants.favoritesTabIndex).tap()
+        let favoritesTable = app.tables.element
+        XCTAssert(favoritesTable.staticTexts[title].exists)
+    }
+    
+    private func deleteFavorite() {
+        app.tabBars.buttons.element(boundBy: Constants.favoritesTabIndex).tap()
+        let favoritesTable = app.tables.element
+        let cell = favoritesTable.cells.firstMatch
+        let title = cell.staticTexts.firstMatch.label
+        cell.swipeLeft()
+        app.buttons["Delete"].tap()
+        XCTAssertFalse(favoritesTable.staticTexts[title].exists)
+    }
+    
+    //MARK: - Search
+    
+    func testSearchScreenFlow() {
+        app.tabBars.buttons.element(boundBy: Constants.searchTabIndex).tap()
+        let searchBar = app.searchFields.firstMatch
+        searchBar.tap()
+        searchBar.typeText("Snatch")
+        let searchTable = app.tables.element
+        openDetails(from: searchTable)
+    }
+    
+    //MARK: - Private
+    
+    private func openDetails(from collection: XCUIElement) {
+        XCTAssert(collection.exists)
+        let cell = collection.cells.firstMatch
+        XCTAssert(cell.exists)
+        let title = cell.staticTexts.firstMatch.label
+        cell.tap()
+        let detailsTitle = app.staticTexts[title]
+        XCTAssert(detailsTitle.exists)
     }
 }

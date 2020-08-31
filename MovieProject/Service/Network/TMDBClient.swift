@@ -10,14 +10,14 @@ import Foundation
 
 final class TMDBClient {
     
-    func request<T: Decodable>(request: TMDBRequest, _ completion: @escaping (T) -> Void) {
+    @discardableResult func request<T: Decodable>(request: TMDBRequest, _ completion: @escaping (T) -> Void) -> URLSessionDataTask? {
         var urlBuilder = URLComponents(string: request.urlString)
         urlBuilder?.queryItems = request.queryParams.map { item in
             URLQueryItem(name: item.key, value: item.value)
         }
         
         if let url = urlBuilder?.url {
-            URLSession.shared.dataTask(with: url) { (data, response, error) in
+            let dataTask = URLSession.shared.dataTask(with: url) { (data, response, error) in
                 guard let data = data, response != nil , error == nil else {
                     return
                 }
@@ -26,7 +26,10 @@ final class TMDBClient {
                 } catch {
                     print(error)
                 }
-            }.resume()
+            }
+            dataTask.resume()
+            return dataTask
         }
+        return nil
     }
 }

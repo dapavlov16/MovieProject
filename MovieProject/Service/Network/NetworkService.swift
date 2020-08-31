@@ -22,8 +22,8 @@ final class NetworkService {
 //MARK: - NetworkServiceInput
 extension NetworkService: NetworkServiceInput {
     
-    func searchMovie(_ text: String, _ completion: @escaping (MovieListDto) -> Void) {
-        client.request(request: .searchMovie(text: text), completion)
+    func searchMovie(_ text: String, _ completion: @escaping (MovieListDto) -> Void) -> URLSessionDataTask? {
+        return client.request(request: .searchMovie(text: text), completion)
     }
     
     func getTrending(page: Int, _ completion: @escaping (MovieListDto) -> Void) {
