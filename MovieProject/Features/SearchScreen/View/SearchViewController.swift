@@ -22,6 +22,7 @@ final class SearchViewController: UIViewController {
         static let cellHeight: CGFloat = 150
         static let paginationOffset = 7
     }
+    
     //MARK: - Properties
     
     var interactor: SearchInteractorInput?

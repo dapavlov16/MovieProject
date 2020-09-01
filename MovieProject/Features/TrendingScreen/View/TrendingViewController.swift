@@ -24,7 +24,7 @@ final class TrendingViewController: UIViewController {
         static let popularTitleText = "Популярное"
         static let cellInsets = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
         static let numberOfCellInRow: CGFloat = 3
-        static let paginationOffset = 7
+        static let paginationOffset = 9
         static let errorDescriptionFont = UIFont.systemFont(ofSize: 20, weight: .thin)
         static let defaultErrorText = "Что-то пошло не так..."
     }
@@ -197,7 +197,7 @@ extension TrendingViewController: TrendingViewControllerInput {
         } else {
             collectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .bottom, animated: false)
         }
-        collectionView.fadeIn(withDuration: 1)
+        collectionView.fadeIn(withDuration: 0.7)
         activityIndicator.stopAnimating()
         isLoading = false
     }

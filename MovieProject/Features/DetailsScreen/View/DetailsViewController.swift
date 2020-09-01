@@ -32,6 +32,7 @@ final class DetailsViewController: UIViewController {
         static let overviewFont = UIFont.systemFont(ofSize: 16)
         static let errorDescriptionFont = UIFont.systemFont(ofSize: 18, weight: .thin)
         static let defaultErrorText = "Что-то пошло не так..."
+        static let addToFavoriteButtonTitle = "В избранное"
     }
     
     //MARK: - Properties
@@ -86,6 +87,7 @@ final class DetailsViewController: UIViewController {
         
         contentView = UIView()
         contentView.translatesAutoresizingMaskIntoConstraints = false
+        contentView.fadeOut(withDuration: 0)
         scrollView.addSubview(contentView)
         
         NSLayoutConstraint.activate([
@@ -118,7 +120,7 @@ final class DetailsViewController: UIViewController {
     
     private func configurePosterImageView() {
         posterImageView = UIImageView()
-        dropShadow(view: posterImageView)
+        posterImageView.dropShadow()
         
         posterImageView.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(posterImageView)
@@ -195,7 +197,7 @@ final class DetailsViewController: UIViewController {
     }
     
     private func configureAddToFavoriteButton() {
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "В избранное",
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: Constants.addToFavoriteButtonTitle,
                                                             style: .plain,
                                                             target: self,
                                                             action: #selector(addToFavorite))
@@ -216,15 +218,6 @@ final class DetailsViewController: UIViewController {
             errorDescriptionLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 40),
             errorDescriptionLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -40)
         ])
-    }
-    
-    private func dropShadow(view: UIView) {
-        view.layer.shadowColor = UIColor.black.cgColor
-        view.layer.shadowOpacity = 1
-        view.layer.shadowOffset = .zero
-        view.layer.shadowRadius = 5
-        view.layer.shouldRasterize = true
-        view.layer.rasterizationScale = UIScreen.main.scale;
     }
     
     //MARK: - Actions
