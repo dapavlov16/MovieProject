@@ -9,7 +9,9 @@
 import UIKit
 
 protocol DetailsViewControllerInput: AnyObject {
-    func showDetails(model: DetailsModel, isFavorite: Bool)
+    func showDetails(model: DetailsModel)
+    func showError()
+    func changeFavoriteState(isFavorite: Bool)
 }
 
 final class DetailsViewController: UIViewController {
@@ -28,6 +30,9 @@ final class DetailsViewController: UIViewController {
         static let genresFont = UIFont.systemFont(ofSize: 12, weight: .thin)
         static let countriesRuntimeFont = UIFont.systemFont(ofSize: 12, weight: .thin)
         static let overviewFont = UIFont.systemFont(ofSize: 16)
+        static let errorDescriptionFont = UIFont.systemFont(ofSize: 18, weight: .thin)
+        static let defaultErrorText = "Что-то пошло не так..."
+        static let addToFavoriteButtonTitle = "В избранное"
     }
     
     //MARK: - Properties
@@ -43,21 +48,34 @@ final class DetailsViewController: UIViewController {
     private var genresLabel: UILabel!
     private var countriesRuntimeLabel: UILabel!
     private var overviewLabel: UILabel!
+    private var errorDescriptionLabel: UILabel!
     
     //MARK: - Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = .white
+        if #available(iOS 13.0, *) {
+            view.backgroundColor = .systemBackground
+        } else {
+            view.backgroundColor = .white
+        }
+        
         configureScrollView()
         configureBackdropImageView()
         configurePosterImageView()
         configureTitleLabels()
         configureOverviewLabel()
         configureAddToFavoriteButton()
+        configureErrorDescriptionLabel()
         
         interactor?.loadDetails()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        interactor?.checkFavoriteState()
     }
     
     //MARK: - Private
@@ -69,6 +87,7 @@ final class DetailsViewController: UIViewController {
         
         contentView = UIView()
         contentView.translatesAutoresizingMaskIntoConstraints = false
+        contentView.fadeOut(withDuration: 0)
         scrollView.addSubview(contentView)
         
         NSLayoutConstraint.activate([
@@ -101,7 +120,7 @@ final class DetailsViewController: UIViewController {
     
     private func configurePosterImageView() {
         posterImageView = UIImageView()
-        dropShadow(view: posterImageView)
+        posterImageView.dropShadow()
         
         posterImageView.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(posterImageView)
@@ -178,19 +197,27 @@ final class DetailsViewController: UIViewController {
     }
     
     private func configureAddToFavoriteButton() {
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "В избранное",
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: Constants.addToFavoriteButtonTitle,
                                                             style: .plain,
                                                             target: self,
                                                             action: #selector(addToFavorite))
     }
     
-    private func dropShadow(view: UIView) {
-        view.layer.shadowColor = UIColor.black.cgColor
-        view.layer.shadowOpacity = 1
-        view.layer.shadowOffset = .zero
-        view.layer.shadowRadius = 5
-        view.layer.shouldRasterize = true
-        view.layer.rasterizationScale = UIScreen.main.scale;
+    private func configureErrorDescriptionLabel() {
+        errorDescriptionLabel = UILabel()
+        errorDescriptionLabel.font = Constants.errorDescriptionFont
+        errorDescriptionLabel.numberOfLines = 0
+        errorDescriptionLabel.text = Constants.defaultErrorText
+        errorDescriptionLabel.textAlignment = .center
+        errorDescriptionLabel.fadeOut(withDuration: 0)
+        
+        errorDescriptionLabel.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(errorDescriptionLabel)
+        NSLayoutConstraint.activate([
+            errorDescriptionLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            errorDescriptionLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 40),
+            errorDescriptionLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -40)
+        ])
     }
     
     //MARK: - Actions
@@ -203,11 +230,12 @@ final class DetailsViewController: UIViewController {
 
 //MARK: - DetailsViewControllerInput
 extension DetailsViewController: DetailsViewControllerInput {
-    func showDetails(model: DetailsModel, isFavorite: Bool) {
+    
+    func showDetails(model: DetailsModel) {
+        errorDescriptionLabel.fadeOut(withDuration: 0)
+        contentView.fadeIn(withDuration: 0.5)
+        
         title = model.title
-        if isFavorite {
-            navigationItem.rightBarButtonItem?.isEnabled = false
-        }
         posterImageView.image = UIImage(named: "poster_placeholder")
         backdropImageView.image = UIImage(named: "backdrop_placeholder")
         backdropImageView.setImage(from: model.backdropUrl)
@@ -218,5 +246,14 @@ extension DetailsViewController: DetailsViewControllerInput {
         genresLabel.text = model.genresString
         countriesRuntimeLabel.text = model.countriesRuntimeString
         overviewLabel.text = model.overview
+    }
+    
+    func showError() {
+        contentView.fadeOut(withDuration: 0)
+        errorDescriptionLabel.fadeIn(withDuration: 1)
+    }
+    
+    func changeFavoriteState(isFavorite: Bool) {
+        navigationItem.rightBarButtonItem?.isEnabled = !isFavorite
     }
 }

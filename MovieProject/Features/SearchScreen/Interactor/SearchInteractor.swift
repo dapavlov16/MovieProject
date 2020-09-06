@@ -10,6 +10,7 @@ import Foundation
 
 protocol SearchInteractorInput {
     func searchMovie(query: String)
+    func loadNextPage()
 }
 
 final class SearchInteractor {
@@ -22,6 +23,9 @@ final class SearchInteractor {
     private let movieMapper: MovieMapper
     private let genresMapper: GenresMapper
     private var genres = [Genre]()
+    private var nextPage = 1
+    private var totalPages = 1
+    private var currentQuery: String!
     private var currentDataTask: URLSessionDataTask?
     
     //MARK: - Init
@@ -45,9 +49,13 @@ final class SearchInteractor {
         if let genresList = coreDataService.getGenresList() {
             genres = genresMapper.map(from: genresList)
         } else {
-            networkService.getGenres { [weak self] (genresList) in
-                self?.genres = genresList.genres
-                self?.coreDataService.addGenresList(genres: genresList.genres)
+            networkService.getGenres { [weak self] result in
+                switch result {
+                case .success(let genresList):
+                    self?.genres = genresList.genres
+                    self?.coreDataService.addGenresList(genres: genresList.genres)
+                case .failure: break
+                }
             }
         }
     }
@@ -57,10 +65,35 @@ final class SearchInteractor {
 extension SearchInteractor: SearchInteractorInput {
     
     func searchMovie(query: String) {
+        currentQuery = query
         currentDataTask?.cancel()
-        currentDataTask = networkService.searchMovie(query) { (response) in
-            let result = self.movieMapper.map(from: response)
-            self.presenter?.searchCompleted(movies: result, genres: self.genres)
+        currentDataTask = networkService.searchMovie(query, page: 1) { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case .success(let response):
+                let searchResult = self.movieMapper.map(from: response)
+                self.totalPages = response.totalPages
+                self.nextPage = response.page + 1
+                self.presenter?.searchCompleted(movies: searchResult, genres: self.genres)
+            case .failure: break
+            }
+        }
+    }
+    
+    func loadNextPage() {
+        if nextPage <= totalPages {
+            currentDataTask?.cancel()
+            currentDataTask = networkService.searchMovie(currentQuery, page: nextPage) { [weak self] result in
+                guard let self = self else { return }
+                switch result {
+                case .success(let response):
+                    let searchResult = self.movieMapper.map(from: response)
+                    self.totalPages = response.totalPages
+                    self.nextPage = response.page + 1
+                    self.presenter?.nextPageLoaded(movies: searchResult, genres: self.genres)
+                case .failure: break
+                }
+            }
         }
     }
 }

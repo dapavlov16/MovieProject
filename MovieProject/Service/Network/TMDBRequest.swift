@@ -7,7 +7,7 @@
 //
 
 enum TMDBRequest {
-    case searchMovie(text: String)
+    case searchMovie(text: String, page: Int)
     case getTrending(page: Int)
     case getPopular(page: Int)
     case getDetails(id: Int)
@@ -49,8 +49,9 @@ extension TMDBRequest {
     var queryParams: [String: String] {
         var params = defaultQueryParams
         switch self {
-        case .searchMovie(let text):
+        case .searchMovie(let text, let page):
             params["query"] = text
+            params["page"] = String(page)
             return params
         case .getTrending(let page),
              .getPopular(let page):

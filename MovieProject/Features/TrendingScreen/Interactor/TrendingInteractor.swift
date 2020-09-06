@@ -95,7 +95,7 @@ final class TrendingInteractor {
     
     //MARK: - Private
     
-    private func loadData(page: Int, _ completion: @escaping (MovieListDto) -> Void) {
+    private func loadData(page: Int, _ completion: @escaping (Result<MovieListDto, Error>) -> Void) {
         switch currentState {
         case .trending:
             networkService.getTrending(page: page, completion)
@@ -114,13 +114,17 @@ extension TrendingInteractor: TrendingInteractorInput {
     
     func loadNextPage() {
         if page <= totalPages {
-            loadData(page: page) { [weak self] response in
+            loadData(page: page) { [weak self] result in
                 guard let self = self else { return }
-                let newMovies = self.mapper.map(from: response)
-                self.setFavorites(movies: newMovies)
-                self.movies.append(contentsOf: newMovies)
-                self.page += 1
-                self.presenter?.nextPageLoaded(movies: newMovies)
+                switch result {
+                case .success(let response):
+                    let newMovies = self.mapper.map(from: response)
+                    self.setFavorites(movies: newMovies)
+                    self.movies.append(contentsOf: newMovies)
+                    self.page += 1
+                    self.presenter?.nextPageLoaded(movies: newMovies)
+                case .failure: break
+                }
             }
         }
     }
@@ -128,14 +132,19 @@ extension TrendingInteractor: TrendingInteractorInput {
     func changeState(to state: TrendingState) {
         currentState = state
         if page == 1 && movies.isEmpty {
-            loadData(page: page) { [weak self] response in
+            loadData(page: page) { [weak self] result in
                 guard let self = self else { return }
-                let movies = self.mapper.map(from: response)
-                self.setFavorites(movies: movies)
-                self.movies = movies
-                self.page += 1
-                self.totalPages = response.totalPages
-                self.presenter?.stateChanged(movies: movies)
+                switch result {
+                case .success(let response):
+                    let movies = self.mapper.map(from: response)
+                    self.setFavorites(movies: movies)
+                    self.movies = movies
+                    self.page += 1
+                    self.totalPages = response.totalPages
+                    self.presenter?.stateChanged(movies: movies)
+                case .failure:
+                    self.presenter?.errorOccured()
+                }
             }
         } else {
             setFavorites(movies: movies)

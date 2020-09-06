@@ -12,6 +12,7 @@ protocol TrendingViewControllerInput: AnyObject {
     func showMovies(models: [TrendingCellModel], contentOffset: CGPoint)
     func appendNextPage(models: [TrendingCellModel])
     func updateFavoriteStatus(index: Int, isFavorite: Bool)
+    func showErrorDescription()
 }
 
 final class TrendingViewController: UIViewController {
@@ -23,30 +24,45 @@ final class TrendingViewController: UIViewController {
         static let popularTitleText = "Популярное"
         static let cellInsets = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
         static let numberOfCellInRow: CGFloat = 3
-        static let paginationOffset = 7
+        static let paginationOffset = 9
+        static let errorDescriptionFont = UIFont.systemFont(ofSize: 20, weight: .thin)
+        static let defaultErrorText = "Что-то пошло не так..."
     }
     
     //MARK: - Properties
     
     var interactor: TrendingInteractorInput?
     var router: TrendingRouterInput?
+    
     private var collectionView: UICollectionView!
     private var segmentedControl: UISegmentedControl!
+    private var activityIndicator: UIActivityIndicatorView!
+    private var errorDescriptionLabel: UILabel!
+    
     private var movies: [TrendingCellModel] = []
-    private var isLoading: Bool = false
+    private var isLoading = false
     
     //MARK: - Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
+        
+        if #available(iOS 13.0, *) {
+            view.backgroundColor = .systemBackground
+        } else {
+            view.backgroundColor = .white
+        }
+        
         configureNavigationItem()
+        configureActivityIndicator()
+        configureDescriptionLabel()
         configureCollectionView()
-        interactor?.changeState(to: .trending)
+        changeState(to: .trending)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
         interactor?.updateFavorites()
     }
     
@@ -64,6 +80,32 @@ final class TrendingViewController: UIViewController {
         navigationItem.titleView = segmentedControl
     }
     
+    private func configureActivityIndicator() {
+        activityIndicator = UIActivityIndicatorView(style: .whiteLarge)
+        activityIndicator.color = .gray
+        activityIndicator.hidesWhenStopped = true
+        
+        view.addSubview(activityIndicator)
+        activityIndicator.center = view.center
+        activityIndicator.startAnimating()
+    }
+    
+    private func configureDescriptionLabel() {
+        errorDescriptionLabel = UILabel()
+        errorDescriptionLabel.numberOfLines = 0
+        errorDescriptionLabel.textAlignment = .center
+        errorDescriptionLabel.font = Constants.errorDescriptionFont
+        errorDescriptionLabel.text = Constants.defaultErrorText
+        
+        view.addSubview(errorDescriptionLabel)
+        errorDescriptionLabel.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            errorDescriptionLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            errorDescriptionLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+            errorDescriptionLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor)
+        ])
+    }
+    
     private func configureCollectionView() {
         let flowLayout = UICollectionViewFlowLayout()
         flowLayout.scrollDirection = .vertical
@@ -74,16 +116,22 @@ final class TrendingViewController: UIViewController {
         collectionView.register(TrendingCell.self,
                                 forCellWithReuseIdentifier: "\(TrendingCell.self)")
         
+        collectionView.backgroundColor = .clear
         view.addSubview(collectionView)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
-        collectionView.backgroundColor = .white
-        
         NSLayoutConstraint.activate([
-            collectionView.topAnchor.constraint(equalTo: topLayoutGuide.bottomAnchor),
+            collectionView.topAnchor.constraint(equalTo: view.topAnchor),
             collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
         ])
+    }
+    
+    private func changeState(to state: TrendingState) {
+        errorDescriptionLabel.fadeOut(withDuration: 0)
+        collectionView.fadeOut(withDuration: 0)
+        activityIndicator.startAnimating()
+        interactor?.changeState(to: state)
     }
     
     //MARK: - Actions
@@ -91,7 +139,7 @@ final class TrendingViewController: UIViewController {
     @objc private func segmentedControlAction(_ sender: Any) {
         let state = TrendingState(rawValue: segmentedControl.selectedSegmentIndex)
         interactor?.saveContentOffset(collectionView.contentOffset)
-        interactor?.changeState(to: state ?? .trending)
+        changeState(to: state ?? .trending)
     }
 }
 
@@ -143,8 +191,14 @@ extension TrendingViewController: TrendingViewControllerInput {
     
     func showMovies(models: [TrendingCellModel], contentOffset: CGPoint) {
         movies = models
-        collectionView.setContentOffset(contentOffset, animated: false)
         collectionView.reloadData()
+        if contentOffset.y > 0 {
+            collectionView.setContentOffset(contentOffset, animated: false)
+        } else {
+            collectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .bottom, animated: false)
+        }
+        collectionView.fadeIn(withDuration: 0.7)
+        activityIndicator.stopAnimating()
         isLoading = false
     }
     
@@ -162,5 +216,11 @@ extension TrendingViewController: TrendingViewControllerInput {
         movies[index].isFavorite = isFavorite
         let indexPath = IndexPath(item: index, section: 0)
         collectionView.reloadItems(at: [indexPath])
+    }
+    
+    func showErrorDescription() {
+        activityIndicator.stopAnimating()
+        errorDescriptionLabel.fadeIn(withDuration: 1)
+        isLoading = false
     }
 }

@@ -6,12 +6,16 @@
 //  Copyright © 2020 Дмитрий Павлов. All rights reserved.
 //
 
+import Foundation
+
 protocol NetworkServiceInput {
-    func searchMovie(_ text: String, _ completion: @escaping (MovieListDto) -> Void)
-    func getTrending(page: Int, _ completion: @escaping (MovieListDto) -> Void)
-    func getPopular(page: Int, _ completion: @escaping (MovieListDto) -> Void)
-    func getDetails(by movieId: Int, _ completion: @escaping (MovieDto) -> Void)
-    func getGenres(_ completion: @escaping (GenresListDto) -> Void)
+    func searchMovie(_ text: String,
+                     page: Int,
+                     _ completion: @escaping (Result<MovieListDto, Error>) -> Void) -> URLSessionDataTask?
+    func getTrending(page: Int, _ completion: @escaping (Result<MovieListDto, Error>) -> Void)
+    func getPopular(page: Int, _ completion: @escaping (Result<MovieListDto, Error>) -> Void)
+    func getDetails(by movieId: Int, _ completion: @escaping (Result<MovieDto, Error>) -> Void)
+    func getGenres(_ completion: @escaping (Result<GenresListDto, Error>) -> Void)
 }
 
 final class NetworkService {
@@ -22,23 +26,25 @@ final class NetworkService {
 //MARK: - NetworkServiceInput
 extension NetworkService: NetworkServiceInput {
     
-    func searchMovie(_ text: String, _ completion: @escaping (MovieListDto) -> Void) -> URLSessionDataTask? {
-        return client.request(request: .searchMovie(text: text), completion)
+    func searchMovie(_ text: String,
+                     page: Int,
+                     _ completion: @escaping (Result<MovieListDto, Error>) -> Void) -> URLSessionDataTask? {
+        return client.request(request: .searchMovie(text: text, page: page), completion)
     }
     
-    func getTrending(page: Int, _ completion: @escaping (MovieListDto) -> Void) {
+    func getTrending(page: Int, _ completion: @escaping (Result<MovieListDto, Error>) -> Void) {
         client.request(request: .getTrending(page: page), completion)
     }
     
-    func getPopular(page: Int, _ completion: @escaping (MovieListDto) -> Void) {
+    func getPopular(page: Int, _ completion: @escaping (Result<MovieListDto, Error>) -> Void) {
         client.request(request: .getPopular(page: page), completion)
     }
     
-    func getDetails(by movieId: Int, _ completion: @escaping (MovieDto) -> Void) {
+    func getDetails(by movieId: Int, _ completion: @escaping (Result<MovieDto, Error>) -> Void) {
         client.request(request: .getDetails(id: movieId), completion)
     }
     
-    func getGenres(_ completion: @escaping (GenresListDto) -> Void) {
+    func getGenres(_ completion: @escaping (Result<GenresListDto, Error>) -> Void) {
         client.request(request: .getGenres, completion)
     }
 }

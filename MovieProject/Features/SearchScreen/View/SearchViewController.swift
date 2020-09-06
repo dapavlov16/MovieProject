@@ -10,6 +10,7 @@ import UIKit
 
 protocol SearchViewControllerInput: AnyObject {
     func showSearchResult(models: [SearchCellModel])
+    func appendNextPage(models: [SearchCellModel])
 }
 
 final class SearchViewController: UIViewController {
@@ -19,13 +20,16 @@ final class SearchViewController: UIViewController {
     private enum Constants {
         static let searchTitle = "Поиск"
         static let cellHeight: CGFloat = 150
+        static let paginationOffset = 7
     }
+    
     //MARK: - Properties
     
     var interactor: SearchInteractorInput?
     var router: SearchRouterInput?
     
     var movies = [SearchCellModel]()
+    private var isLoading = false
     
     private var searchController: UISearchController!
     private var tableView: UITableView!
@@ -35,8 +39,13 @@ final class SearchViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = .white
         title = Constants.searchTitle
+        
+        if #available(iOS 13.0, *) {
+            view.backgroundColor = .systemBackground
+        } else {
+            view.backgroundColor = .white
+        }
         
         configureSearchController()
         configureTableView()
@@ -46,6 +55,7 @@ final class SearchViewController: UIViewController {
     
     private func configureSearchController() {
         searchController = UISearchController(searchResultsController: nil)
+        searchController.searchBar.showsCancelButton = false
         searchController.searchResultsUpdater = self
         searchController.searchBar.sizeToFit()
         searchController.dimsBackgroundDuringPresentation = false
@@ -58,12 +68,14 @@ final class SearchViewController: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(SearchCell.self, forCellReuseIdentifier: "\(SearchCell.self)")
+        tableView.rowHeight = Constants.cellHeight
+        tableView.isScrollEnabled = false
         
         view.addSubview(tableView)
         tableView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             tableView.topAnchor.constraint(equalTo: topLayoutGuide.bottomAnchor),
-            tableView.bottomAnchor.constraint(equalTo: bottomLayoutGuide.topAnchor),
+            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
         ])
@@ -72,25 +84,43 @@ final class SearchViewController: UIViewController {
 
 //MARK: - SearchViewControllerInput
 extension SearchViewController: SearchViewControllerInput {
+    
     func showSearchResult(models: [SearchCellModel]) {
-        movies = models
-        tableView.reloadData()
-        if !movies.isEmpty {
+        if !models.isEmpty {
+            movies = models
+            tableView.reloadData()
             tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .bottom, animated: true)
+            tableView.isScrollEnabled = true
         }
+        isLoading = false
+    }
+    
+    func appendNextPage(models: [SearchCellModel]) {
+        let index = movies.count
+        let indexPaths = Array(index ..< index + models.count).map{ IndexPath(item: $0, section: 0) }
+        movies.append(contentsOf: models)
+        tableView.insertRows(at: indexPaths, with: .none)
+        isLoading = false
     }
 }
 
 //MARK: - UITableViewDelegate
 extension SearchViewController: UITableViewDelegate {
     
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return Constants.cellHeight
-    }
-    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         router?.navigateToDetails(of: movies[indexPath.item].id)
+    }
+    
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        if !isLoading && indexPath.item > movies.count - Constants.paginationOffset {
+            isLoading = true
+            interactor?.loadNextPage()
+        }
+    }
+    
+    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        searchController.searchBar.resignFirstResponder()
     }
 }
 
@@ -119,7 +149,7 @@ extension SearchViewController: UISearchResultsUpdating {
         guard let searchText = searchController.searchBar.text else { return }
         
         let query = searchText.trimmingCharacters(in: .whitespacesAndNewlines).lowercased()
-        if query.count > 2 {
+        if query.count > 1 {
             interactor?.searchMovie(query: query)
         }
     }

@@ -82,7 +82,9 @@ final class TrendingCell: UICollectionViewCell {
     private func updateContent(with viewModel: TrendingCellModel) {
         titleLabel.text = viewModel.title
         if viewModel.isFavorite {
-            titleLabel.textColor = .red
+            titleLabel.textColor = .systemRed
+        } else if #available(iOS 13.0, *) {
+            titleLabel.textColor = .label
         } else {
             titleLabel.textColor = .black
         }
